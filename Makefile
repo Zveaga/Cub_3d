@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/11/27 13:08:34 by ibehluli      ########   odam.nl          #
+#    Updated: 2023/11/27 13:21:47 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ YELLOW = \033[33;01m
 all: $(MLX42AR) $(LIBFT) $(NAME)
 
 $(MLX42AR):
-	@git clone git@github.com:codam-coding-college/MLX42.git
+	git submodule update --init
 	@cmake $(MLX42) -B $(MLX42)/build
 	@$(MAKE) -C $(MLX42)/build -j4 --quiet
 	
@@ -74,7 +74,6 @@ clean:
 	@make clean -C $(LIBFT_DIR) --quiet
 
 fclean: clean
-	@rm -rf	$(MLX42)
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT_DIR) --quiet
 
