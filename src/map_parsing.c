@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/20 18:46:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 12:18:58 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:02:34 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,10 @@ int	create_map(t_main *main)
 	while (s)
 	{
 		main->map[i] = ft_strdup(s);
-		free(s);
 		if (!main->map[i])
 			return (close(fd), ft_free_double(main->map), 1);
 		i++;
+		free(s);
 		s = get_next_line(fd);
 		if (!s)
 		{
@@ -155,7 +155,7 @@ int	ft_map_checking(char *map_name, t_main *main)
 		return (1);
 	int i = 0;
 	while (main->map[i])
-		printf("%s", main->map[i++]);
+		printf("%s\n", main->map[i++]);
 	return (0);
 }
 

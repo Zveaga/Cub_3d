@@ -6,117 +6,134 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/08 09:46:49 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 12:16:58 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:09:25 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_change_text(char *text)
+static char	*update_reserve(char *reserve)
 {
-	size_t	i;
-	size_t	e;
-	char	*new_text;
+	char	*dup;
+	int		i;
+	int		j;
 
 	i = 0;
-	e = 0;
-	if (!text)
-		return (NULL);
-	while (text && text[i] && text[i] != '\n')
+	while (reserve[i] != '\n' && reserve[i])
 		i++;
-	printf("i: %ld\n", i);
-	new_text = malloc(sizeof(char) * (ft_strlen(text) - i));
-	if (!new_text)
-		return (free(text), NULL);
-	i++;
-	while (text[i] && text && new_text)
+	if (reserve[i] == '\n')
+		i++;
+	if (reserve[i] == '\0')
+		return (free(reserve), NULL);
+	dup = malloc(sizeof(char) * (ft_strlen(reserve) - i + 1));
+	if (dup == NULL)
 	{
-		new_text[e] = text[i];
-		e++;
-		i++;
+		free(reserve);
+		reserve = NULL;
+		return (NULL);
 	}
-	if (text[i] == '\0')
-		new_text[e] = '\0';
-	free(text);
-	return (new_text);
+	j = 0;
+	while (reserve[i])
+		dup[j++] = reserve[i++];
+	dup[j] = '\0';
+	return (free(reserve), dup);
 }
 
-char	*read_line(char	*buffer)
+static char	*save_line(char *reserve)
 {
 	int		i;
-	char	*line;
+	char	*dup;
+	int		flag;
 
 	i = 0;
-	while (buffer && buffer[i] && buffer[i] != '\n')
+	while (reserve[i] != '\n' && reserve[i])
 		i++;
-	if (buffer && buffer[i] == '\n')
+	if (reserve[i] == '\n')
 		i++;
-	line = malloc(sizeof(char) * (i + 1));
-	if (!line)
-		return (NULL);
+	dup = malloc(sizeof(char) * (i + 1));
 	i = 0;
-	while (line && buffer && buffer[i] && buffer[i] != '\n')
+	flag = 0;
+	if (dup == NULL)
+		return (NULL);
+	while (reserve && reserve[i] && (flag == 0))
 	{
-		line[i] = buffer[i];
+		dup[i] = reserve[i];
+		if (reserve[i] == '\n')
+			flag = 1;
 		i++;
 	}
-	if (buffer && buffer[i] == '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
+	dup[i] = '\0';
+	return (dup);
 }
 
-char	*read_line_change_text(int fd, char *buffer)
+static char	*ft_strjoin1(char *s1, char *s2)
 {
-	int		reading;
-	char	*text;
+	int		i;
+	int		j;
+	int		len;
+	char	*reserve;
 
-	reading = 1;
-	text = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!text)
-		return (free(buffer), NULL);
-	while (reading != 0 && !ft_strchr(buffer, '\n'))
+	i = 0;
+	j = 0;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	reserve = malloc((len + 1) * sizeof(char));
+	if (!reserve)
+		return (free(s1), NULL);
+	while (s1 && s1[i])
 	{
-		reading = read(fd, text, BUFFER_SIZE);
-		if (reading == -1)
-			return (free(text), free(buffer), NULL);
-		if (reading == 0)
+		reserve[i] = s1[i];
+		i++;
+	}
+	while (s2 && s2[j])
+		reserve[i++] = s2[j++];
+	free(s1);
+	reserve[i] = '\0';
+	return (reserve);
+}
+
+static char	*read_and_reserve(char *reserve, int fd)
+{	
+	char	*buffer;
+	int		bytes_read;
+
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (free(reserve), NULL);
+	while (1)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+			return (free(buffer), free(reserve), NULL);
+		else if (bytes_read == 0)
 			break ;
-		text[reading] = '\0';
-		buffer = ft_strjoin(buffer, text);
-		if (!buffer)
+		buffer[bytes_read] = '\0';
+		reserve = ft_strjoin1(reserve, buffer);
+		if (reserve == NULL || ft_strchr(reserve, '\n') != 0)
 			break ;
 	}
-	if (text)
-		free(text);
-	return (buffer);
+	return (free(buffer), reserve);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[12288];
-	char		*line;
-
-	if (fd < 0 && BUFFER_SIZE < 1)
+	static char		*reserve;
+	char			*line;
+	
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer[fd] = read_line_change_text(fd, buffer[fd]);
-	if (!buffer[fd])
+	reserve = read_and_reserve(reserve, fd);
+	if (!reserve)
 		return (NULL);
-	line = read_line(buffer[fd]);
+	line = save_line(reserve);
 	if (!line)
 	{
-		free(buffer[fd]);
-		buffer[fd] = NULL;
+		if (reserve)
+		{
+			free(reserve);
+			reserve = NULL;
+		}
 		return (NULL);
 	}
-	buffer[fd] = ft_change_text(buffer[fd]);
-	if (buffer[fd] && ft_strlen(buffer[fd]) == 0)
-	{
-		free(buffer[fd]);
-		buffer[fd] = NULL;
-	}
+	reserve = update_reserve(reserve);
 	return (line);
 }

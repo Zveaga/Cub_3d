@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 11:15:04 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:15:12 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 # define CUBE_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "ft_printf.h"
-# include "get_next_line.h"
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
-# include <fcntl.h>
 
 # define WIDTH 1024
 # define HEIGHT 1024

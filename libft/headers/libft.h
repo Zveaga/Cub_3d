@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 14:03:16 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/03/09 16:54:16 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:14:07 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include "get_next_line.h"
 # include "ft_printf.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*ft_itoa(int n);
 
@@ -110,5 +113,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 
 int		ft_lstsize(t_list *lst);
+
+char	*get_next_line(int fd);
 
 #endif
