@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:15:12 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 16:16:32 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_main
 	mlx_image_t	*image;
 	char		**map;
 	char		*map_name;
+	int			*player_pos;
 }	t_main ;
 
 // int	ft_check_map(char *argv);

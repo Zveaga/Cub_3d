@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 16:27:29 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 11:42:20 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 16:25:00 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void	ft_free_double(char	**double_arr)
 		free(double_arr[i]);
 		i++;
 	}
-	free(double_arr);
+	if (double_arr)
+		free(double_arr);
 }
 
 void	ft_main_free(t_main *main)
 {
 	if (main->map)
 		ft_free_double(main->map);
+	if (main->player_pos)
+		free(main->player_pos);
 }
