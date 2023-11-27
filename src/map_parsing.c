@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/20 18:46:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/24 12:25:27 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 12:18:58 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	map_length(t_main *main)
 		count++;
 		free(s);
 		s = get_next_line(fd);
+		if (!s)
+			break ;
 	}
 	close(fd);
 	return (count);
@@ -128,28 +130,38 @@ int	create_map(t_main *main)
 	while (s)
 	{
 		main->map[i] = ft_strdup(s);
-		if (!main->map[i])
-			return (free(s), close(fd), ft_free_double(main->map), 1);
 		free(s);
+		if (!main->map[i])
+			return (close(fd), ft_free_double(main->map), 1);
 		i++;
 		s = get_next_line(fd);
+		if (!s)
+		{
+			free(s);
+			break ;
+		}
 	}
 	close(fd);
+	main->map[i] = NULL;
 	return (0);
 }
 
 int	ft_map_checking(char *map_name, t_main *main)
 {
-	main->map_name = ft_strdup(map_name);
+	main->map_name = map_name; // check_map_name
 	if (!main->map_name)
 		return (1);
 	if (create_map(main))
 		return (1);
+	int i = 0;
+	while (main->map[i])
+		printf("%s", main->map[i++]);
 	return (0);
 }
 
 int ft_map_parsing(int argc, char **argv, t_main *main)
 {
+
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
 	if (ft_map_checking(argv[1], main) == 1)

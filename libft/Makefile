@@ -1,3 +1,4 @@
+
 NAME = libft.a
 SRCDIR = srcs
 OBJDIR = o_files

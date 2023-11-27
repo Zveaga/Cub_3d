@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/08 09:46:49 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/24 12:32:10 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 12:16:58 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ char	*ft_change_text(char *text)
 
 	i = 0;
 	e = 0;
+	if (!text)
+		return (NULL);
 	while (text && text[i] && text[i] != '\n')
 		i++;
-	new_text = malloc(sizeof(char) * (ft_strlen(text) - i + 1));
+	printf("i: %ld\n", i);
+	new_text = malloc(sizeof(char) * (ft_strlen(text) - i));
 	if (!new_text)
 		return (free(text), NULL);
 	i++;
@@ -32,8 +35,10 @@ char	*ft_change_text(char *text)
 		e++;
 		i++;
 	}
-	new_text[e] = '\0';
-	return (free(text), new_text);
+	if (text[i] == '\0')
+		new_text[e] = '\0';
+	free(text);
+	return (new_text);
 }
 
 char	*read_line(char	*buffer)
@@ -82,8 +87,11 @@ char	*read_line_change_text(int fd, char *buffer)
 			break ;
 		text[reading] = '\0';
 		buffer = ft_strjoin(buffer, text);
+		if (!buffer)
+			break ;
 	}
-	free(text);
+	if (text)
+		free(text);
 	return (buffer);
 }
 

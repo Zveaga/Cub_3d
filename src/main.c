@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:17:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/24 09:28:06 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 11:42:05 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,35 @@ void ft_hook(void* param)
 
 int main(int argc, char **argv)
 {
-	t_main	*main;
+	t_main	main;
 
-	main = malloc(sizeof(t_main));
-	if (!main)
-		return (EXIT_FAILURE);
-	if (ft_map_parsing(argc, argv, main))
-		return (ft_main_free(main), EXIT_FAILURE);
-	if (!(main->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	// main = malloc(sizeof(t_main));
+	// if (!main)
+	// 	return (EXIT_FAILURE);
+	if (ft_map_parsing(argc, argv, &main))
+		return (ft_main_free(&main), EXIT_FAILURE);
+	if (!(main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(main->image = mlx_new_image(main->mlx, 128, 128)))
+	if (!(main.image = mlx_new_image(main.mlx, 128, 128)))
 	{
-		mlx_close_window(main->mlx);
+		mlx_close_window(main.mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(main->mlx, main->image, 100, 100) == -1)
+	if (mlx_image_to_window(main.mlx, main.image, 100, 100) == -1)
 	{
-		mlx_close_window(main->mlx);
+		mlx_close_window(main.mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	mlx_loop_hook(main->mlx, ft_randomize, main);
-	mlx_loop_hook(main->mlx, ft_hook, main);
-	mlx_loop(main->mlx);
-	mlx_terminate(main->mlx);
-	ft_main_free(main);
+	mlx_loop_hook(main.mlx, ft_randomize, &main);
+	mlx_loop_hook(main.mlx, ft_hook, &main);
+	mlx_loop(main.mlx);
+	mlx_terminate(main.mlx);
+	ft_main_free(&main);
 	return (EXIT_SUCCESS);
 }
 
