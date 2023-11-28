@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 13:59:59 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/23 17:02:22 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:21:28 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 char	*ft_strdup(const char *s1)
 {
-	char	*new_s1;
-	size_t	len;
+	int		i;
+	char	*am;
 
-	len = ft_strlen(s1) + 1;
-	new_s1 = (char *) malloc(len);
-	if (!new_s1)
+	i = 0;
+	if (!s1)
 		return (NULL);
-	while (*s1 != '\0')
-		*new_s1++ = *s1++;
-	*new_s1 = '\0';
-	return (new_s1 - len + 1);
+	am = (char *) malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (!am)
+		return (NULL);
+	while (s1[i])
+	{
+		am[i] = s1[i];
+		i++;
+	}
+	am[i] = '\0';
+	return (am);
 }

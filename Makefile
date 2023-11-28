@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/11/27 13:21:47 by ibehluli      ########   odam.nl          #
+#    Updated: 2023/11/27 16:35:59 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC = gcc
 SRC_DIR = src
 SOURCE = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/map_parsing.c \
+		$(SRC_DIR)/map_parsing1.c \
 		$(SRC_DIR)/freeing.c \
 
 CFLAGS = -Wall -Wextra -Werror

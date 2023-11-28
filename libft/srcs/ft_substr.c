@@ -6,31 +6,46 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 16:55:55 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 15:12:43 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:21:05 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+static size_t	amsize(char const *s, unsigned int start, size_t len)
 {
-	char			*new_s;
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (start + len > ft_strlen(s))
-		len = ft_strlen(s) - start;
-	new_s = (char *) malloc(len + 1);
-	if (!new_s)
+	if (!s || !ft_strlen(s) || !len || ft_strlen(s) < start)
+		return (0);
+	while (s[start + i] && len != i)
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (!s)
 		return (NULL);
-	while (s[start] != '\0' && i < len)
+	sub = (char *) malloc((amsize(s, start, len) + 1) * sizeof(char));
+	if (!sub)
+		return (NULL);
+	i = 0;
+	if (start >= ft_strlen(s))
 	{
-		new_s[i] = s[start];
-		start++;
+		sub[i] = 0;
+		return (sub);
+	}
+	while (s[start + i] && len - i != 0)
+	{
+		sub[i] = s[start + i];
 		i++;
 	}
-	new_s[i] = '\0';
-	return (new_s);
+	if (!s[start + i] || len - i == 0)
+		sub[i] = '\0';
+	return (sub);
 }

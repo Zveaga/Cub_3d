@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 16:16:32 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/28 17:47:04 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ typedef struct s_main
 	char		**map;
 	char		*map_name;
 	int			*player_pos;
+	int			map_line;
 }	t_main ;
 
 // int	ft_check_map(char *argv);
-int ft_map_parsing(int argc, char **argv, t_main *main);
+int		ft_map_parsing(int argc, char **argv, t_main *main);
+int		ft_check_map_name(char	*map_name);
+int		ft_map_checking(char *map_name, t_main *main);
+int		check_if_input_are_valid(char **map);
+int		*find_player_start(t_main *main);
+int		create_map(t_main *main);
 
 // free
 void	ft_free_double(char	**double_arr);

@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:17:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 11:42:05 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/27 16:42:48 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int main(int argc, char **argv)
 {
 	t_main	main;
 
-	// main = malloc(sizeof(t_main));
-	// if (!main)
-	// 	return (EXIT_FAILURE);
 	if (ft_map_parsing(argc, argv, &main))
 		return (ft_main_free(&main), EXIT_FAILURE);
+	int i = 0;
+	while (main.map && main.map[i])
+		printf("%s\n", main.map[i++]);
 	if (!(main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));

@@ -6,73 +6,89 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 15:10:47 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/03/07 16:59:20 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/28 16:53:45 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_substring_count(const char *s, char c)
+static void	freear(char **ar)
 {
-	size_t	count;
-	size_t	i;
+	int	i;
 
+	i = 0;
+	while (ar && ar[i])
+	{
+		free(ar[i]);
+		i++;
+	}
+	if (ar)
+		free(ar);
+}
+
+static int	wcount(char const *s, char c)
+{
+	int	i;
+	int	count;
+
+	if (!s)
+		return (0);
 	count = 0;
 	i = 0;
-	while (s[i] != '\0')
+	if (s[i] == c)
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i])
+		if (s[i] == 0)
+			return (0);
+		i++;
+	}
+	while (s[i] != 0)
+	{
+		if (s[i] == c && s[i -1] != c)
 			count++;
-		while (s[i] && s[i] != c)
-			i++;
+		i++;
+		if (s[i] == 0 && s[i -1] != c)
+			count++;
 	}
 	return (count);
 }
 
-static char	**ft_free_memory(char **failed_string, size_t index)
+static size_t	words(char const *s, char c, int i)
 {
-	while (index--)
-		free(failed_string[index]);
-	free(failed_string);
-	return (NULL);
-}
+	int	len;
 
-static size_t	ft_word_count(const char *s, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	return (i);
+	len = 0;
+	if (!s)
+		return (0);
+	while (s[i + len] != c && s[i + len])
+		len++;
+	return ((size_t) len);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**final_array;
-	char	*temp_string;
-	size_t	e;
-	size_t	i;
+	char			**ar;
+	unsigned int	i;
+	int				j;
+	size_t			len;
 
-	i = -1;
-	e = 0;
 	if (!s)
 		return (NULL);
-	final_array = ft_calloc((ft_substring_count(s, c) + 1), sizeof (char *));
-	if (!final_array)
+	ar = (char **) malloc((wcount(s, c) + 1) * sizeof(char *));
+	if (!ar)
 		return (NULL);
-	while (s[++i] != '\0')
+	i = 0;
+	j = 0;
+	while (j < wcount(s, c))
 	{
-		if (s[i] != c)
-		{
-			temp_string = ft_substr(s, i, ft_word_count(s + i, c));
-			if (!temp_string)
-				return (ft_free_memory(final_array, e));
-			final_array[e++] = temp_string;
-			i += ft_strlen(temp_string) - 1;
-		}
+		while (s[i] == c)
+			i++;
+		len = words(s, c, i);
+		ar[j] = ft_substr(s, i, len);
+		if (!ar[j])
+			return (freear(ar), NULL);
+		i = i + len;
+		j++;
 	}
-	return (final_array);
+	ar[j] = 0;
+	return (ar);
 }
