@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/11/27 16:35:59 by ibehluli      ########   odam.nl          #
+#    Updated: 2023/11/29 11:54:33 by coxer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ SHELL = /bin/bash
 
 CC = gcc
 SRC_DIR = src
-SOURCE = $(SRC_DIR)/main.c \
-		$(SRC_DIR)/map_parsing.c \
-		$(SRC_DIR)/map_parsing1.c \
-		$(SRC_DIR)/freeing.c \
+SOURCE = $(SRC_DIR)/main2.c \
+		$(SRC_DIR)/render.c \
+		# $(SRC_DIR)/map_parsing.c \
+		# $(SRC_DIR)/map_parsing1.c \
+		# $(SRC_DIR)/freeing.c \
 
 CFLAGS = -Wall -Wextra -Werror
 RM = -rf
@@ -59,8 +60,12 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)  --quiet
 	@printf "$(GREEN)Libft compiled\n$(RESET)"
 
+# $(NAME): $(ODIR) $(OBJECTS)
+# 	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+# 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
+
 $(NAME): $(ODIR) $(OBJECTS)
-	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
 
 $(ODIR):
