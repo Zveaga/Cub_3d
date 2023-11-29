@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/20 18:46:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/28 18:33:31 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/29 13:11:36 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ int	fill_map(t_main *main, int fd)
 		return (1);
 	s = get_next_line(fd);
 	if (!s)
-		return (ft_free_double(main->map), close(fd), 1);
+		return (close(fd), 1);
 	while (s)
 	{
 		if (pos >= main->map_line)
 		{
 			main->map[i] = ft_strdup(s);
 			if (!main->map[i])
-				return (close(fd), ft_free_double(main->map), 1);
+				return (free_static_char_buff(fd), 1);
 			i++;
 		}
 		pos++;

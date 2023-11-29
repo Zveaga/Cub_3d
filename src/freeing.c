@@ -6,11 +6,26 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 16:27:29 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/28 17:44:05 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/29 13:06:31 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	free_static_char_buff(int fd)
+{
+	char	*s;
+
+	if (fd == -1)
+		return ;
+	s = get_next_line(fd);
+	while (s)
+	{
+		free(s);
+		s = get_next_line(fd);
+	}
+	close(fd);
+}
 
 void	ft_free_double(char	**double_arr)
 {
@@ -31,7 +46,9 @@ void	ft_free_double(char	**double_arr)
 void	ft_main_free(t_main *main)
 {
 	// main = NULL;
-	if (main && main->map)
+	if (!main)
+		return ;
+	if (main->map)
 		ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);

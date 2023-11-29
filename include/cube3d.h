@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/28 17:47:04 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/29 12:22:17 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int		create_map(t_main *main);
 // free
 void	ft_free_double(char	**double_arr);
 void	ft_main_free(t_main *main);
+void	free_static_char_buff(int fd);
 
 #endif

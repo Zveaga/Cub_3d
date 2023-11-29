@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:35:03 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/28 18:26:49 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/29 13:12:30 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,6 @@ int	color_check(char *s)
 			return (ft_free_double(split_color_value), 1);
 		i++;
 	}
-	// i = 0;
-	// while (split_color_value[i])
-	// {
-	// 	printf("i: %d, %s\n", i, split_color_value[i]);
-	// 	i++;
-	// }
 	ft_free_double(split_color_value);
 	return (0);
 }
@@ -115,11 +109,11 @@ int	check_credentials_value(char *s)
 		else
 			break;
     }
-	if (!ft_strnstr(s + i, "NO", 2) && !ft_strnstr(s + i, "SO", 2)
-		&& !ft_strnstr(s + i, "WE", 2) && !ft_strnstr(s + i, "EA", 2)
-		&& !ft_strnstr(s + i, "F", 1) && !ft_strnstr(s + i, "C", 1))
+	if (!ft_strnstr(s + i, "NO", 2) || !ft_strnstr(s + i, "SO", 2)
+		|| !ft_strnstr(s + i, "WE", 2) || !ft_strnstr(s + i, "EA", 2)
+		|| !ft_strnstr(s + i, "F", 1) || !ft_strnstr(s + i, "C", 1))
 		flag++;
-	if (flag == 6)
+	if (flag == 1)
 	{
 		if (check_more_precise(s + i))
 			return (1);
@@ -155,14 +149,7 @@ int	check_credentials(t_main *main)
 		if (!s)
 			break ;
 	}
-	s = get_next_line(fd);
-	while (s)
-	{
-		free(s);
-		s = get_next_line(fd);
-	}
-	close(fd);
-	// printf("%d\n", count);
+	free_static_char_buff(fd);
 	return (0);
 }
 
@@ -174,8 +161,7 @@ int	ft_map_checking(char *map_name, t_main *main)
 	if (check_credentials(main))
 		return (1);
 	if (create_map(main))
-		return (1);
-	printf("hehehe\n");
+		return (ft_free_double(main->map), 1);
 	main->player_pos = find_player_start(main);
 	return (0);
 }
