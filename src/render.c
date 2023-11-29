@@ -6,7 +6,7 @@
 /*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 13:36:08 by raanghel      #+#    #+#                 */
-/*   Updated: 2023/11/29 17:25:54 by coxer         ########   odam.nl         */
+/*   Updated: 2023/11/29 18:44:39 by coxer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ mlx_image_t *create_player_image(t_data *data)
 	int	color;
 
 	i = 0;
-	player_image = mlx_new_image(data->mlx, 64, 64);
-	while (i < 64)
+	player_image = mlx_new_image(data->mlx, 16, 16);
+	while (i < 16)
 	{
 		j = 0;
-		while (j < 64)
+		while (j < 16)
 		{
-			color = set_color(153, 204, 255, 1023);
+			color = set_color(255, 80, 80, 1023);
 			mlx_put_pixel(player_image, i, j, color);
 			j++;
 		}
@@ -110,26 +110,6 @@ void render_blocks(t_data *data, char map[8][8])
 	}
 }
 
-// void	render_vertical_blocks(t_data *data, char map[8][8])
-// {
-// 	int	i;
-// 	int	j;
-// 	i = 0;
-// 	j = 0;
-// 	while(i < 8)
-// 	{
-// 		j = 0;
-// 		while (j < 8)
-// 		{
-// 			if (map[i][j] == '1')
-// 				mlx_image_to_window(data->mlx, data->wall, (j * 128), (i * 128));
-// 			else
-// 				mlx_image_to_window(data->mlx, data->floor, (j * 128), (i * 128));
-// 			j++;
-// 		}	
-// 	}
-// }
-
 void render_player(t_data *data, char map[8][8])
 {
 	int	i;
@@ -144,7 +124,10 @@ void render_player(t_data *data, char map[8][8])
 		while (j < 8)
 		{
 			if (map[i][j] == 'P')
-				mlx_image_to_window(data->mlx, data->player, j * 128, i * 128);
+			{
+				mlx_image_to_window(data->mlx, data->player,
+					(j * 128) + 32, (i * 128) + 32);
+			}
 			j++;
 		}	
 		i++;
