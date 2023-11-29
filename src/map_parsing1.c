@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:35:03 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:12:30 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/29 19:36:03 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,35 @@ int	check_credentials(t_main *main)
 	return (0);
 }
 
+int	flood_fill(t_main *main, int x, int y, char	find, char change)
+{
+	if (!main)
+		return (1);
+	if (!main->map[x][y])
+		printf("okeded\n");
+	if (main->map && (main->map[x][y] == find || main->map[x][y] == 'N'
+		|| main->map[x][y] == 'S' || main->map[x][y] == 'W' || main->map[x][y] == 'E'))
+	{
+		// if (!main->map[x + 1][y] || !main->map[x - 1][y] || !main->map[x][y + 1] || !main->map[x - 1][y])
+		// 	return (ft_free_double(main->map), 1);
+		// printf("%d\n", x + 1);
+		// if ((main->map[x + 1][y] && main->map[x + 1][y] == '\n') || (main->map[x - 1][y] && main->map[x - 1][y] == ' '))
+		// 	return (ft_free_double(main->map), 1);
+		if (main->map[x][y] != 'N' || main->map[x][y] != 'S'
+		|| main->map[x][y] != 'W' || main->map[x][y] != 'E')
+			main->map[x][y] = change;
+		flood_fill(main, x + 1, y, '0', 'A');
+		flood_fill(main, x - 1, y, '0', 'A');
+		flood_fill(main, x, y + 1, '0', 'A');
+		flood_fill(main, x, y - 1, '0', 'A');
+		// flood_fill(main, x + 1, y + 1, '0', 'A');
+		// flood_fill(main, x + 1, y - 1, '0', 'A');
+		// flood_fill(main, x - 1, y - 1, '0', 'A');
+		// flood_fill(main, x - 1, y + 1, '0', 'A');
+	}
+	return(0);
+}
+
 int	ft_map_checking(char *map_name, t_main *main)
 {
 	main->map_name = map_name;
@@ -162,7 +191,10 @@ int	ft_map_checking(char *map_name, t_main *main)
 		return (1);
 	if (create_map(main))
 		return (ft_free_double(main->map), 1);
-	main->player_pos = find_player_start(main);
+	if (find_player_start(main))
+		return (1);
+	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A'))
+		return (free(main->player_pos), 1);
 	return (0);
 }
 
