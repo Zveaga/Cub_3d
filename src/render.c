@@ -6,7 +6,7 @@
 /*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 13:36:08 by raanghel      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:55:57 by coxer         ########   odam.nl         */
+/*   Updated: 2023/11/29 17:25:54 by coxer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,24 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		data->player->instances[0].y -= 5;
+		data->player->instances[0].y -= 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		data->player->instances[0].y += 5;
+		data->player->instances[0].y += 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		data->player->instances[0].x -= 5;
+		data->player->instances[0].x -= 4;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		data->player->instances[0].x += 5;
+		data->player->instances[0].x += 4;
 }
 
-mlx_image_t *create_block(int block_type, t_data *data)
+mlx_image_t *create_block_image(int block_type, t_data *data)
 {
-	(void)data;
-	mlx_image_t	*block;
+	mlx_image_t	*block_image;
 	int	i;
 	int	j;
 	int	color;
 
 	i = 0;
-	block = mlx_new_image(data->mlx, 128, 128);
+	block_image = mlx_new_image(data->mlx, 128, 128);
 	while (i < 128)
 	{
 		j = 0;
@@ -56,53 +55,37 @@ mlx_image_t *create_block(int block_type, t_data *data)
 				color = set_color(1, 1, 1, 1023);
 			else
 				color = set_color(179, 179, 179, 1023);
-			mlx_put_pixel(block, i, j, color);
+			mlx_put_pixel(block_image, i, j, color);
 			j++;
 		}
 		i++;
 	}
-	return (block);
+	return (block_image);
 }
 
-// void create_block(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	color;
-
-// 	i = 0;
-// 	while (i < BLOCK_SIZE)
-// 	{
-// 		j = 0;
-// 		while (j < BLOCK_SIZE)
-// 		{
-// 			color = set_color(1, 1, 1, 1023);
-// 			mlx_put_pixel(data->wall, i, j, color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-void	create_color(void *param)
+mlx_image_t *create_player_image(t_data *data)
 {
-	t_data			*data;
-	int32_t			color;
-	uint32_t		i;
-	uint32_t 		j;
-	
-	data = param;
+	mlx_image_t	*player_image;
+	int	i;
+	int	j;
+	int	color;
+
 	i = 0;
-	while (++i < data->player->width)
+	player_image = mlx_new_image(data->mlx, 64, 64);
+	while (i < 64)
 	{
 		j = 0;
-		while (++j < data->player->height)
+		while (j < 64)
 		{
 			color = set_color(153, 204, 255, 1023);
-			mlx_put_pixel(data->player, i, j, color);
+			mlx_put_pixel(player_image, i, j, color);
+			j++;
 		}
+		i++;
 	}
+	return (player_image);
 }
+
 
 void render_blocks(t_data *data, char map[8][8])
 {
@@ -118,9 +101,50 @@ void render_blocks(t_data *data, char map[8][8])
 		while (j < 8)
 		{
 			if (map[i][j] == '1')
-				mlx_image_to_window(data->mlx, data->wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
-			else if (map[i][j] == '0')
-				mlx_image_to_window(data->mlx, data->floor, j * BLOCK_SIZE, i * BLOCK_SIZE);				
+				mlx_image_to_window(data->mlx, data->wall, (j * 128), (i * 128));
+			else
+				mlx_image_to_window(data->mlx, data->floor, (j * 128), (i * 128));
+			j++;
+		}	
+		i++;
+	}
+}
+
+// void	render_vertical_blocks(t_data *data, char map[8][8])
+// {
+// 	int	i;
+// 	int	j;
+// 	i = 0;
+// 	j = 0;
+// 	while(i < 8)
+// 	{
+// 		j = 0;
+// 		while (j < 8)
+// 		{
+// 			if (map[i][j] == '1')
+// 				mlx_image_to_window(data->mlx, data->wall, (j * 128), (i * 128));
+// 			else
+// 				mlx_image_to_window(data->mlx, data->floor, (j * 128), (i * 128));
+// 			j++;
+// 		}	
+// 	}
+// }
+
+void render_player(t_data *data, char map[8][8])
+{
+	int	i;
+	int	j;
+
+
+	i = 0;
+	j = 0;
+	while(i < 8)
+	{
+		j = 0;
+		while (j < 8)
+		{
+			if (map[i][j] == 'P')
+				mlx_image_to_window(data->mlx, data->player, j * 128, i * 128);
 			j++;
 		}	
 		i++;

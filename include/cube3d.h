@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 13:36:13 by coxer         ########   odam.nl         */
+/*   Updated: 2023/11/29 17:26:02 by coxer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "MLX42/MLX42.h"
@@ -58,9 +59,13 @@ void	ft_main_free(t_main *main);
 //---------------RARES---------------//
 
 void 			ft_hook(void* param);
-void			create_color(void *param);
-mlx_image_t 	*create_block(int block_type, t_data *data);
 void 			render_blocks(t_data *data, char map[8][8]);
+void			render_player(t_data *data, char map[8][8]);
+void			render_vertical_blocks(t_data *data, char map[8][8]);
+
+mlx_image_t 	*create_block_image(int block_type, t_data *data);
+mlx_image_t 	*create_player_image(t_data *data);
+
 
 
 
