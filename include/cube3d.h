@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 17:26:02 by coxer         ########   odam.nl         */
+/*   Updated: 2023/11/29 20:51:21 by coxer         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,22 @@ typedef struct s_main
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
+	mlx_image_t	*player;
 	char		**map;
 	char		*map_name;
 	int			*player_pos;
 	int			map_line;
 }	t_main ;
 
-typedef	struct s_data
-{
-	mlx_t		*mlx;
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*player;
-}				t_data;
+// typedef	struct s_data
+// {
+// 	mlx_t		*mlx;
+// 	mlx_image_t	*wall;
+// 	mlx_image_t	*floor;
+// 	mlx_image_t	*player;
+// }				t_data;
 
 
 // int	ft_check_map(char *argv);
@@ -59,12 +62,11 @@ void	ft_main_free(t_main *main);
 //---------------RARES---------------//
 
 void 			ft_hook(void* param);
-void 			render_blocks(t_data *data, char map[8][8]);
-void			render_player(t_data *data, char map[8][8]);
-void			render_vertical_blocks(t_data *data, char map[8][8]);
+int 			render_blocks(t_main *main, char **map);
+int				render_player(t_main *main, char **map);
 
-mlx_image_t 	*create_block_image(int block_type, t_data *data);
-mlx_image_t 	*create_player_image(t_data *data);
+mlx_image_t 	*create_block_image(int block_type, t_main *main);
+mlx_image_t 	*create_player_image(t_main *main);
 
 
 

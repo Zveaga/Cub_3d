@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/11/29 18:35:41 by coxer         ########   odam.nl          #
+#    Updated: 2023/11/29 20:12:49 by coxer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@ SHELL = /bin/bash
 
 CC = gcc
 SRC_DIR = src
-SOURCE = $(SRC_DIR)/main_test.c \
-		$(SRC_DIR)/render.c \
-		# $(SRC_DIR)/map_parsing.c \
-		# $(SRC_DIR)/map_parsing1.c \
-		# $(SRC_DIR)/freeing.c \
+SOURCE = \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/map_parsing.c \
+	$(SRC_DIR)/map_parsing1.c \
+	$(SRC_DIR)/freeing.c \
+	# $(SRC_DIR)/main_test.c \
+	# $(SRC_DIR)/render.c \
 
 CFLAGS = -Wall -Wextra -Werror
 RM = -rf
