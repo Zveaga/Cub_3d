@@ -20,6 +20,7 @@ static int	render_map_2d(t_main *main)
 	return (0);
 }
 
+
 int main(int argc, char **argv)
 {
 	t_main	main;

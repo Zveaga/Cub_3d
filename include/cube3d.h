@@ -26,13 +26,6 @@ typedef struct s_main
 	int			map_line;
 }	t_main ;
 
-// typedef	struct s_data
-// {
-// 	mlx_t		*mlx;
-// 	mlx_image_t	*wall;
-// 	mlx_image_t	*floor;
-// 	mlx_image_t	*player;
-// }				t_data;
 
 
 // int	ft_check_map(char *argv);

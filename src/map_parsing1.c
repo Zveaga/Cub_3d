@@ -8,6 +8,24 @@ int	ft_check_map_name(char	*map_name)
 	return (1);
 }
 
+// int	ft_check_map_name(char	*str)
+// {
+// 	int	len;
+
+// 	len = ft_strlen(str);
+// 	if (len < 4
+// 		|| str[len - 4] != '.'
+// 		|| str[len - 3] != 'b'
+// 		|| str[len - 2] != 'e'
+// 		|| str[len - 1] != 'r')
+// 	{
+// 		return (0);
+	
+// 	}
+// 	return (1);
+// }
+
+
 int	ft_all_number(char *s)
 {
 	int i;
@@ -146,7 +164,7 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
 	if (!main)
 		return (1);
-	printf("cordinate: |%c|, y: %d\tx: %d\n", main->map[y][x], y, x);
+	//printf("cordinate: |%c|, y: %d\tx: %d\n", main->map[y][x], y, x);
 	if (!main->player_pos)
 		return (1);
 	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
@@ -182,17 +200,19 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 
 int	ft_map_checking(char *map_name, t_main *main)
 {
+	printf("++++++\n");
 	main->map_name = map_name;
 	if (!main->map_name || ft_check_map_name(map_name))
 		return (1);
+
 	if (check_credentials(main))
 		return (1);
 	if (create_map(main))
 		return (1);
 	if (find_player_start(main))
 		return (1);
-	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
-		return (free(main->player_pos), 1);
+	// if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
+	// 	return (free(main->player_pos), 1);
 	return (0);
 }
 
