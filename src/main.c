@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	t_main	main;
 
 	if (ft_map_parsing(argc, argv, &main))
-		return (ft_main_free(&main), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	int i = 0;
 	while (main.map && main.map[i])
 		printf("%s", main.map[i++]);

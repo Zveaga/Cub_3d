@@ -65,12 +65,6 @@ int	color_check(char *s)
 			return (ft_free_double(split_color_value), 1);
 		i++;
 	}
-	// i = 0;
-	// while (split_color_value[i])
-	// {
-	// 	printf("i: %d, %s\n", i, split_color_value[i]);
-	// 	i++;
-	// }
 	ft_free_double(split_color_value);
 	return (0);
 }
@@ -104,11 +98,11 @@ int	check_credentials_value(char *s)
 		else
 			break;
     }
-	if (!ft_strnstr(s + i, "NO", 2) && !ft_strnstr(s + i, "SO", 2)
-		&& !ft_strnstr(s + i, "WE", 2) && !ft_strnstr(s + i, "EA", 2)
-		&& !ft_strnstr(s + i, "F", 1) && !ft_strnstr(s + i, "C", 1))
+	if (!ft_strnstr(s + i, "NO", 2) || !ft_strnstr(s + i, "SO", 2)
+		|| !ft_strnstr(s + i, "WE", 2) || !ft_strnstr(s + i, "EA", 2)
+		|| !ft_strnstr(s + i, "F", 1) || !ft_strnstr(s + i, "C", 1))
 		flag++;
-	if (flag == 6)
+	if (flag == 1)
 	{
 		if (check_more_precise(s + i))
 			return (1);
@@ -144,15 +138,46 @@ int	check_credentials(t_main *main)
 		if (!s)
 			break ;
 	}
-	s = get_next_line(fd);
-	while (s)
-	{
-		free(s);
-		s = get_next_line(fd);
-	}
-	close(fd);
-	// printf("%d\n", count);
+	free_static_char_buff(fd);
 	return (0);
+}
+
+int	flood_fill(t_main *main, int x, int y, char	find, char change)
+{
+	if (!main)
+		return (1);
+	printf("cordinate: |%c|, y: %d\tx: %d\n", main->map[y][x], y, x);
+	if (!main->player_pos)
+		return (1);
+	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
+		return (1);
+	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
+		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
+	{
+		// if ((main->map[x + 1][y] && main->map[x + 1][y] == '\n') || (main->map[x - 1][y] && main->map[x - 1][y] == ' '))
+		// 	return (ft_free_double(main->map), 1);
+		if (main->map[y][x] != 'N' || main->map[y][x] != 'S'
+		|| main->map[y][x] != 'W' || main->map[y][x] != 'E')
+			main->map[y][x] = change;
+		
+		if (flood_fill(main, x + 1, y, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x, y + 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x + 1, y + 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x + 1, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y + 1, '0', 'A'))
+			return (1);
+	}
+	return(0);
 }
 
 int	ft_map_checking(char *map_name, t_main *main)
@@ -164,8 +189,10 @@ int	ft_map_checking(char *map_name, t_main *main)
 		return (1);
 	if (create_map(main))
 		return (1);
-	//printf("hehehe\n");
-	main->player_pos = find_player_start(main);
+	if (find_player_start(main))
+		return (1);
+	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
+		return (free(main->player_pos), 1);
 	return (0);
 }
 
@@ -174,6 +201,6 @@ int	ft_map_parsing(int argc, char **argv, t_main *main)
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
 	if (ft_map_checking(argv[1], main) == 1)
-		return (ft_putstr_fd("Map Error\n", 2), 1);
+		return (ft_free_double(main->map), ft_putstr_fd("Map Error\n", 2), 1);
 	return (0);
 }

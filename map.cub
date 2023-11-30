@@ -1,7 +1,7 @@
 NO ./wall1.png
 SO ./wall2.png
 WE ./wall3.png
-EA ./wall4.png
+EA                                           ./wall4.png
 F 220,100,0
 C 225,30,0
 

@@ -30,15 +30,14 @@ int	check_if_input_are_valid(char **map)
 	return (0);
 }
 
-int	*find_player_start(t_main *main)
+int	find_player_start(t_main *main)
 {
-	int		*cordinate;
 	int		x;
 	int		y;
 
-	cordinate = malloc(2 * sizeof(int));
-	if (!cordinate)
-		return (NULL);
+	main->player_pos = malloc(3 * sizeof(int));
+	if (!main->player_pos)
+		return (1);
 	y = 0;
 	while (main->map && main->map[y])
 	{
@@ -48,15 +47,15 @@ int	*find_player_start(t_main *main)
 			if (main->map[y][x] == 'W' || main->map[y][x] == 'N'
 				|| main->map[y][x] == 'S' || main->map[y][x] == 'E')
 			{
-				cordinate[x] = x;
-				cordinate[y] = y;
-				return (cordinate);
+				main->player_pos[0] = x;
+				main->player_pos[1] = y;
+				return (0);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (NULL);
+	return (1);
 }
 
 int	map_length(t_main *main)
@@ -100,14 +99,14 @@ int	fill_map(t_main *main, int fd)
 		return (1);
 	s = get_next_line(fd);
 	if (!s)
-		return (ft_free_double(main->map), close(fd), 1);
+		return (close(fd), 1);
 	while (s)
 	{
 		if (pos >= main->map_line)
 		{
 			main->map[i] = ft_strdup(s);
 			if (!main->map[i])
-				return (close(fd), ft_free_double(main->map), 1);
+				return (free_static_char_buff(fd), 1);
 			i++;
 		}
 		pos++;
@@ -119,6 +118,7 @@ int	fill_map(t_main *main, int fd)
 	main->map[i] = NULL;
 	return (0);
 }
+
 
 int	create_map(t_main *main)
 {
