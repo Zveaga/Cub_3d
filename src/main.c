@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:17:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 18:12:15 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:07:25 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	int i = 0;
 	while (main.map && main.map[i])
-		printf("%s\n", main.map[i++]);
+		printf("%s", main.map[i++]);
 	if (!(main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));

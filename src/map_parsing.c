@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/20 18:46:34 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 19:16:11 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/30 14:08:06 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	find_player_start(t_main *main)
 			if (main->map[y][x] == 'W' || main->map[y][x] == 'N'
 				|| main->map[y][x] == 'S' || main->map[y][x] == 'E')
 			{
-				main->player_pos[0] = y;
-				main->player_pos[1] = x;
+				main->player_pos[0] = x;
+				main->player_pos[1] = y;
 				return (0);
 			}
 			x++;

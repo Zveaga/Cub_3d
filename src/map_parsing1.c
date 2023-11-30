@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:35:03 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 19:36:03 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/30 14:08:37 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,27 +157,36 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
 	if (!main)
 		return (1);
-	if (!main->map[x][y])
-		printf("okeded\n");
-	if (main->map && (main->map[x][y] == find || main->map[x][y] == 'N'
-		|| main->map[x][y] == 'S' || main->map[x][y] == 'W' || main->map[x][y] == 'E'))
+	printf("cordinate: |%c|, y: %d\tx: %d\n", main->map[y][x], y, x);
+	if (!main->player_pos)
+		return (1);
+	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
+		return (1);
+	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
+		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
 	{
-		// if (!main->map[x + 1][y] || !main->map[x - 1][y] || !main->map[x][y + 1] || !main->map[x - 1][y])
-		// 	return (ft_free_double(main->map), 1);
-		// printf("%d\n", x + 1);
 		// if ((main->map[x + 1][y] && main->map[x + 1][y] == '\n') || (main->map[x - 1][y] && main->map[x - 1][y] == ' '))
 		// 	return (ft_free_double(main->map), 1);
-		if (main->map[x][y] != 'N' || main->map[x][y] != 'S'
-		|| main->map[x][y] != 'W' || main->map[x][y] != 'E')
-			main->map[x][y] = change;
-		flood_fill(main, x + 1, y, '0', 'A');
-		flood_fill(main, x - 1, y, '0', 'A');
-		flood_fill(main, x, y + 1, '0', 'A');
-		flood_fill(main, x, y - 1, '0', 'A');
-		// flood_fill(main, x + 1, y + 1, '0', 'A');
-		// flood_fill(main, x + 1, y - 1, '0', 'A');
-		// flood_fill(main, x - 1, y - 1, '0', 'A');
-		// flood_fill(main, x - 1, y + 1, '0', 'A');
+		if (main->map[y][x] != 'N' || main->map[y][x] != 'S'
+		|| main->map[y][x] != 'W' || main->map[y][x] != 'E')
+			main->map[y][x] = change;
+		
+		if (flood_fill(main, x + 1, y, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x, y + 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x + 1, y + 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x + 1, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y - 1, '0', 'A'))
+			return (1);
+		if (flood_fill(main, x - 1, y + 1, '0', 'A'))
+			return (1);
 	}
 	return(0);
 }
@@ -190,10 +199,10 @@ int	ft_map_checking(char *map_name, t_main *main)
 	if (check_credentials(main))
 		return (1);
 	if (create_map(main))
-		return (ft_free_double(main->map), 1);
+		return (1);
 	if (find_player_start(main))
 		return (1);
-	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A'))
+	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
 		return (free(main->player_pos), 1);
 	return (0);
 }
@@ -203,6 +212,6 @@ int	ft_map_parsing(int argc, char **argv, t_main *main)
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
 	if (ft_map_checking(argv[1], main) == 1)
-		return (ft_putstr_fd("Map Error\n", 2), 1);
+		return (ft_free_double(main->map), ft_putstr_fd("Map Error\n", 2), 1);
 	return (0);
 }
