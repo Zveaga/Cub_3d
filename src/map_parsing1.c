@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:35:03 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/28 18:26:49 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/30 13:20:22 by raanghel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	ft_map_checking(char *map_name, t_main *main)
 		return (1);
 	if (create_map(main))
 		return (1);
-	printf("hehehe\n");
+	//printf("hehehe\n");
 	main->player_pos = find_player_start(main);
 	return (0);
 }

@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -14,7 +15,7 @@
 
 # define BLOCK_SIZE 128
 
-int32_t	set_color(int r, int g, int b, int a)
+static int32_t	set_color(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
@@ -22,19 +23,22 @@ int32_t	set_color(int r, int g, int b, int a)
 void ft_hook(void* param)
 {
 	t_main	*main;
-	
+
 	main = param;
-	
+
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
+	{
 		mlx_close_window(main->mlx);
+		exit(EXIT_SUCCESS);
+	}
 	if (mlx_is_key_down(main->mlx, MLX_KEY_W))
-		main->player->instances[0].y -= 4;
+		main->player->instances[0].y -= 5;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_S))
-		main->player->instances[0].y += 4;
+		main->player->instances[0].y += 5;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_A))
-		main->player->instances[0].x -= 4;
+		main->player->instances[0].x -= 5;
 	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
-		main->player->instances[0].x += 4;
+		main->player->instances[0].x += 5;
 }
 
 mlx_image_t *create_block_image(int block_type, t_main *main)
@@ -45,13 +49,13 @@ mlx_image_t *create_block_image(int block_type, t_main *main)
 	mlx_image_t	*block_image;
 
 	i = 0;
-	block_image = mlx_new_image(main->mlx, 128, 128);
+	block_image = mlx_new_image(main->mlx, 64, 64);
 	if (!block_image)
 		return (mlx_close_window(main->mlx), NULL);
-	while (i < 128)
+	while (i < 64)
 	{
 		j = 0;
-		while (j < 128)
+		while (j < 64)
 		{
 			if (block_type == 0)
 				color = set_color(1, 1, 1, 1023);
@@ -98,25 +102,26 @@ int	render_blocks(t_main *main, char **map)
 
 	i = 0;
 	j = 0;
-	while(i < 8)
+	while(map[i])
 	{
 		j = 0;
-		while (j < 8)
+		while (map[i][j])
 		{
 			if (map[i][j] == '1')
 			{
-				if (mlx_image_to_window(main->mlx, main->wall, (j * 128), (i * 128)) == -1)
-					return (mlx_close_window(main->mlx), NULL);
+				if (mlx_image_to_window(main->mlx, main->wall, (j * 64), (i * 64)) == -1)
+					return (mlx_close_window(main->mlx), 1);
 			}
-			else
+			else if (map[i][j] == '0' || map[i][j] == 'N')
 			{
-				if (mlx_image_to_window(main->mlx, main->floor, (j * 128), (i * 128)) == -1)
-					return (mlx_close_window(main->mlx), NULL);
+				if (mlx_image_to_window(main->mlx, main->floor, (j * 64), (i * 64)) == -1)
+					return (mlx_close_window(main->mlx), 1);
 			}
 			j++;
 		}	
 		i++;
 	}
+	return (0);
 }
 
 int render_player(t_main *main, char **map)
@@ -127,21 +132,22 @@ int render_player(t_main *main, char **map)
 
 	i = 0;
 	j = 0;
-	while(i < 8)
+	while(map[i])
 	{
 		j = 0;
-		while (j < 8)
+		while (map[i][j])
 		{
-			if (map[i][j] == 'P')
+			if (map[i][j] == 'N')
 			{
 				if (mlx_image_to_window(main->mlx, main->player,
-					(j * 128) + 32, (i * 128) + 32) == -1)
+					(j * 64) + 32, (i * 64) + 32) == -1)
 				{
-					return (mlx_close_window(main->mlx), NULL);
+					return (mlx_close_window(main->mlx), 1);
 				}
 			}
 			j++;
 		}	
 		i++;
 	}
+	return (0);
 }

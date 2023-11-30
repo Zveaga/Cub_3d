@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/16 12:06:07 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/29 20:51:21 by coxer         ########   odam.nl         */
+/*   Updated: 2023/11/30 12:57:05 by raanghel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
 
-# define WIDTH 1024
-# define HEIGHT 1024
+# define WIDTH 2048
+# define HEIGHT 2048
 
 typedef struct s_main
 {
