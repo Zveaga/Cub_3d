@@ -36,6 +36,7 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (render_map_2d(&main) != 0)
 		return (EXIT_FAILURE);
+	
 	mlx_loop_hook(main.mlx, ft_hook, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);

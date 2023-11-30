@@ -12,6 +12,8 @@
 
 # define WIDTH 2048
 # define HEIGHT 2048
+# define BLOCK_SIZE 64
+
 
 typedef struct s_main
 {
@@ -24,9 +26,31 @@ typedef struct s_main
 	char		*map_name;
 	int			*player_pos;
 	int			map_line;
+	
 }	t_main ;
 
+typedef struct s_math
+{
+	float	pX;
+	float	pY;
+	float	pdX;
+	float	pdY;
+	float	pa;
 
+	
+}			t_math;
+
+// typedef struct s_math
+// {
+// 	double	posX;
+// 	double	posY;
+// 	double	dirX;
+// 	double	dirY;
+// 	double	planeX;
+// 	double	planeY;
+// 	double	time;
+// 	double	oldTime;;
+// }			t_math;
 
 // int	ft_check_map(char *argv);
 int		ft_map_parsing(int argc, char **argv, t_main *main);
