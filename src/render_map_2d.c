@@ -29,11 +29,6 @@ static int32_t	set_color(int r, int g, int b, int a)
 // 		main->player->instances[0].x += 5;
 // }
 
-// glLineWidth(3);
-// glBegin(GL_LINES);
-// glVertex2i(px,py);
-// glVertex2i(px+pdx*20,py+pdy*20);
-// glEnd();
 
 void ft_hook(void* param)
 {
@@ -41,19 +36,135 @@ void ft_hook(void* param)
 
 	main = param;
 
+	//printf("++++++++\n");
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(main->mlx);
 		exit(EXIT_SUCCESS);
 	}
+	if (mlx_is_key_down(main->mlx, MLX_KEY_LEFT))
+	{	
+		main->math->pa -= 0.1;
+		if (main->math->pa < 0)
+		{
+			printf("RESET\n");
+			printf("angle: %.2f\n", main->math->pa);
+			main->math->pa += 2 * PI;
+			main->math->pdX = cos(main->math->pa) * 5;
+			main->math->pdY = sin(main->math->pa) * 5;
+		}
+		printf("left\n");
+		printf("angle: %.2f\n", main->math->pa);
+		// printf("px: %.2f\n", main->math->pX);
+
+		//main->player->instances[0].x -= 5;
+	}
+	if (mlx_is_key_down(main->mlx, MLX_KEY_RIGHT))
+	{
+		main->math->pa += 0.1;
+		if (main->math->pa > 2 * PI)
+		{
+			printf("RESET\n");
+			printf("angle: %.2f\n", main->math->pa);
+			main->math->pa -= 2 * PI;
+			main->math->pdX = cos(main->math->pa) * 5;
+			main->math->pdY = sin(main->math->pa) * 5;
+
+		}		
+		printf("right\n");
+		printf("angle: %.2f\n", main->math->pa);
+		//main->player->instances[0].x += 5;
+	}
 	if (mlx_is_key_down(main->mlx, MLX_KEY_W))
-		main->player->instances[0].y -= 5;
+	{
+		printf("angle: %.2f\n", main->math->pa);
+		printf("pdX: %.2f\n", main->math->pdX);
+		printf("pdY: %.2f\n", main->math->pdY);
+		main->player->instances[0].x -= main->math->pdX;
+		main->player->instances[0].y -= main->math->pdY;
+	}
 	if (mlx_is_key_down(main->mlx, MLX_KEY_S))
-		main->player->instances[0].y += 5;
-	if (mlx_is_key_down(main->mlx, MLX_KEY_A))
-		main->player->instances[0].x -= 5;
-	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
-		main->player->instances[0].x += 5;
+	{
+		printf("angle: %.2f\n", main->math->pa);
+		printf("pdX: %.2f\n", main->math->pa);
+		printf("pdY: %.2f\n", main->math->pa);
+		main->player->instances[0].x += main->math->pdX;
+		main->player->instances[0].y += main->math->pdY;
+	}
+	// if (mlx_is_key_down(main->mlx, MLX_KEY_))
+	// {
+	// 	main->player->instances[0].x += main->math->pdX;
+	// 	main->player->instances[0].y += main->math->pdY;
+	// }
+	// if (mlx_is_key_down(main->mlx, MLX_KEY_))
+	// {
+	// 	main->player->instances[0].x += main->math->pdX;
+	// 	main->player->instances[0].y += main->math->pdY;
+	// }
+}
+
+void	move_hook_callback(mlx_key_data_t keydata, void *param)
+{
+	t_main	*main;
+
+	main = param;
+
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(main->mlx);
+	
+	if ((keydata.key == MLX_KEY_W))
+	{
+		printf("angle: %.2f\n", main->math->pa);
+		printf("pdX: %.2f\n", main->math->pdX);
+		printf("pdY: %.2f\n", main->math->pdY);
+		main->player->instances[0].x += main->math->pdX;
+		main->player->instances[0].y += main->math->pdY;
+	}
+	if ((keydata.key == MLX_KEY_S))
+	{
+		printf("angle: %.2f\n", main->math->pa);
+		printf("pdX: %.2f\n", main->math->pa);
+		printf("pdY: %.2f\n", main->math->pa);
+		main->player->instances[0].x -= main->math->pdX;
+		main->player->instances[0].y -= main->math->pdY;
+	}
+	if ((keydata.key == MLX_KEY_LEFT))
+	{
+
+		main->math->pa -= 0.1;
+		if (main->math->pa < 0)
+		{
+			printf("RESET\n");
+			printf("angle: %.2f\n", main->math->pa);
+			main->math->pa += 2 * PI;
+		}
+		main->math->pdX = cos(main->math->pa) * 5;
+		main->math->pdY = sin(main->math->pa) * 5;
+		printf("left\n");
+		printf("angle: %.2f\n", main->math->pa);
+		// printf("px: %.2f\n", main->math->pX);
+	}
+	if ((keydata.key == MLX_KEY_RIGHT))
+	{
+
+		main->math->pa += 0.1;
+		if (main->math->pa > 2 * PI)
+		{
+			printf("RESET\n");
+			printf("angle: %.2f\n", main->math->pa);
+			main->math->pa -= 2 * PI;
+		}		
+		main->math->pdX = cos(main->math->pa) * 5;
+		main->math->pdY = sin(main->math->pa) * 5;
+		printf("right\n");
+		printf("angle: %.2f\n", main->math->pa);
+		//main->player->instances[0].x += 5;
+	}
+	// glLineWidth(3);
+	// glBegin(GL_LINES);
+	// glVertex2i(main->math->pX, main->math->pY);
+	// glVertex2i(main->math->pX + main->math->pdX*5,main->math->pY  + main->math->pdY * 5);
+	// glEnd();
 }
 
 mlx_image_t *create_block_image(int block_type, t_main *main)
@@ -109,7 +220,6 @@ mlx_image_t *create_player_image(t_main *main)
 	}
 	return (player_image);
 }
-
 
 int	render_blocks(t_main *main, char **map)
 {
@@ -181,3 +291,9 @@ int render_player(t_main *main, char **map)
 // 	}
 // 	return (0);
 // }
+
+// glLineWidth(3);
+// glBegin(GL_LINES);
+// glVertex2i(px,py);
+// glVertex2i(px+pdx*20,py+pdy*20);
+// glEnd();

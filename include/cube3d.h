@@ -13,10 +13,12 @@
 # define WIDTH 2048
 # define HEIGHT 2048
 # define BLOCK_SIZE 64
+# define PI 3.1415926535
 
 
 typedef struct s_main
 {
+	struct s_math *math;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	mlx_image_t	*wall;
@@ -31,6 +33,7 @@ typedef struct s_main
 
 typedef struct s_math
 {
+	t_main	*main;
 	float	pX;
 	float	pY;
 	float	pdX;
@@ -69,6 +72,8 @@ void	free_static_char_buff(int fd);
 //---------------RARES---------------//
 
 void 			ft_hook(void* param);
+//void 			init_math_data(t_main *main);
+void			move_hook_callback(mlx_key_data_t keydata, void *param);
 int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);
 
