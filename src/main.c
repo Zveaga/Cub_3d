@@ -13,6 +13,9 @@ static int	render_map_2d(t_main *main)
 	main->player = create_player_image(main);
 	if (!main->player)
 		return (1);
+	main->dir_line = create_line_image(main);
+	if (!main->dir_line)
+		return (1);
 	if (render_blocks(main, main->map) != 0)
 		return (1);
 	if (render_player(main, main->map) != 0)
@@ -52,7 +55,9 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (render_map_2d(&main) != 0)
 		return (EXIT_FAILURE);
-	
+
+	//mlx_image_to_window(main.mlx, main.dir_line, 10 * BLOCK_SIZE, 10 * BLOCK_SIZE);
+
 	// mlx_loop_hook(main.mlx, ft_hook, &main);
 	mlx_key_hook(main.mlx, &move_hook_callback, &main);
 	mlx_loop(main.mlx);

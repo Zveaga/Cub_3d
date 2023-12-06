@@ -15,7 +15,6 @@
 # define BLOCK_SIZE 64
 # define PI 3.1415926535
 
-
 typedef struct s_main
 {
 	struct s_math *math;
@@ -24,6 +23,7 @@ typedef struct s_main
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
 	mlx_image_t	*player;
+	mlx_image_t	*dir_line;
 	char		**map;
 	char		*map_name;
 	int			*player_pos;
@@ -52,7 +52,18 @@ typedef struct s_math
 // 	double	planeX;
 // 	double	planeY;
 // 	double	time;
-// 	double	oldTime;;
+// 	double	oldTime;
+
+// 	int		mapX;
+// 	int		mapY;
+// 	int		stepX;
+//     int		stepY;
+// 	double	deltaDistX;
+// 	double	deltaDistY;
+// 	double	sideDistX;
+//     double	sideDistY;
+
+
 // }			t_math;
 
 // int	ft_check_map(char *argv);
@@ -79,6 +90,7 @@ int				render_player(t_main *main, char **map);
 
 mlx_image_t 	*create_block_image(int block_type, t_main *main);
 mlx_image_t 	*create_player_image(t_main *main);
+mlx_image_t 	*create_line_image(t_main *main);
 
 
 
