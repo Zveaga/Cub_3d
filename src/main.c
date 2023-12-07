@@ -2,7 +2,7 @@
 #include "cube3d.h"
 
 
-static void init_dda(t_main *main, t_math *math)
+static void init_math(t_main *main, t_math *math)
 {
 	math->posX = main->player_pos[0] * BLOCK_SIZE;
 	math->posY = main->player_pos[1] * BLOCK_SIZE;
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	int i = 0;
 	while (main.map && main.map[i])
 		printf("%s", main.map[i++]);
-	init_dda(&main, &math);
+	init_math(&main, &math);
 	main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (main.mlx == NULL)
 		return (EXIT_FAILURE);
