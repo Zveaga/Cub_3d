@@ -13,8 +13,6 @@ static void perform_dda(t_main *main, t_math *math, int x)
 	math->mapX = (int)math->posX;
 	math->mapY = (int)math->posY;
 
-	
-
 }
 
 void	render(void *param)
