@@ -12,28 +12,59 @@
 
 # define WIDTH 2048
 # define HEIGHT 2048
+# define BLOCK_SIZE 64
+# define PI 3.1415926535
 
 typedef struct s_main
 {
+	struct s_math *math;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
 	mlx_image_t	*player;
+	mlx_image_t	*dir_line;
 	char		**map;
 	char		*map_name;
 	int			*player_pos;
 	int			map_line;
+	
 }	t_main ;
 
-// typedef	struct s_data
-// {
-// 	mlx_t		*mlx;
-// 	mlx_image_t	*wall;
-// 	mlx_image_t	*floor;
-// 	mlx_image_t	*player;
-// }				t_data;
+typedef struct s_math
+{
+	t_main	*main;
+	float	pX;
+	float	pY;
+	float	pdX;
+	float	pdY;
+	float	pa;
 
+	
+}			t_math;
+
+// typedef struct s_math
+// {
+// 	double	posX;
+// 	double	posY;
+// 	double	dirX;
+// 	double	dirY;
+// 	double	planeX;
+// 	double	planeY;
+// 	double	time;
+// 	double	oldTime;
+
+// 	int		mapX;
+// 	int		mapY;
+// 	int		stepX;
+//     int		stepY;
+// 	double	deltaDistX;
+// 	double	deltaDistY;
+// 	double	sideDistX;
+//     double	sideDistY;
+
+
+// }			t_math;
 
 // int	ft_check_map(char *argv);
 int		ft_map_parsing(int argc, char **argv, t_main *main);
@@ -52,11 +83,13 @@ void	free_static_char_buff(int fd);
 //---------------RARES---------------//
 
 void 			ft_hook(void* param);
+void			move_hook_callback(mlx_key_data_t keydata, void *param);
 int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);
 
 mlx_image_t 	*create_block_image(int block_type, t_main *main);
 mlx_image_t 	*create_player_image(t_main *main);
+mlx_image_t 	*create_line_image(t_main *main);
 
 
 

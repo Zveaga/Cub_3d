@@ -14,6 +14,24 @@ int	ft_check_map_name(char	*map_name)
 	return (1);
 }
 
+// int	ft_check_map_name(char	*str)
+// {
+// 	int	len;
+
+// 	len = ft_strlen(str);
+// 	if (len < 4
+// 		|| str[len - 4] != '.'
+// 		|| str[len - 3] != 'b'
+// 		|| str[len - 2] != 'e'
+// 		|| str[len - 1] != 'r')
+// 	{
+// 		return (0);
+	
+// 	}
+// 	return (1);
+// }
+
+
 int	ft_all_number(char *s)
 {
 	int i;

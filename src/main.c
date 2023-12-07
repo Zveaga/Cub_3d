@@ -13,6 +13,9 @@ static int	render_map_2d(t_main *main)
 	main->player = create_player_image(main);
 	if (!main->player)
 		return (1);
+	main->dir_line = create_line_image(main);
+	if (!main->dir_line)
+		return (1);
 	if (render_blocks(main, main->map) != 0)
 		return (1);
 	if (render_player(main, main->map) != 0)
@@ -20,30 +23,43 @@ static int	render_map_2d(t_main *main)
 	return (0);
 }
 
-void	init_main(t_main *main)
+void init_math_data(t_main *main, t_math *math)
 {
-	main->map = NULL;
-	main->map_line = 0;
-	main->map_name = NULL;
-	main->player_pos = NULL;
+	//t_math math;
+
+	//math = malloc(sizeof(t_math));
+	math->pX = main->player_pos[0] * BLOCK_SIZE;
+	math->pY = main->player_pos[1] * BLOCK_SIZE;
+	math->pdX = 0;
+	math->pdY = 0;
+	math->pa = 0;
+	math->main = main;
+	main->math = math;
 }
 
 int main(int argc, char **argv)
 {
 	t_main	main;
+	t_math	math;
 
-	init_main(&main);
 	if (ft_map_parsing(argc, argv, &main))
 		return (EXIT_FAILURE);
 	int i = 0;
 	while (main.map && main.map[i])
 		printf("%s", main.map[i++]);
-	main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	
+	init_math_data(&main, &math);
+
+	main.mlx = mlx_init(1700, HEIGHT, "MLX42", true);
 	if (main.mlx == NULL)
 		return (EXIT_FAILURE);
 	if (render_map_2d(&main) != 0)
 		return (EXIT_FAILURE);
-	mlx_loop_hook(main.mlx, ft_hook, &main);
+
+	//mlx_image_to_window(main.mlx, main.dir_line, 10 * BLOCK_SIZE, 10 * BLOCK_SIZE);
+
+	// mlx_loop_hook(main.mlx, ft_hook, &main);
+	mlx_key_hook(main.mlx, &move_hook_callback, &main);
 	mlx_loop(main.mlx);
 	printf("%d\n", main.player_pos[0]);
 	mlx_terminate(main.mlx);

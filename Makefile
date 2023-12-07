@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/07 13:17:06 by ibehluli      ########   odam.nl          #
+#    Updated: 2023/12/07 13:34:49 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SOURCE = \
 	$(SRC_DIR)/map_parsing.c \
 	$(SRC_DIR)/map_parsing1.c \
 	$(SRC_DIR)/freeing.c \
-	$(SRC_DIR)/render.c \
+	$(SRC_DIR)/render_map_2d.c \
+	$(SRC_DIR)/render_rays.c \
 
 CFLAGS = -Wall -Wextra -Werror
 RM = -rf
