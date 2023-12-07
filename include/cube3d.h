@@ -32,17 +32,6 @@ typedef struct s_main
 
 }	t_main ;
 
-// typedef struct s_math
-// {
-// 	t_main	*main;
-// 	float	pX;
-// 	float	pY;
-// 	float	pdX;
-// 	float	pdY;
-// 	float	pa;
-	
-// }			t_math;
-
 typedef struct s_math
 {
 	t_main	*main;
