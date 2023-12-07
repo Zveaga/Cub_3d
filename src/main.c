@@ -18,7 +18,8 @@ int main(int argc, char **argv)
 	t_math	math;
 
 	if (ft_map_parsing(argc, argv, &main))
-		return (EXIT_FAILURE);
+		return (ft_main_free(&main), EXIT_FAILURE);
+	init_math(&main, &math);
 	int i = 0;
 	while (main.map && main.map[i])
 		printf("%s", main.map[i++]);

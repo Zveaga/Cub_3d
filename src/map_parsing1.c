@@ -14,24 +14,6 @@ int	ft_check_map_name(char	*map_name)
 	return (1);
 }
 
-// int	ft_check_map_name(char	*str)
-// {
-// 	int	len;
-
-// 	len = ft_strlen(str);
-// 	if (len < 4
-// 		|| str[len - 4] != '.'
-// 		|| str[len - 3] != 'b'
-// 		|| str[len - 2] != 'e'
-// 		|| str[len - 1] != 'r')
-// 	{
-// 		return (0);
-	
-// 	}
-// 	return (1);
-// }
-
-
 int	ft_all_number(char *s)
 {
 	int i;
@@ -46,7 +28,7 @@ int	ft_all_number(char *s)
 	return (1);
 }
 
-int	path_check(char	*s)
+int	path_check(t_main *main, char	*s, char face)
 {
 	int		fd;
 	char	*s1;
@@ -59,12 +41,41 @@ int	path_check(char	*s)
 	fd = open(s1, O_RDONLY, 0644);
 	if (fd == -1)
 		return (free(s1), 1);
-	free(s1);
 	close(fd);
+	if (face == 'N')
+		main->north_texture = s1;
+	else if (face == 'S')
+		main->south_texture = s1;
+	else if (face == 'W')
+		main->west_texture = s1;
+	else if (face == 'E')
+		main->east_texture = s1;
 	return (0);
 }
 
-int	color_check(char *s)
+void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
+{
+	if (floor_or_ceiling == 'C')
+	{
+		main->ceiling_color = malloc(sizeof(int) * 3);
+		if (!main->ceiling_color)
+			return ;
+		main->ceiling_color[0] = ft_atoi(split_color_value[0]);
+		main->ceiling_color[1] = ft_atoi(split_color_value[1]);
+		main->ceiling_color[2] = ft_atoi(split_color_value[2]);
+	}
+	else
+	{
+		main->floor_color = (int *) malloc(sizeof(int) * 3);
+		if (!main->floor_color)
+			return ;
+		main->floor_color[0] = ft_atoi(split_color_value[0]);
+		main->floor_color[1] = ft_atoi(split_color_value[1]);
+		main->floor_color[2] = ft_atoi(split_color_value[2]);
+	}
+}
+
+int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 {
 	int		i;
 	char	**split_color_value;
@@ -89,26 +100,27 @@ int	color_check(char *s)
 			return (ft_free_double(split_color_value), 1);
 		i++;
 	}
+	assign_color(main, split_color_value, floor_or_ceiling);
 	ft_free_double(split_color_value);
 	return (0);
 }
 
-int	check_more_precise(char	*s)
+int	check_more_precise(t_main *main, char	*s)
 {
 	if (s && (!ft_strncmp(s, "F", 1) || !ft_strncmp(s, "C", 1)))
 	{
-		if (color_check(s + 1))
+		if (color_check(main, s + 1, s[0]))
 			return (1);
 	}
 	else
 	{
-		if (path_check(s + 2))
+		if (path_check(main, s + 2, s[0]))
 			return (1);
 	}
 	return (0);
 }
 
-int	check_credentials_value(char *s)
+int	check_credentials_value(t_main *main, char *s)
 {
 	int	i;
 	int	flag;
@@ -128,7 +140,7 @@ int	check_credentials_value(char *s)
 		flag++;
 	if (flag == 1)
 	{
-		if (check_more_precise(s + i))
+		if (check_more_precise(main, s + i))
 			return (1);
 	}
 	return (0);
@@ -150,7 +162,7 @@ int	check_credentials(t_main *main)
 	main->map_line = 0;
 	while (s)
 	{
-		if (!check_credentials_value(s))
+		if (!check_credentials_value(main, s))
 			count++;
 		else
 			return (free(s), close(fd), 1);
@@ -177,12 +189,9 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
 		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
 	{
-		// if ((main->map[x + 1][y] && main->map[x + 1][y] == '\n') || (main->map[x - 1][y] && main->map[x - 1][y] == ' '))
-		// 	return (ft_free_double(main->map), 1);
 		if (main->map[y][x] != 'N' && main->map[y][x] != 'S'
 		&& main->map[y][x] != 'W' && main->map[y][x] != 'E')
 			main->map[y][x] = change;
-		
 		if (flood_fill(main, x + 1, y, '0', 'A'))
 			return (1);
 		if (flood_fill(main, x - 1, y, '0', 'A'))
@@ -215,7 +224,7 @@ int	ft_map_checking(char *map_name, t_main *main)
 	if (find_player_start(main))
 		return (1);
 	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
-		return (free(main->player_pos), 1);
+		return (1);
 	return (0);
 }
 
@@ -224,10 +233,6 @@ int	ft_map_parsing(int argc, char **argv, t_main *main)
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
 	if (ft_map_checking(argv[1], main) == 1)
-	{
-		if (main->map)
-			ft_free_double(main->map);
 		return (ft_putstr_fd("Map Error\n", 2), 1);
-	}
 	return (0);
 }

@@ -26,6 +26,12 @@ typedef struct s_main
 	mlx_image_t	*dir_line;
 	char		**map;
 	char		*map_name;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			*ceiling_color;
+	int			*floor_color;
 	int			*player_pos;
 	int			map_line;
 	uint32_t	**img_buf;
