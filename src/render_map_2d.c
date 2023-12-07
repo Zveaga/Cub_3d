@@ -119,6 +119,9 @@ void	move_hook_callback(mlx_key_data_t keydata, void *param)
 		printf("pdY: %.2f\n\n", main->math->pdY);
 		main->player->instances[0].x += main->math->pdX;
 		main->player->instances[0].y += main->math->pdY;
+
+		main->dir_line->instances[0].x += main->math->pdX;
+		main->dir_line->instances[0].y += main->math->pdY;
 	}
 	if ((keydata.key == MLX_KEY_S) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
@@ -127,6 +130,9 @@ void	move_hook_callback(mlx_key_data_t keydata, void *param)
 		printf("pdY: %.2f\n\n", main->math->pdY);
 		main->player->instances[0].x -= main->math->pdX;
 		main->player->instances[0].y -= main->math->pdY;
+
+		main->dir_line->instances[0].x -= main->math->pdX;
+		main->dir_line->instances[0].y -= main->math->pdY;
 	}
 	if ((keydata.key == MLX_KEY_LEFT) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
@@ -143,6 +149,8 @@ void	move_hook_callback(mlx_key_data_t keydata, void *param)
 		printf("left\n");
 		printf("angle: %.2f\n\n", main->math->pa);
 		// printf("px: %.2f\n", main->math->pX);
+		main->dir_line->instances[0].x -= main->math->pdX;
+		main->dir_line->instances[0].y -= main->math->pdY;
 	}
 	if ((keydata.key == MLX_KEY_RIGHT) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
@@ -158,6 +166,9 @@ void	move_hook_callback(mlx_key_data_t keydata, void *param)
 		main->math->pdY = sin(main->math->pa) * 5;
 		printf("right\n");
 		printf("angle: %.2f\n\n", main->math->pa);
+
+		main->dir_line->instances[0].x += main->math->pdX;
+		main->dir_line->instances[0].y += main->math->pdY;
 	}
 }
 
@@ -283,7 +294,7 @@ int render_player(t_main *main, char **map)
 	{
 		return (mlx_close_window(main->mlx), 1);
 	}
-	// mlx_image_to_window(main->mlx, main->dir_line, px * BLOCK_SIZE, (py * BLOCK_SIZE) + 6);
+	mlx_image_to_window(main->mlx, main->dir_line, px * BLOCK_SIZE, (py * BLOCK_SIZE) + 6);
 
 	return (0);
 

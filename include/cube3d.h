@@ -54,10 +54,14 @@ typedef struct s_math
 // 	double	time;
 // 	double	oldTime;
 
+// 	double	cameraX;
+// 	double	rayDirX;
+// 	double	rayDirY;
+
 // 	int		mapX;
 // 	int		mapY;
 // 	int		stepX;
-//     int		stepY;
+// 	int		stepY;
 // 	double	deltaDistX;
 // 	double	deltaDistY;
 // 	double	sideDistX;

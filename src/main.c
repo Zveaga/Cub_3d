@@ -49,8 +49,9 @@ int main(int argc, char **argv)
 		printf("%s", main.map[i++]);
 	
 	init_math_data(&main, &math);
-
-	main.mlx = mlx_init(1700, HEIGHT, "MLX42", true);
+	main.mlx = mlx_init(2500, HEIGHT, "MLX42", true);
+	printf("%d:", main.mlx->width);
+	printf("%d:", main.mlx->height);
 	if (main.mlx == NULL)
 		return (EXIT_FAILURE);
 	if (render_map_2d(&main) != 0)
