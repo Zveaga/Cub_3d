@@ -62,7 +62,9 @@ int main(int argc, char **argv)
 	// mlx_loop_hook(main.mlx, ft_hook, &main);
 	mlx_key_hook(main.mlx, &move_hook_callback, &main);
 	mlx_loop(main.mlx);
+	printf("%d\n", main.player_pos[0]);
 	mlx_terminate(main.mlx);
-	//ft_main_free(&main);
+	printf("%d\n", main.player_pos[1]);
+	ft_main_free(&main);
 	return (EXIT_SUCCESS);
 }

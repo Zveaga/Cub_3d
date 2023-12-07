@@ -87,7 +87,6 @@ void	free_static_char_buff(int fd);
 //---------------RARES---------------//
 
 void 			ft_hook(void* param);
-//void 			init_math_data(t_main *main);
 void			move_hook_callback(mlx_key_data_t keydata, void *param);
 int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);

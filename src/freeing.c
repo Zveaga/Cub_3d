@@ -41,6 +41,4 @@ void	ft_main_free(t_main *main)
 		ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);
-	if (main->player_pos)
-		free(main->player_pos);
 }

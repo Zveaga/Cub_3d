@@ -3,6 +3,12 @@
 
 int	ft_check_map_name(char	*map_name)
 {
+	int fd;
+
+	fd = open(map_name, O_RDWR, 0644);
+	if (fd == -1)
+		return (close(fd), 1);
+	close(fd);
 	if (!ft_strncmp(&map_name[ft_strlen(map_name) - 4], ".cub", 4))
 		return (0);
 	return (1);
@@ -164,7 +170,6 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
 	if (!main)
 		return (1);
-	//printf("cordinate: |%c|, y: %d\tx: %d\n", main->map[y][x], y, x);
 	if (!main->player_pos)
 		return (1);
 	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
@@ -174,8 +179,8 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 	{
 		// if ((main->map[x + 1][y] && main->map[x + 1][y] == '\n') || (main->map[x - 1][y] && main->map[x - 1][y] == ' '))
 		// 	return (ft_free_double(main->map), 1);
-		if (main->map[y][x] != 'N' || main->map[y][x] != 'S'
-		|| main->map[y][x] != 'W' || main->map[y][x] != 'E')
+		if (main->map[y][x] != 'N' && main->map[y][x] != 'S'
+		&& main->map[y][x] != 'W' && main->map[y][x] != 'E')
 			main->map[y][x] = change;
 		
 		if (flood_fill(main, x + 1, y, '0', 'A'))
@@ -219,6 +224,10 @@ int	ft_map_parsing(int argc, char **argv, t_main *main)
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
 	if (ft_map_checking(argv[1], main) == 1)
-		return (ft_free_double(main->map), ft_putstr_fd("Map Error\n", 2), 1);
+	{
+		if (main->map)
+			ft_free_double(main->map);
+		return (ft_putstr_fd("Map Error\n", 2), 1);
+	}
 	return (0);
 }

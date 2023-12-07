@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/01 16:26:01 by coxer         ########   odam.nl          #
+#    Updated: 2023/12/07 13:34:49 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,13 +62,13 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)  --quiet
 	@printf "$(GREEN)Libft compiled\n$(RESET)"
 
-# $(NAME): $(ODIR) $(OBJECTS)
-# 	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
-# 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
-
 $(NAME): $(ODIR) $(OBJECTS)
-	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
+
+# $(NAME): $(ODIR) $(OBJECTS)
+# 	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+# 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
 
 $(ODIR):
 	@mkdir -p $(ODIR)

@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 13:09:54 by ibehluli      #+#    #+#                 */
-/*   Updated: 2022/10/21 13:18:49 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:23:07 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putstr_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		write(fd, &s[i], 1);
 		i++;
