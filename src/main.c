@@ -20,16 +20,24 @@ static int	render_map_2d(t_main *main)
 	return (0);
 }
 
+void	init_main(t_main *main)
+{
+	main->map = NULL;
+	main->map_line = 0;
+	main->map_name = NULL;
+	main->player_pos = NULL;
+}
+
 int main(int argc, char **argv)
 {
 	t_main	main;
 
+	init_main(&main);
 	if (ft_map_parsing(argc, argv, &main))
 		return (EXIT_FAILURE);
 	int i = 0;
 	while (main.map && main.map[i])
 		printf("%s", main.map[i++]);
-		
 	main.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (main.mlx == NULL)
 		return (EXIT_FAILURE);
@@ -37,7 +45,9 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	mlx_loop_hook(main.mlx, ft_hook, &main);
 	mlx_loop(main.mlx);
+	printf("%d\n", main.player_pos[0]);
 	mlx_terminate(main.mlx);
+	printf("%d\n", main.player_pos[1]);
 	ft_main_free(&main);
 	return (EXIT_SUCCESS);
 }

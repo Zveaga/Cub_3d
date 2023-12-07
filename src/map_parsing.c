@@ -35,7 +35,7 @@ int	find_player_start(t_main *main)
 	int		x;
 	int		y;
 
-	main->player_pos = malloc(3 * sizeof(int));
+	main->player_pos = malloc(2 * sizeof(int));
 	if (!main->player_pos)
 		return (1);
 	y = 0;
