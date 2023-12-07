@@ -34,11 +34,22 @@ void	ft_free_double(char	**double_arr)
 
 void	ft_main_free(t_main *main)
 {
-	// main = NULL;
 	if (!main)
 		return ;
-	if (main->map)
-		ft_free_double(main->map);
+	// if (main->map)
+	// 	ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);
+	if (main->ceiling_color)
+		free(main->ceiling_color);
+	if (main->floor_color)
+		free(main->floor_color);
+	if (main->north_texture)
+		free(main->north_texture);
+	if (main->south_texture)
+		free(main->south_texture);
+	if (main->west_texture)
+		free(main->west_texture);
+	if (main->east_texture)
+		free(main->east_texture);
 }

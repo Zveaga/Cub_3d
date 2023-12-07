@@ -58,6 +58,24 @@ int	find_player_start(t_main *main)
 	return (1);
 }
 
+int ft_isspace(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (1);
+	while (s[i])
+	{
+		if ((s[i] == ' ') || (s[i] == '\t') || (s[i] == '\n')
+		|| (s[i] == '\v') || (s[i] == '\f') || (s[i] == '\r'))
+			i++;
+		else if (s[i])
+			return (0);
+	}
+    return (1);
+}
+
 int	map_length(t_main *main)
 {
 	int		count;
@@ -75,6 +93,8 @@ int	map_length(t_main *main)
 		return (close(fd), 0);
 	while (s)
 	{
+		if (ft_isspace(s))
+			pos--;
 		if (pos >= main->map_line)
 			count++;
 		pos++;
@@ -102,6 +122,8 @@ int	fill_map(t_main *main, int fd)
 		return (close(fd), 1);
 	while (s)
 	{
+		if (ft_isspace(s))
+			pos--;
 		if (pos >= main->map_line)
 		{
 			main->map[i] = ft_strdup(s);
