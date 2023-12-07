@@ -28,47 +28,46 @@ typedef struct s_main
 	char		*map_name;
 	int			*player_pos;
 	int			map_line;
-	
+	uint32_t	**img_buf;
+
 }	t_main ;
+
+// typedef struct s_math
+// {
+// 	t_main	*main;
+// 	float	pX;
+// 	float	pY;
+// 	float	pdX;
+// 	float	pdY;
+// 	float	pa;
+	
+// }			t_math;
 
 typedef struct s_math
 {
 	t_main	*main;
-	float	pX;
-	float	pY;
-	float	pdX;
-	float	pdY;
-	float	pa;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
 
-	
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	sideDistX;
+    double	sideDistY;
+
+
 }			t_math;
-
-// typedef struct s_math
-// {
-// 	double	posX;
-// 	double	posY;
-// 	double	dirX;
-// 	double	dirY;
-// 	double	planeX;
-// 	double	planeY;
-// 	double	time;
-// 	double	oldTime;
-
-// 	double	cameraX;
-// 	double	rayDirX;
-// 	double	rayDirY;
-
-// 	int		mapX;
-// 	int		mapY;
-// 	int		stepX;
-// 	int		stepY;
-// 	double	deltaDistX;
-// 	double	deltaDistY;
-// 	double	sideDistX;
-//     double	sideDistY;
-
-
-// }			t_math;
 
 // int	ft_check_map(char *argv);
 int		ft_map_parsing(int argc, char **argv, t_main *main);
