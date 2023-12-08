@@ -128,7 +128,7 @@ int	fill_map(t_main *main, int fd)
 		{
 			main->map[i] = ft_strdup(s);
 			if (!main->map[i])
-				return (free_static_char_buff(fd), 1);
+				return (free_static_char_buff(fd), free(s), 1);
 			i++;
 		}
 		pos++;
@@ -159,7 +159,7 @@ int	create_map(t_main *main)
 	if (!main->map)
 		return (close (fd), 1);
 	if (fill_map(main, fd))
-		return (1);
+		return (free_static_char_buff(fd), close(fd), 1);
 	close(fd);
 	if (check_if_input_are_valid(main->map))
 		return (1);

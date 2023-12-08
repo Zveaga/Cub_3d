@@ -22,6 +22,7 @@ typedef struct s_main
 	mlx_image_t	*image;
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
+	mlx_image_t	*ceiling;
 	mlx_image_t	*player;
 	mlx_image_t	*dir_line;
 	char		**map;

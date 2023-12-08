@@ -34,10 +34,10 @@ void	ft_free_double(char	**double_arr)
 
 void	ft_main_free(t_main *main)
 {
-	if (!main)
-		return ;
-	// if (main->map)
-	// 	ft_free_double(main->map);
+	// if (!main)
+	// 	return ;
+	if (main->map)
+		ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);
 	if (main->ceiling_color)

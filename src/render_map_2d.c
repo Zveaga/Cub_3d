@@ -194,7 +194,7 @@ int	render_blocks(t_main *main, char **map)
 				if (mlx_image_to_window(main->mlx, main->wall, (j * 64), (i * 64)) == -1)
 					return (mlx_close_window(main->mlx), 1);
 			}
-			else if (map[i][j] == 'A' || map[i][j] == 'N')
+			else if (map[i][j] == 'A' || map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
 			{
 				if (mlx_image_to_window(main->mlx, main->floor, (j * 64), (i * 64)) == -1)
 					return (mlx_close_window(main->mlx), 1);
