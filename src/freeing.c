@@ -52,4 +52,5 @@ void	ft_main_free(t_main *main)
 		free(main->west_texture);
 	if (main->east_texture)
 		free(main->east_texture);
+	//ft_free_array(main->img_buffer, HEIGHT);
 }

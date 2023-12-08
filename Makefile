@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/07 16:31:12 by raanghel      ########   odam.nl          #
+#    Updated: 2023/12/08 15:48:50 by raanghel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SOURCE = \
 	$(SRC_DIR)/map_parsing1.c \
 	$(SRC_DIR)/freeing.c \
 	$(SRC_DIR)/render_test.c \
+	$(SRC_DIR)/image_buffer.c \
 
 CFLAGS = -Wall -Wextra -Werror
 RM = -rf
@@ -62,7 +63,7 @@ $(LIBFT):
 	@printf "$(GREEN)Libft compiled\n$(RESET)"
 
 $(NAME): $(ODIR) $(OBJECTS)
-	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
 
 # $(NAME): $(ODIR) $(OBJECTS)

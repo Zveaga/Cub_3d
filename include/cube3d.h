@@ -3,6 +3,7 @@
 # define CUBE_H
 
 # include <stdio.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <math.h>
 # include "libft.h"
@@ -34,13 +35,13 @@ typedef struct s_main
 	int			*floor_color;
 	int			*player_pos;
 	int			map_line;
-	uint32_t	**img_buf;
+	uint32_t	**img_buffer;
 
 }	t_main ;
 
 typedef struct s_math
 {
-	t_main	*main;
+	struct	s_main	*main;
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -56,10 +57,18 @@ typedef struct s_math
 	int		mapY;
 	int		stepX;
 	int		stepY;
+	int		hit_wall;
+	int		side;
+	
+	int		lineHeight;
+	int		lowestPixel;
+	int		highestPixel;
+
 	double	deltaDistX;
 	double	deltaDistY;
 	double	sideDistX;
     double	sideDistY;
+	double	perpWallDist;
 
 
 }			t_math;
@@ -80,7 +89,9 @@ void	free_static_char_buff(int fd);
 
 //---------------RARES---------------//
 
-void 			ft_hook(void* param);
+
+void			renderer(void *param);
+void			init_image_buffer(t_main *main);
 void			move_hook_callback(mlx_key_data_t keydata, void *param);
 int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);
