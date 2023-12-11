@@ -223,8 +223,8 @@ int	ft_map_checking(char *map_name, t_main *main)
 		return (1);
 	if (find_player_start(main))
 		return (1);
-	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
-		return (1);
+	// if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
+	// 	return (1);
 	return (0);
 }
 
@@ -232,7 +232,9 @@ int	ft_map_parsing(int argc, char **argv, t_main *main)
 {
 	if (argc < 2)
 		return (ft_putstr_fd("Map not inserted\n", 2), 1);
-	if (ft_map_checking(argv[1], main) == 1)
-		return (ft_putstr_fd("Map Error\n", 2), 1);
+	
+	ft_map_checking(argv[1], main);
+	// if (ft_map_checking(argv[1], main) == 1)
+	// 	return (ft_putstr_fd("Map Error\n", 2), 1);
 	return (0);
 }

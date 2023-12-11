@@ -2,6 +2,11 @@
 #include "cube3d.h"
 #include <float.h>
 
+int32_t	set_color(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
 static void	calculate_sideDist(t_math *math)
 {
 	if (math->rayDirX < 0)
@@ -58,7 +63,7 @@ static void	perform_dda(t_math *math)
 			math->mapY += math->stepY;
 			math->side = 1;
 		}
-		if ((math->main->map[math->mapY][math->mapX] == '1'))
+		if (math->main->map[math->mapY][math->mapX] == '1')
 			hit_wall = 1;
 	}
 }
@@ -71,19 +76,19 @@ static void	calculate_line_height(t_math *math)
 		math->perpWallDist = (math->sideDistY - math->deltaDistY);
 	
 	math->lineHeight = (int)(HEIGHT / math->perpWallDist);
-	math->lowestPixel = -math->lineHeight / 2 + HEIGHT / 2;
-	if (math->lowestPixel < 0)
-		math->lowestPixel = 0;
+	math->startPixel = -math->lineHeight / 2 + HEIGHT / 2;
+	if (math->startPixel < 0)
+		math->startPixel = 0;
 	
-	math->highestPixel = math->lineHeight / 2 + HEIGHT / 2;
-	if (math->highestPixel >= HEIGHT)
-		math->highestPixel = HEIGHT - 1;
+	math->endPixel = math->lineHeight / 2 + HEIGHT / 2;
+	if (math->endPixel >= HEIGHT)
+		math->endPixel = HEIGHT - 1;
 }
 
-static void calculate_per_vertical_line(t_math *math, int x)
+void calculate_per_vertical_line(t_math *math, int x)
 {
 	//ray position and direction
-	math->cameraX = 2 * x / (double)WIDTH - 1;
+	math->cameraX = (2 * x) / ((double)WIDTH - 1);
 	math->rayDirX = math->dirX + math->planeX * math->cameraX;
 	math->rayDirY = math->dirY + math->planeY * math->cameraX;
 
@@ -115,11 +120,14 @@ void	renderer(void *param)
 	x = 0;
 	while (x < WIDTH) // for every vertial pixel line
 	{
+		//usleep(1000);
 		calculate_per_vertical_line(main->math, x);
 
-		printf("low_pixel: %d\n", main->math->lowestPixel);
-		printf("high_pixel: %d\n", main->math->highestPixel);
-		printf("line_H: %d\n", main->math->lineHeight);
+		printf("draw start: %d\n", main->math->startPixel);
+		printf("draw end: %d\n", main->math->endPixel);
+		// printf("line_H: %d\n", main->math->lineHeight);
+		// printf("x: %d\n\n", x);
+
 		x++;
 	}
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
