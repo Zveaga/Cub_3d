@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/08 15:48:50 by raanghel      ########   odam.nl          #
+#    Updated: 2023/12/12 17:39:38 by coxer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ SOURCE = \
 	$(SRC_DIR)/map_parsing.c \
 	$(SRC_DIR)/map_parsing1.c \
 	$(SRC_DIR)/freeing.c \
-	$(SRC_DIR)/render_test.c \
+	$(SRC_DIR)/render.c \
 	$(SRC_DIR)/image_buffer.c \
+	$(SRC_DIR)/math_walls.c \
+	$(SRC_DIR)/utils.c \
 
 CFLAGS = -Wall -Wextra -Werror
 RM = -rf

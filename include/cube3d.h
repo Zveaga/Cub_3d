@@ -14,8 +14,6 @@
 
 # define WIDTH 1080
 # define HEIGHT 1080
-# define BLOCK_SIZE 64
-# define PI 3.1415926535
 
 //((int)((float)WIDTH / (4.0 / 3.0)))
 
@@ -101,7 +99,7 @@ int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);
 int32_t			set_color(int r, int g, int b, int a);
 void 			draw_single_vert_line(t_main *main);
-
+void			fill_image_buffer(t_main *main, t_math *math, int x);
 
 
 

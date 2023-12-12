@@ -19,7 +19,22 @@ void	init_image_buffer(t_main *main)
 	}
 }
 
-// void	fill_image_buffer(t_main *main)
-// {
+void	fill_image_buffer(t_main *main, t_math *math, int x)
+{
+	int		y;
+	int32_t	color_1;
+	int32_t	color_2;
 
-// }
+	color_1 = set_color(153, 102, 255, 1000);
+	color_2 = set_color(153, 0, 255, 1000);
+
+	y = math->startPixel;
+	while (y <= math->endPixel)
+	{
+		if (math->side == 1)
+			main->image_buffer[y][x] = color_1;
+		else
+			main->image_buffer[y][x] = color_2;
+		y++;
+	}
+}

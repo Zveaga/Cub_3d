@@ -2,11 +2,6 @@
 #include "cube3d.h"
 #include <float.h>
 
-int32_t	set_color(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
 static void	calculate_sideDist(t_math *math)
 {
 	if (math->rayDirX < 0)
@@ -102,40 +97,3 @@ void calculate_per_vertical_line(t_math *math, int x)
 	calculate_line_height(math);
 
 }
-
-// static void moves(t_main *map, t_math *math)
-// {
-
-// }
-
-void	renderer(void *param)
-{
-	t_main *main;
-	int		x;
-	main = param;
-	
-	printf("%f\n", main->math->posX);
-	printf("%f\n", main->math->posY);
-
-	x = 0;
-	while (x < WIDTH) // for every vertial pixel line
-	{
-		//usleep(1000);
-		calculate_per_vertical_line(main->math, x);
-
-		printf("draw start: %d\n", main->math->startPixel);
-		printf("draw end: %d\n", main->math->endPixel);
-		// printf("line_H: %d\n", main->math->lineHeight);
-		// printf("x: %d\n\n", x);
-
-		x++;
-	}
-	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(main->mlx);
-		exit(EXIT_SUCCESS);
-	}
-
-
-}
-
