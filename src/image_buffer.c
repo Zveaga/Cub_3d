@@ -38,3 +38,23 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 		y++;
 	}
 }
+
+void clear_image_buffer(t_main *main)
+{
+	// printf("+++++\n");
+
+	int	x;
+	int	y;
+
+	x = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x< WIDTH)
+		{
+			main->image_buffer[y][x] = 0;
+			x++;
+		}
+		y++;
+	}
+}

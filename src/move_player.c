@@ -1,14 +1,19 @@
 
 #include "cube3d.h"
 
-#define ROT_SPEED 0.05
-#define MOV_SPEED 0.05
+#define ROT_SPEED 0.03
+#define MOV_SPEED 0.03
+
+#define FORWARD 1
+#define BACK -1
+#define LEFT -1
+#define RIGHT 1
 
 void	move_up(t_main *main, t_math *math)
 {
-	if(main->map[(int)(math->posX + math->dirX * MOV_SPEED)][(int)math->posY] != '1')
+	if (main->map[(int)(math->posX + math->dirX * MOV_SPEED)][(int)math->posY] != '1')
 		math->posX += math->dirX * MOV_SPEED;
-    if(main->map[(int)math->posX][(int)(math->posY + math->dirY * MOV_SPEED)] != '1')
+    if (main->map[(int)math->posX][(int)(math->posY + math->dirY * MOV_SPEED)] != '1')
 		math->posY += math->dirY * MOV_SPEED;
 }
 

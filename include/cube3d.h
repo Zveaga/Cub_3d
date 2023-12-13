@@ -105,6 +105,8 @@ void			move_up(t_main *main, t_math *math);
 void			move_back(t_main *main, t_math *math);
 void			turn_right(t_math *math);
 void			turn_left(t_math *math);
+void 			clear_image_buffer(t_main *main);
+
 
 
 

@@ -68,7 +68,7 @@ static void	calculate_line_height(t_math *math)
 		math->perpWallDist = (math->sideDistX - math->deltaDistX);
 	else
 		math->perpWallDist = (math->sideDistY - math->deltaDistY);
-	
+
 	math->lineHeight = (int)(HEIGHT / math->perpWallDist);
 	math->startPixel = -math->lineHeight / 2 + HEIGHT / 2;
 	if (math->startPixel < 0)
@@ -82,9 +82,9 @@ static void	calculate_line_height(t_math *math)
 void calculate_per_vertical_line(t_math *math, int x)
 {
 	//ray position and direction
-	math->cameraX = (2 * x) / ((double)WIDTH - 1);
-	math->rayDirX = math->dirX + math->planeX * math->cameraX;
-	math->rayDirY = math->dirY + math->planeY * math->cameraX;
+	math->cameraX = 2 * (x / (double)WIDTH) - 1;
+	math->rayDirX = math->dirX + (math->planeX * math->cameraX);
+	math->rayDirY = math->dirY + (math->planeY * math->cameraX);
 
 	//in which box we are in
 	math->mapX = (int)math->posX;

@@ -2,13 +2,7 @@
 #include "cube3d.h"
 #include <float.h>
 
-/* Player initial orientation (for setting NO, SO, WE, EA)
 
-	Up    -> dirX = 0; dirY = -1;
-	Down  -> dirX = 0; dirY = 1;
-	Left  -> dirX = -1; dirY = 0;
-	Right -> dirX = 1; dirY = 0;
-*/
 
 static void get_key_input(t_main *main, t_math *math)
 {
@@ -42,12 +36,13 @@ static void put_pixels_to_image(t_main *main)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx_put_pixel(main->image, x, y, (uint32_t)main->image_buffer[y][x]);
+			mlx_put_pixel(main->image, x, y, main->image_buffer[y][x]);
 			x++;
 		}
 		y++;
 	}
 }
+
 
 void	renderer(void *param)
 {
@@ -55,6 +50,8 @@ void	renderer(void *param)
 	int		x;
 	main = param;
 	
+	memset(main->image->pixels, 0, WIDTH * HEIGHT);
+
 	x = 0;
 	while (x < WIDTH) // for every vertial pixel line
 	{
@@ -68,8 +65,9 @@ void	renderer(void *param)
 
 		x++;
 	}
+
 	put_pixels_to_image(main);
-	mlx_image_to_window(main->mlx, main->image, 0, 0);
+	//clear_image_buffer(main);
 	get_key_input(main, main->math);
 
 }
