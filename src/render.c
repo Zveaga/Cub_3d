@@ -10,37 +10,25 @@
 	Right -> dirX = 1; dirY = 0;
 */
 
-
-
-
-// static void moves(t_main *map, t_math *math)
-// {
-
-// }
-
-
-void draw_single_vert_line(t_main *main)
+static void get_key_input(t_main *main, t_math *math)
 {
-	//middle vertical line
-	//calculate_per_vertical_line(math, WIDTH / 2);
-	// leftmost vertical line
-	//calculate_per_vertical_line(math, 0);
-	// rightmost vertical line
-	//calculate_per_vertical_line(math, WIDTH);
-
-	int	line_height = main->math->lineHeight;
-	int start = main->math->startPixel;
-	int end = main->math->endPixel;
-
-	while (line_height > 0)
+	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_put_pixel(main->image, end, start, set_color(102, 153, 255, 1000));
-		line_height--;
-		start++;
+		mlx_close_window(main->mlx);
+		exit(EXIT_SUCCESS);
 	}
-	printf("draw start: %d\n", main->math->startPixel);
-	printf("draw end:   %d\n", main->math->endPixel);
-	printf("line_H:     %d\n", main->math->lineHeight);
+	if (mlx_is_key_down(main->mlx, MLX_KEY_W))
+		move_up(main, math);
+	if (mlx_is_key_down(main->mlx, MLX_KEY_S))
+		move_back(main, math);
+	if (mlx_is_key_down(main->mlx, MLX_KEY_LEFT))
+		turn_left(math);
+	if (mlx_is_key_down(main->mlx, MLX_KEY_RIGHT))
+		turn_right(math);
+	// if (mlx_is_key_down(main->mlx, MLX_KEY_A))
+	// 	move_left();
+	// if (mlx_is_key_down(main->mlx, MLX_KEY_D))
+	// 	move_right();
 }
 
 static void put_pixels_to_image(t_main *main)
@@ -67,9 +55,6 @@ void	renderer(void *param)
 	int		x;
 	main = param;
 	
-	printf("%f\n", main->math->posX);
-	printf("%f\n", main->math->posY);
-
 	x = 0;
 	while (x < WIDTH) // for every vertial pixel line
 	{
@@ -85,14 +70,11 @@ void	renderer(void *param)
 	}
 	put_pixels_to_image(main);
 	mlx_image_to_window(main->mlx, main->image, 0, 0);
-	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(main->mlx);
-		exit(EXIT_SUCCESS);
-	}
-
+	get_key_input(main, main->math);
 
 }
+
+
 
 // static void test_render(t_main *main)
 // {
@@ -110,3 +92,20 @@ void	renderer(void *param)
 // 	mlx_image_to_window(main->mlx, main->image, 0, 0);
 // }
 
+
+// void draw_single_vert_line(t_main *main)
+// {
+// 	int	line_height = main->math->lineHeight;
+// 	int start = main->math->startPixel;
+// 	int end = main->math->endPixel;
+
+// 	while (line_height > 0)
+// 	{
+// 		mlx_put_pixel(main->image, end, start, set_color(102, 153, 255, 1000));
+// 		line_height--;
+// 		start++;
+// 	}
+// 	printf("draw start: %d\n", main->math->startPixel);
+// 	printf("draw end:   %d\n", main->math->endPixel);
+// 	printf("line_H:     %d\n", main->math->lineHeight);
+// }

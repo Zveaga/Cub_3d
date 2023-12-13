@@ -12,7 +12,7 @@ static void	calculate_sideDist(t_math *math)
 	else
 	{
 		math->stepX = 1;
-		math->sideDistX = (math->mapX + 1 + math->posX) * math->deltaDistX;
+		math->sideDistX = (math->mapX + 1.0 - math->posX) * math->deltaDistX;
 	}
 	if (math->rayDirY < 0)
 	{
@@ -22,7 +22,7 @@ static void	calculate_sideDist(t_math *math)
 	else
 	{
 		math->stepY = 1;
-		math->sideDistY = (math->mapY + 1 + math->posY) * math->deltaDistY;
+		math->sideDistY = (math->mapY + 1.0 - math->posY) * math->deltaDistY;
 	}
 }
 
@@ -32,7 +32,6 @@ static void	calculate_deltaDist(t_math *math)
 		math->deltaDistX = INT32_MAX;
 	else
 		math->deltaDistX = fabs(1 / math->rayDirX);
-
 	if (math->rayDirY == 0)
 		math->deltaDistY = INT32_MAX;
 	else
