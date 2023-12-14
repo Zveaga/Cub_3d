@@ -37,7 +37,7 @@ int	path_check(t_main *main, char	*s, char face)
 		return (0);
 	s1 = ft_strtrim(s, " 	\n");
 	if (!s1)
-		return (1);
+		return (free(s1) , 1);
 	temp = mlx_load_png(s1);
 	if (!temp)
 		return (free(s1), 1);
@@ -156,6 +156,8 @@ int	check_credentials_value(t_main *main, char *s)
 		else
 			break;
     }
+	if (!s[i])
+		return (0);
 	if (!ft_strnstr(s + i, "NO", 2) || !ft_strnstr(s + i, "SO", 2)
 		|| !ft_strnstr(s + i, "WE", 2) || !ft_strnstr(s + i, "EA", 2)
 		|| !ft_strnstr(s + i, "F", 1) || !ft_strnstr(s + i, "C", 1))
@@ -203,7 +205,7 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
 	if (!main)
 		return (1);
-	if (!main->player_pos)
+	if (!main->player_pos || x < 0 || y < 0)
 		return (1);
 	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
 		return (1);

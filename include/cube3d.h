@@ -72,6 +72,7 @@ int		ft_map_checking(char *map_name, t_main *main);
 int		check_if_input_are_valid(char **map);
 int		find_player_start(t_main *main);
 int		create_map(t_main *main);
+int		ft_isspace(char *s);
 
 // free
 void	ft_free_double(char	**double_arr);
