@@ -51,8 +51,6 @@ void fill_ceiling_floor(t_main *main)
 
 	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
 	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
-	// printf("%d %d %d\n", main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2]);
-	// printf("%d %d %d\n", main->floor_color[0], main->floor_color[1],main->floor_color[2]);
 	y = 0;
 	while (y < HEIGHT / 2)
 	{
@@ -74,7 +72,6 @@ void fill_ceiling_floor(t_main *main)
 		}
 		y++;
 	}
-	//put_pixels_to_image(main);
 }
 
 void	renderer(void *param)

@@ -112,9 +112,7 @@ void			turn_right(t_math *math);
 void			turn_left(t_math *math);
 void 			clear_image_buffer(t_main *main);
 void 			fill_ceiling_floor(t_main *main);
-
-
-
+void			set_player_direction(t_math *math);
 
 
 
