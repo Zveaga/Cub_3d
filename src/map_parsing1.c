@@ -57,17 +57,13 @@ int	path_check(t_main *main, char	*s, char face)
 
 void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
 {
+	if (!split_color_value || !split_color_value[0] || !split_color_value[1] || !split_color_value[2])
+			return ;
 	if (floor_or_ceiling == 'C')
 	{
-		main->ceiling_color = malloc(sizeof(int) * 3);
-		if (!main->ceiling_color || split_color_value[0])
+		main->ceiling_color = (int *) malloc(sizeof(int) * 3);
+		if (!main->ceiling_color)
 			return ;
-		if (!split_color_value[1] || !split_color_value[2])
-		{
-			free(main->ceiling_color);
-			free(main->floor_color);
-			return ;
-		}
 		main->ceiling_color[0] = ft_atoi(split_color_value[0]);
 		main->ceiling_color[1] = ft_atoi(split_color_value[1]);
 		main->ceiling_color[2] = ft_atoi(split_color_value[2]);
@@ -75,14 +71,8 @@ void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
 	else
 	{
 		main->floor_color = (int *) malloc(sizeof(int) * 3);
-		if (!main->floor_color || split_color_value[0])
+		if (!main->floor_color)
 			return ;
-		if (!split_color_value[1] || !split_color_value[2])
-		{
-			free(main->ceiling_color);
-			free(main->floor_color);
-			return ;
-		}
 		main->floor_color[0] = ft_atoi(split_color_value[0]);
 		main->floor_color[1] = ft_atoi(split_color_value[1]);
 		main->floor_color[2] = ft_atoi(split_color_value[2]);
@@ -100,7 +90,7 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 		return (1);
 	if ((floor_or_ceiling == 'C' && main->ceiling_color) || (floor_or_ceiling == 'F' && main->floor_color))
 		return (1);
-	s1 = ft_strtrim(s + i, " 	\n");
+	s1 = ft_strtrim(s + i, " \n");
 	if (!s1)
 		return (1);
 	split_color_value = ft_split(s1, ',');
@@ -156,8 +146,6 @@ int	check_credentials_value(t_main *main, char *s)
 		else
 			break;
     }
-	if (!s[i])
-		return (0);
 	if (!ft_strnstr(s + i, "NO", 2) || !ft_strnstr(s + i, "SO", 2)
 		|| !ft_strnstr(s + i, "WE", 2) || !ft_strnstr(s + i, "EA", 2)
 		|| !ft_strnstr(s + i, "F", 1) || !ft_strnstr(s + i, "C", 1))
@@ -186,10 +174,13 @@ int	check_credentials(t_main *main)
 	main->map_line = 0;
 	while (s)
 	{
-		if (!check_credentials_value(main, s))
-			count++;
-		else
-			return (free(s), free_static_char_buff(fd), 1);
+		if (!ft_isspace(s))
+		{
+			if (!check_credentials_value(main, s))
+				count++;
+			else
+				return (free(s), free_static_char_buff(fd), 1);
+		}
 		main->map_line++;
 		free(s);
 		if (count == 6)

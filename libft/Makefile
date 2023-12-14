@@ -48,6 +48,7 @@ SRCS =		srcs/ft_isalpha.c \
 			srcs/ft_lstclear.c \
 			srcs/ft_lstiter.c \
 			srcs/ft_lstmap.c \
+			srcs/ft_free_array.c \
 
 OBJECTS := $(patsubst $(SRCDIR)%,$(OBJDIR)%,$(SRCS:.c=.o))
 

@@ -3,7 +3,7 @@
 
 
 // USE THIS TO SET COLOR AS A SINGLE INT
-static int32_t	set_color(int r, int g, int b, int a)
+int32_t	set_color(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }

@@ -3,6 +3,7 @@
 # define CUBE_H
 
 # include <stdio.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <math.h>
 # include "libft.h"
@@ -10,10 +11,11 @@
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
 
-# define WIDTH 2048
-# define HEIGHT 2048
-# define BLOCK_SIZE 64
-# define PI 3.1415926535
+
+# define WIDTH 2080
+# define HEIGHT 1500
+
+//((int)((float)WIDTH / (4.0 / 3.0)))
 
 typedef struct s_main
 {
@@ -35,13 +37,13 @@ typedef struct s_main
 	int			*floor_color;
 	int			*player_pos;
 	int			map_line;
-	uint32_t	**img_buf;
+	uint32_t	**image_buffer;
 
 }	t_main ;
 
 typedef struct s_math
 {
-	t_main	*main;
+	struct	s_main	*main;
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -57,10 +59,18 @@ typedef struct s_math
 	int		mapY;
 	int		stepX;
 	int		stepY;
+	int		hit_wall;
+	int		side;
+	
+	int		lineHeight;
+	int		startPixel;
+	int		endPixel;
+
 	double	deltaDistX;
 	double	deltaDistY;
 	double	sideDistX;
     double	sideDistY;
+	double	perpWallDist;
 
 
 }			t_math;
@@ -82,10 +92,28 @@ void	free_static_char_buff(int fd);
 
 //---------------RARES---------------//
 
-void 			ft_hook(void* param);
+
+void			renderer(void *param);
+void			init_image_buffer(t_main *main);
 void			move_hook_callback(mlx_key_data_t keydata, void *param);
+void 			calculate_per_vertical_line(t_math *math, int x);
 int 			render_blocks(t_main *main, char **map);
 int				render_player(t_main *main, char **map);
+int32_t			set_color(int r, int g, int b, int a);
+void 			draw_single_vert_line(t_main *main);
+void			fill_image_buffer(t_main *main, t_math *math, int x);
+
+void			move_up(t_main *main, t_math *math);
+void			move_back(t_main *main, t_math *math);
+void			turn_right(t_math *math);
+void			turn_left(t_math *math);
+void 			clear_image_buffer(t_main *main);
+void 			fill_ceiling_floor(t_main *main);
+
+
+
+
+
 
 mlx_image_t 	*create_block_image(int block_type, t_main *main);
 mlx_image_t 	*create_player_image(t_main *main);

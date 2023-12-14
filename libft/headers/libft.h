@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 14:03:16 by ibehluli      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:14:07 by ibehluli      ########   odam.nl         */
+/*   Updated: 2023/12/08 15:56:03 by raanghel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,8 @@ t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 
 char	*get_next_line(int fd);
+
+void	ft_free_array(char **arr);
+
 
 #endif
