@@ -30,34 +30,38 @@ int	ft_all_number(char *s)
 
 int	path_check(t_main *main, char	*s, char face)
 {
-	int		fd;
 	char	*s1;
+	mlx_texture_t	*temp;
 
 	if (!s)
 		return (0);
 	s1 = ft_strtrim(s, " 	\n");
 	if (!s1)
-		return (1);
-	fd = open(s1, O_RDONLY, 0644);
-	if (fd == -1)
+		return (free(s1) , 1);
+	temp = mlx_load_png(s1);
+	if (!temp)
 		return (free(s1), 1);
-	close(fd);
-	if (face == 'N')
+	mlx_delete_texture(temp);
+	if (face == 'N' && !main->north_texture)
 		main->north_texture = s1;
-	else if (face == 'S')
+	else if (face == 'S' && !main->south_texture)
 		main->south_texture = s1;
-	else if (face == 'W')
+	else if (face == 'W' && !main->west_texture)
 		main->west_texture = s1;
-	else if (face == 'E')
+	else if (face == 'E' && !main->east_texture)
 		main->east_texture = s1;
+	else
+		return (free(s1), 1);
 	return (0);
 }
 
 void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
 {
+	if (!split_color_value || !split_color_value[0] || !split_color_value[1] || !split_color_value[2])
+			return ;
 	if (floor_or_ceiling == 'C')
 	{
-		main->ceiling_color = malloc(sizeof(int) * 3);
+		main->ceiling_color = (int *) malloc(sizeof(int) * 3);
 		if (!main->ceiling_color)
 			return ;
 		main->ceiling_color[0] = ft_atoi(split_color_value[0]);
@@ -82,9 +86,11 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 	char	*s1;
 
 	i = 1;
-	if (!s)
+	if (!s || !main)
 		return (1);
-	s1 = ft_strtrim(s + i, " 	\n");
+	if ((floor_or_ceiling == 'C' && main->ceiling_color) || (floor_or_ceiling == 'F' && main->floor_color))
+		return (1);
+	s1 = ft_strtrim(s + i, " \n");
 	if (!s1)
 		return (1);
 	split_color_value = ft_split(s1, ',');
@@ -101,6 +107,10 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 		i++;
 	}
 	assign_color(main, split_color_value, floor_or_ceiling);
+	if (floor_or_ceiling == 'F' && !main->floor_color)
+		return (1);
+	if (floor_or_ceiling == 'C' && !main->ceiling_color)
+		return (1);
 	ft_free_double(split_color_value);
 	return (0);
 }
@@ -127,9 +137,11 @@ int	check_credentials_value(t_main *main, char *s)
 	
 	i = 0;
 	flag = 0;
+	if (!main || !s)
+		return (1);
 	while(s && s[i])
 	{
-		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+		if (s[i] == ' ' || s[i] == '\n')
 			i++;
 		else
 			break;
@@ -162,10 +174,13 @@ int	check_credentials(t_main *main)
 	main->map_line = 0;
 	while (s)
 	{
-		if (!check_credentials_value(main, s))
-			count++;
-		else
-			return (free(s), close(fd), 1);
+		if (!ft_isspace(s))
+		{
+			if (!check_credentials_value(main, s))
+				count++;
+			else
+				return (free(s), free_static_char_buff(fd), 1);
+		}
 		main->map_line++;
 		free(s);
 		if (count == 6)
@@ -174,7 +189,6 @@ int	check_credentials(t_main *main)
 		if (!s)
 			break ;
 	}
-	free_static_char_buff(fd);
 	return (0);
 }
 
@@ -182,7 +196,7 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
 	if (!main)
 		return (1);
-	if (!main->player_pos)
+	if (!main->player_pos || x < 0 || y < 0)
 		return (1);
 	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
 		return (1);
