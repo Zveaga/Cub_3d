@@ -103,6 +103,8 @@ int32_t			set_color(int r, int g, int b, int a);
 void 			draw_single_vert_line(t_main *main);
 void			fill_image_buffer(t_main *main, t_math *math, int x);
 
+void			move_right(t_main *main, t_math *math);
+void			move_left(t_main *main, t_math *math);
 void			move_up(t_main *main, t_math *math);
 void			move_back(t_main *main, t_math *math);
 void			turn_right(t_math *math);

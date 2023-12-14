@@ -38,10 +38,10 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 	}
 }
 
-// static void print_map(uint32_t **map)
+// static void print_img_buf(uint32_t **map)
 // {
-// 	for (int i = 0; map[i]; i++)
-// 		for (int j = 0; map[i][j]; j++)
+// 	for (int i = 0; i < HEIGHT; i++)
+// 		for (int j = 0; j < WIDTH; j++)
 // 			printf("%d", map[i][j]);
 // }
 
@@ -63,6 +63,7 @@ void clear_image_buffer(t_main *main)
 		}
 		y++;
 	}
+	// printf("+++++++\n");
 	// ft_free_array(main->image_buffer, HEIGHT);
-	//print_map(main->image_buffer);
+	// print_img_buf(main->image_buffer);
 }

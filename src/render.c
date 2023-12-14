@@ -19,10 +19,10 @@ static void get_key_input(t_main *main, t_math *math)
 		turn_left(math);
 	if (mlx_is_key_down(main->mlx, MLX_KEY_RIGHT))
 		turn_right(math);
-	// if (mlx_is_key_down(main->mlx, MLX_KEY_A))
-	// 	move_left();
-	// if (mlx_is_key_down(main->mlx, MLX_KEY_D))
-	// 	move_right();
+	if (mlx_is_key_down(main->mlx, MLX_KEY_A))
+		move_left(main, math);
+	if (mlx_is_key_down(main->mlx, MLX_KEY_D))
+		move_right(main, math);
 }
 
 static void put_pixels_to_image(t_main *main)
@@ -53,6 +53,8 @@ void fill_ceiling_floor(t_main *main)
 
 	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
 	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
+	// printf("%d %d %d\n", main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2]);
+	// printf("%d %d %d\n", main->floor_color[0], main->floor_color[1],main->floor_color[2]);
 	y = 0;
 	while (y < HEIGHT / 2)
 	{
@@ -87,7 +89,6 @@ void	renderer(void *param)
 	fill_ceiling_floor(main);
 	while (x < WIDTH) // for every vertial pixel line
 	{
-		// main->image->enabled = true;
 		calculate_per_vertical_line(main->math, x);
 		fill_image_buffer(main, main->math, x);
 
@@ -100,7 +101,7 @@ void	renderer(void *param)
 	}
 
 	put_pixels_to_image(main);
-	//clear_image_buffer(main);
+	clear_image_buffer(main);
 	get_key_input(main, main->math);
 
 }
