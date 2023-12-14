@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 	//print_map(main.map);
 	//draw_single_vert_line(&math, &main);
 	//test_render(&main);
-	fill_ceiling_floor(&main);
+	//fill_ceiling_floor(&main);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);

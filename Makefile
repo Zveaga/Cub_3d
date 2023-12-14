@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/13 09:45:24 by coxer         ########   odam.nl          #
+#    Updated: 2023/12/14 16:14:55 by raanghel      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,7 @@ SOURCE = \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/move_player.c \
 
-
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -mtune=native
 RM = -rf
 
 NAME = cub3D
