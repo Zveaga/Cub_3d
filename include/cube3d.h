@@ -19,24 +19,25 @@
 
 typedef struct s_main
 {
-	struct s_math *math;
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*player;
-	mlx_image_t	*dir_line;
-	char		**map;
-	char		*map_name;
-	char		*north_texture;
-	char		*south_texture;
-	char		*west_texture;
-	char		*east_texture;
-	int			*ceiling_color;
-	int			*floor_color;
-	int			*player_pos;
-	int			map_line;
-	uint32_t	**image_buffer;
+	struct s_math	*math;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	mlx_image_t		*wall;
+	mlx_image_t		*floor;
+	mlx_image_t		*player;
+	mlx_image_t		*dir_line;
+	char			**map;
+	char			direction;
+	char			*map_name;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+	int				*ceiling_color;
+	int				*floor_color;
+	int				*player_pos;
+	int				map_line;
+	uint32_t		**image_buffer;
 
 }	t_main ;
 

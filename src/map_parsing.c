@@ -49,6 +49,7 @@ int	find_player_start(t_main *main)
 			{
 				main->player_pos[0] = x;
 				main->player_pos[1] = y;
+				main->direction = main->map[y][x];
 				return (0);
 			}
 			x++;

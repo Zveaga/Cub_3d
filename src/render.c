@@ -2,8 +2,6 @@
 #include "cube3d.h"
 #include <float.h>
 
-
-
 static void get_key_input(t_main *main, t_math *math)
 {
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))

@@ -11,12 +11,16 @@
 
 static void init_math(t_main *main, t_math *math)
 {
+
 	math->posX = (double)main->player_pos[0] + 0.5;
 	math->posY = (double)main->player_pos[1] + 0.5;
 	math->dirX = 0;
 	math->dirY = -1;
 	math->planeX = 0.66;
 	math->planeY = 0;
+
+	
+
 	// printf("posX: %d\n", (int)math->posX);
 	// printf("posY: %d\n", (int)math->posY);
 }
@@ -54,20 +58,16 @@ int main(int argc, char **argv)
 		//free
 		exit(EXIT_FAILURE);	
 	}
-	//printf("HEIGHT: %d\n", HEIGHT);
-	// printf("posX: %.0f | %.f px \n", main.math->posX, WIDTH / main.math->posX);
-	// printf("posY: %.0f | %.f px\n", main.math->posY, HEIGHT / main.math->posY);
-
-	// printf("wallX: %d | %d px \n", 3, WIDTH / 3);
-	// printf("wallY: %d | %d px\n\n", 2, HEIGHT / 2);
-
-	//print_map(main.map);
-	//draw_single_vert_line(&math, &main);
-	//test_render(&main);
-	//fill_ceiling_floor(&main);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);
 	ft_main_free(&main);
 	return (EXIT_SUCCESS);
 }
+
+
+//printf("HEIGHT: %d\n", HEIGHT);
+// printf("posX: %.0f | %.f px \n", main.math->posX, WIDTH / main.math->posX);
+// printf("posY: %.0f | %.f px\n", main.math->posY, HEIGHT / main.math->posY);
+// printf("wallX: %d | %d px \n", 3, WIDTH / 3);
+// printf("wallY: %d | %d px\n\n", 2, HEIGHT / 2);
