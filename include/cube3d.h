@@ -12,8 +12,8 @@
 # include "MLX42/MLX42_Int.h"
 
 
-# define WIDTH 1080
-# define HEIGHT 1080
+# define WIDTH 2080
+# define HEIGHT 1500
 
 //((int)((float)WIDTH / (4.0 / 3.0)))
 
@@ -106,6 +106,8 @@ void			move_back(t_main *main, t_math *math);
 void			turn_right(t_math *math);
 void			turn_left(t_math *math);
 void 			clear_image_buffer(t_main *main);
+void 			fill_ceiling_floor(t_main *main);
+
 
 
 

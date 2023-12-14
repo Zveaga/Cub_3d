@@ -11,12 +11,12 @@
 
 static void init_math(t_main *main, t_math *math)
 {
-	math->posX = (double)main->player_pos[0];
-	math->posY = (double)main->player_pos[1];
-	math->dirX = 1;
-	math->dirY = 0;
-	math->planeX = 0;
-	math->planeY = 0.66;
+	math->posX = (double)main->player_pos[0] + 0.5;
+	math->posY = (double)main->player_pos[1] + 0.5;
+	math->dirX = 0;
+	math->dirY = -1;
+	math->planeX = 0.66;
+	math->planeY = 0;
 	// printf("posX: %d\n", (int)math->posX);
 	// printf("posY: %d\n", (int)math->posY);
 }
@@ -39,7 +39,6 @@ int	init_data(t_main *main, t_math *math)
 	math->main = main;
 	return (0);
 }
-
 
 
 int main(int argc, char **argv)
@@ -65,9 +64,10 @@ int main(int argc, char **argv)
 	//print_map(main.map);
 	//draw_single_vert_line(&math, &main);
 	//test_render(&main);
+	fill_ceiling_floor(&main);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);
-	//ft_main_free(&main);
+	ft_main_free(&main);
 	return (EXIT_SUCCESS);
 }

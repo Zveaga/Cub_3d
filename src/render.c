@@ -44,17 +44,50 @@ static void put_pixels_to_image(t_main *main)
 }
 
 
+void fill_ceiling_floor(t_main *main)
+{
+	int32_t	floor_color;
+	int32_t	ceiling_color;
+	int		x;
+	int		y;
+
+	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
+	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			main->image_buffer[y][x] = ceiling_color;
+			x++;
+		}
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			main->image_buffer[y][x] = floor_color;
+			x++;
+		}
+		y++;
+	}
+	//put_pixels_to_image(main);
+}
+
 void	renderer(void *param)
 {
 	t_main *main;
 	int		x;
 	main = param;
 	
-	memset(main->image->pixels, 0, WIDTH * HEIGHT);
-
 	x = 0;
+	fill_ceiling_floor(main);
 	while (x < WIDTH) // for every vertial pixel line
 	{
+		// main->image->enabled = true;
 		calculate_per_vertical_line(main->math, x);
 		fill_image_buffer(main, main->math, x);
 

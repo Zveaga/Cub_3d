@@ -1,13 +1,9 @@
 
 #include "cube3d.h"
 
-#define ROT_SPEED 0.03
-#define MOV_SPEED 0.03
+#define ROT_SPEED 0.2
+#define MOV_SPEED 0.2
 
-#define FORWARD 1
-#define BACK -1
-#define LEFT -1
-#define RIGHT 1
 
 void	move_up(t_main *main, t_math *math)
 {
@@ -51,4 +47,5 @@ void	turn_left(t_math *math)
 	oldPlaneX = math->planeX;
 	math->planeX = math->planeX * cos(-ROT_SPEED) - math->planeY * sin(-ROT_SPEED);
 	math->planeY = oldPlaneX * sin(-ROT_SPEED) + math->planeY * cos(-ROT_SPEED);
+	printf("x: %.f, y: %.f\n", math->planeX, math->planeY);
 }

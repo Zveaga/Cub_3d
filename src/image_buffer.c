@@ -27,7 +27,6 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 
 	color_1 = set_color(153, 102, 255, 1000);
 	color_2 = set_color(153, 0, 255, 1000);
-
 	y = math->startPixel;
 	while (y <= math->endPixel)
 	{
@@ -39,6 +38,13 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 	}
 }
 
+// static void print_map(uint32_t **map)
+// {
+// 	for (int i = 0; map[i]; i++)
+// 		for (int j = 0; map[i][j]; j++)
+// 			printf("%d", map[i][j]);
+// }
+
 void clear_image_buffer(t_main *main)
 {
 	// printf("+++++\n");
@@ -46,7 +52,7 @@ void clear_image_buffer(t_main *main)
 	int	x;
 	int	y;
 
-	x = 0;
+	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -57,4 +63,6 @@ void clear_image_buffer(t_main *main)
 		}
 		y++;
 	}
+	// ft_free_array(main->image_buffer, HEIGHT);
+	//print_map(main->image_buffer);
 }
