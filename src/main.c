@@ -11,8 +11,6 @@
 
 static void init_math(t_main *main, t_math *math)
 {
-
-	
 	math->posX = (double)main->player_pos[0] + 0.5;
 	math->posY = (double)main->player_pos[1] + 0.5;
 
@@ -38,6 +36,7 @@ void	init_main(t_main *main)
 	main->map_line = -1;
 	main->image = NULL;
 	main->image_buffer = NULL;
+	main->mlx = NULL;
 }
 
 int	init_images(t_main *main)
@@ -55,7 +54,6 @@ int	init_images(t_main *main)
 	return (0);
 }
 
-
 int main(int argc, char **argv)
 {
 	t_main	main;
@@ -66,15 +64,12 @@ int main(int argc, char **argv)
 		return (ft_main_free(&main), EXIT_FAILURE);
 	init_math(&main, &math);
 	if (init_images(&main) == 1)
-	{
-		//free
-		exit(EXIT_FAILURE);	
-	}
+		return (ft_main_free(&main), EXIT_FAILURE);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);
 	ft_main_free(&main);
-	return (exit(EXIT_SUCCESS), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 

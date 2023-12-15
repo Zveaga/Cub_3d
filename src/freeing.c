@@ -32,6 +32,21 @@ void	ft_free_double(char	**double_arr)
 		free(double_arr);
 }
 
+void	free_image_buffer(uint32_t **img_buf)
+{
+	int	i;
+
+	i = 0;
+	if (img_buf == NULL)
+		return ;
+	while (i < HEIGHT)
+	{
+		free(img_buf[i]);
+		i++;
+	}
+	free(img_buf);
+}
+
 void	ft_main_free(t_main *main)
 {
 	// if (!main)
@@ -52,5 +67,10 @@ void	ft_main_free(t_main *main)
 		free(main->west_texture);
 	if (main->east_texture)
 		free(main->east_texture);
-	//ft_free_array(main->img_buffer, HEIGHT);
+	if (main->image)
+		mlx_delete_image(main->mlx, main->image);
+	free_image_buffer(main->image_buffer);
+	main->image_buffer = NULL;
+	mlx_terminate(main->mlx);
+
 }

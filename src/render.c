@@ -7,6 +7,7 @@ static void get_key_input(t_main *main, t_math *math)
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(main->mlx);
+		ft_main_free(main);
 		exit(EXIT_SUCCESS);
 	}
 	if (mlx_is_key_down(main->mlx, MLX_KEY_W))
