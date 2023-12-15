@@ -137,7 +137,11 @@ int main(int argc, char **argv)
 	//draw_single_vert_line(&math, &main);
 	//test_render(&main);
 	// fill_ceiling_floor(&main);
-	// put_texture(&main);
+	if (put_texture(&main))
+	{
+		ft_main_free(&main);
+		return (exit(EXIT_SUCCESS), EXIT_SUCCESS);
+	}
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);

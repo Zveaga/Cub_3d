@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/14 17:57:35 by ibehluli      ########   odam.nl          #
+#    Updated: 2023/12/14 18:05:08 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SOURCE = \
 	$(SRC_DIR)/math_walls.c \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/move_player.c \
+	$(SRC_DIR)/load_txt.c \
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -mtune=native
 RM = -rf
