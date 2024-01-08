@@ -72,5 +72,4 @@ void	ft_main_free(t_main *main)
 	free_image_buffer(main->image_buffer);
 	main->image_buffer = NULL;
 	mlx_terminate(main->mlx);
-
 }

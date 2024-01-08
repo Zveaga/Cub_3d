@@ -1,19 +1,12 @@
 
 #include "cube3d.h"
 
-/* Player initial orientation (for setting NO, SO, WE, EA)
 
-	Up    -> dirX = 0; dirY = -1; AND planeX = 0.66; planeY = 0;
-	Down  -> dirX = 0; dirY = 1;  AND planeX = 0.66; planeY = 0;
-	Left  -> dirX = -1; dirY = 0; AND planeX = 0; planeY = 0.66;
-	Right -> dirX = 1; dirY = 0;  AND planeX = 0; planeY = 0.66;
-*/
 
 static void init_math(t_main *main, t_math *math)
 {
 	math->posX = (double)main->player_pos[0] + 0.5;
 	math->posY = (double)main->player_pos[1] + 0.5;
-
 	main->math = math;
 	math->main = main;
 	set_player_direction(math);
@@ -22,8 +15,6 @@ static void init_math(t_main *main, t_math *math)
 
 void	init_main(t_main *main)
 {
-	main->ceiling = NULL;
-	main->floor = NULL;
 	main->map = NULL;
 	main->map_name = NULL;
 	main->north_texture = NULL;
@@ -41,7 +32,6 @@ void	init_main(t_main *main)
 
 int	init_images(t_main *main)
 {
-
 	main->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!main->mlx)
 		return (1);
@@ -50,7 +40,8 @@ int	init_images(t_main *main)
 		return (1);
 	if (mlx_image_to_window(main->mlx, main->image, 0, 0) == -1)
 		return (1);
-	init_image_buffer(main);
+	if (init_image_buffer(main) == 1)
+		return (1);
 	return (0);
 }
 
@@ -63,7 +54,7 @@ int main(int argc, char **argv)
 	if (ft_map_parsing(argc, argv, &main))
 		return (ft_main_free(&main), EXIT_FAILURE);
 	init_math(&main, &math);
-	if (init_images(&main) == 1)
+	if (init_images(&main) == 1 || load_wall_textures(&main) == 1)
 		return (ft_main_free(&main), EXIT_FAILURE);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);

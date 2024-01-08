@@ -19,14 +19,12 @@
 
 typedef struct s_main
 {
-	struct s_math *math;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*ceiling;
-	mlx_image_t	*player;
-	mlx_image_t	*dir_line;
+	mlx_image_t	*north_texture_img;
+	mlx_image_t	*south_texture_img;
+	mlx_image_t	*west_texture_img;
+	mlx_image_t	*east_texture_img;
 	char		**map;
 	char		*map_name;
 	char		*north_texture;
@@ -39,6 +37,8 @@ typedef struct s_main
 	int			map_line;
 	uint32_t	**image_buffer;
 	char			direction;
+
+	struct s_math *math;
 
 }	t_main ;
 
@@ -95,7 +95,7 @@ void	free_static_char_buff(int fd);
 
 
 void			renderer(void *param);
-void			init_image_buffer(t_main *main);
+int				init_image_buffer(t_main *main);
 void			move_hook_callback(mlx_key_data_t keydata, void *param);
 void 			calculate_per_vertical_line(t_math *math, int x);
 int 			render_blocks(t_main *main, char **map);
@@ -113,6 +113,8 @@ void			turn_left(t_math *math);
 void 			clear_image_buffer(t_main *main);
 void 			fill_ceiling_floor(t_main *main);
 void			set_player_direction(t_math *math);
+int 			load_wall_textures(t_main *main);
+
 
 
 

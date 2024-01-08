@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2023/12/15 13:44:25 by coxer         ########   odam.nl          #
+#    Updated: 2024/01/08 14:56:02 by coxer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SOURCE = \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/player_moves.c \
 	$(SRC_DIR)/initial_player_orientation.c \
+	$(SRC_DIR)/load_wall_textures.c \
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -mtune=native
 RM = -rf
@@ -66,13 +67,13 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)  --quiet
 	@printf "$(GREEN)Libft compiled\n$(RESET)"
 
-$(NAME): $(ODIR) $(OBJECTS)
-	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
-	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
-
 # $(NAME): $(ODIR) $(OBJECTS)
-# 	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+# 	@$(CC) -fsanitize=address $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
 # 	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
+
+$(NAME): $(ODIR) $(OBJECTS)
+	@$(CC) $(OBJECTS) $(MLX_L_FLAG) -o $(NAME) 
+	@printf "$(GREEN)Created program $(NAME)$(RESET)\n"
 
 $(ODIR):
 	@mkdir -p $(ODIR)

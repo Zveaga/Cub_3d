@@ -86,7 +86,7 @@ int	map_length(t_main *main)
 
 	fd = open(main->map_name, O_RDONLY, 0644);
 	pos = 0;
-	printf("map_line: %d\n", main->map_line);
+	// printf("map_line: %d\n", main->map_line);
 	if (fd == -1)
 		return (0);
 	count = 0;

@@ -25,10 +25,6 @@ void	move_up(t_main *main, t_math *math)
 		math->posX += math->dirX * MOV_SPEED;
 		math->posY += math->dirY * MOV_SPEED;
 	}
-	// if (main->map[(int)((math->posX + math->dirX * MOV_SPEED))][(int)math->posY] != '1')
-	// 	math->posX += math->dirX * MOV_SPEED;
-    // if (main->map[(int)math->posX][(int)(math->posY + math->dirY * MOV_SPEED)] != '1')
-	// 	math->posY += math->dirY * MOV_SPEED;
 }
 
 void	move_back(t_main *main, t_math *math)
@@ -44,10 +40,6 @@ void	move_back(t_main *main, t_math *math)
 		math->posX -= math->dirX * MOV_SPEED;
 		math->posY -= math->dirY * MOV_SPEED;
 	}
-	// if (main->map[(int)(math->posX - math->dirX * MOV_SPEED)][(int)math->posY] != '1')
-	// 	math->posX -= math->dirX * MOV_SPEED;
-    // if (main->map[(int)math->posX][(int)(math->posY - math->dirY * MOV_SPEED)] != '1')
-	// 	math->posY -= math->dirY * MOV_SPEED;
 }
 
 void	move_left(t_main *main, t_math *math)
@@ -63,10 +55,6 @@ void	move_left(t_main *main, t_math *math)
 		math->posX -= math->planeX * MOV_SPEED;
 		math->posY -= math->planeY * MOV_SPEED;
 	}
-	// if (main->map[(int)(math->posX - math->planeX * MOV_SPEED)][(int)math->posY] != '1')
-	// 	math->posX -= math->planeX * MOV_SPEED;
-    // if (main->map[(int)math->posX][(int)(math->posY - math->planeY * MOV_SPEED)] != '1')
-	// 	math->posY -= math->planeY * MOV_SPEED;
 }
 
 void	move_right(t_main *main, t_math *math)
@@ -82,10 +70,6 @@ void	move_right(t_main *main, t_math *math)
 		math->posX += math->planeX * MOV_SPEED;
 		math->posY += math->planeY * MOV_SPEED;
 	}
-	// if (main->map[(int)(math->posX + math->planeX * MOV_SPEED)][(int)math->posY] != '1')
-	// 	math->posX += math->planeX * MOV_SPEED;
-    // if (main->map[(int)math->posX][(int)(math->posY + math->planeY * MOV_SPEED)] != '1')
-	// 	math->posY += math->planeY * MOV_SPEED;
 }
 
 void	turn_right(t_math *math)
@@ -114,5 +98,4 @@ void	turn_left(t_math *math)
 	oldPlaneX = math->planeX;
 	math->planeX = math->planeX * cos(-ROT_SPEED) - math->planeY * sin(-ROT_SPEED);
 	math->planeY = oldPlaneX * sin(-ROT_SPEED) + math->planeY * cos(-ROT_SPEED);
-	//printf("x: %.f, y: %.f\n", math->planeX, math->planeY);
 }
