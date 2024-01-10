@@ -11,6 +11,7 @@ static int	load_wall_north_texture(t_main *main)
 	main->north_texture_img = mlx_texture_to_image(main->mlx, texture);
 	if (!main->north_texture_img)
 		return (1);
+	main->north_tex = texture;
 	return (0);
 }
 

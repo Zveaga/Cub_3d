@@ -86,6 +86,7 @@ void	renderer(void *param)
 	{
 		calculate_per_vertical_line(main->math, x);
 		fill_image_buffer(main, main->math, x);
+		texture_calculations(main->math, main->map, x);
 
 		// printf("draw start: %d\n", main->math->startPixel);
 		// printf("draw end: %d\n", main->math->endPixel);

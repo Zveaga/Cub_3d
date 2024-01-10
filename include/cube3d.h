@@ -22,6 +22,8 @@ typedef struct s_main
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	mlx_image_t	*north_texture_img;
+	mlx_texture_t	*north_tex;
+
 	mlx_image_t	*south_texture_img;
 	mlx_image_t	*west_texture_img;
 	mlx_image_t	*east_texture_img;
@@ -73,6 +75,15 @@ typedef struct s_math
     double	sideDistY;
 	double	perpWallDist;
 
+	int		texNum; // value of current map square - 1
+	int		texX;   // x coordinate of the texture 
+	int		texY;   // y coordinate of the texture 
+	double	wallX;  // exact value where the wall was hit
+	double	step;
+	double	texPos;
+
+
+
 
 }			t_math;
 
@@ -114,6 +125,9 @@ void 			clear_image_buffer(t_main *main);
 void 			fill_ceiling_floor(t_main *main);
 void			set_player_direction(t_math *math);
 int 			load_wall_textures(t_main *main);
+void 			print_map(char **map);
+void			revert_map_to_original_symbols(char **map);
+void			texture_calculations(t_math *math, char **map, int x);
 
 
 
