@@ -50,7 +50,10 @@ void fill_ceiling_floor(t_main *main)
 	int		y;
 
 	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
-	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
+	// floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
+	// floor_color = 236;
+	floor_color = set_color(188, 0, 0, 255);
+
 	y = 0;
 	while (y < HEIGHT / 2)
 	{
@@ -78,14 +81,14 @@ void	renderer(void *param)
 {
 	t_main *main;
 	int		x;
+
 	main = param;
-	
 	x = 0;
 	fill_ceiling_floor(main);
 	while (x < WIDTH) // for every vertial pixel line
 	{
 		calculate_per_vertical_line(main->math, x);
-		fill_image_buffer(main, main->math, x);
+		//fill_image_buffer(main, main->math, x);
 		texture_calculations(main->math, main->map, x);
 
 		// printf("draw start: %d\n", main->math->startPixel);
