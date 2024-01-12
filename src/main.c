@@ -28,6 +28,7 @@ void	init_main(t_main *main)
 	main->image = NULL;
 	main->image_buffer = NULL;
 	main->mlx = NULL;
+	main->pixel_grid = NULL;
 }
 
 int	init_images(t_main *main)

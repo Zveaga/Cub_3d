@@ -18,8 +18,8 @@ void print_pixel_grid(int32_t **pixel_grid)
 	for (int i = 0; i < 64; i++)
 	{
 		for (int j = 0; j < 64; j++)
-			printf("%d", pixel_grid[i][j]);
-		printf("---\n");
+			printf("%d ", pixel_grid[i][j]);
+		printf("\n");
 	}
 	// printf("++++\n");
 }

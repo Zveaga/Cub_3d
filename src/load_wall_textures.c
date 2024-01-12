@@ -5,7 +5,7 @@ static int	load_wall_north_texture(t_main *main)
 {
 	mlx_texture_t *texture;
 
-	texture = mlx_load_png("./textures/redbrick.png");
+	texture = mlx_load_png(main->north_texture);
 	if (!texture)
 		return (1);
 	main->north_texture_img = mlx_texture_to_image(main->mlx, texture);
@@ -19,7 +19,7 @@ static int	load_wall_south_texture(t_main *main)
 {
 	mlx_texture_t *texture;
 
-	texture = mlx_load_png("./textures/bluestone.png");
+	texture = mlx_load_png(main->south_texture);
 	if (!texture)
 		return (1);
 	main->south_texture_img = mlx_texture_to_image(main->mlx, texture);
@@ -32,7 +32,7 @@ static int	load_wall_west_texture(t_main *main)
 {
 	mlx_texture_t *texture;
 
-	texture = mlx_load_png("./textures/colorstone.png");
+	texture = mlx_load_png(main->west_texture);
 	if (!texture)
 		return (1);
 	main->west_texture_img = mlx_texture_to_image(main->mlx, texture);
@@ -45,7 +45,7 @@ static int	load_wall_east_texture(t_main *main)
 {
 	mlx_texture_t *texture;
 
-	texture = mlx_load_png("./textures/greystone.png");
+	texture = mlx_load_png(main->east_texture);
 	if (!texture)
 		return (1);
 	main->east_texture_img = mlx_texture_to_image(main->mlx, texture);
@@ -70,8 +70,8 @@ int load_wall_textures(t_main *main)
 	// 	for (int i = 0; i < 64; i++)
 	// 		printf("%d\n", main->north_texture_img->pixels[i]);
 	// }
-	convert_pixels_to_grid(main, main->north_texture_img);
-	print_pixel_grid(main->pixel_grid);
+	convert_pixels_to_grid(main, main->east_texture_img);
+	//print_pixel_grid(main->pixel_grid);
 	return (0);
 }
 

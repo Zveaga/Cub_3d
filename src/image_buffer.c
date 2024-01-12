@@ -40,13 +40,6 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 	
 }
 
-// static void print_img_buf(uint32_t **map)
-// {
-// 	for (int i = 0; i < HEIGHT; i++)
-// 		for (int j = 0; j < WIDTH; j++)
-// 			printf("%d", map[i][j]);
-// }
-
 void clear_image_buffer(t_main *main)
 {
 	int	x;
@@ -63,5 +56,4 @@ void clear_image_buffer(t_main *main)
 		}
 		y++;
 	}
-
 }

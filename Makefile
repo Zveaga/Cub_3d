@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2024/01/10 18:26:44 by raanghel      ########   odam.nl          #
+#    Updated: 2024/01/12 13:24:33 by coxer         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SOURCE = \
 	$(SRC_DIR)/initial_player_orientation.c \
 	$(SRC_DIR)/load_wall_textures.c \
 	$(SRC_DIR)/render_textures.c \
+	$(SRC_DIR)/utils_textures.c \
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -mtune=native
 RM = -rf

@@ -1,7 +1,7 @@
-NO wallnorth.png
-SO wallsouth.png
-WE wallwest.png
-EA walleast.png
+NO textures/bluestone.png
+SO textures/greystone.png
+WE textures/redbrick.png
+EA textures/wood.png
 F 0,30,0
 C 255,255,150
 
