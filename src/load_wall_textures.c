@@ -71,7 +71,7 @@ int load_wall_textures(t_main *main)
 	// 		printf("%d\n", main->north_texture_img->pixels[i]);
 	// }
 	convert_pixels_to_grid(main, main->north_texture_img);
-	//print_pixel_grid(main->pixel_grid);
+	print_pixel_grid(main->pixel_grid);
 	return (0);
 }
 

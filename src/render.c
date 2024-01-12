@@ -50,9 +50,9 @@ void fill_ceiling_floor(t_main *main)
 	int		y;
 
 	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
-	// floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
+	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
 	// floor_color = 236;
-	floor_color = set_color(188, 0, 0, 255);
+	//floor_color = set_color(188, 0, 0, 255);
 
 	y = 0;
 	while (y < HEIGHT / 2)
