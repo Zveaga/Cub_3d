@@ -46,7 +46,7 @@ void	texture_calculations(t_math *math, char **map, int x)
 		math->texPos += math->step;
 
 
-		color = math->main->pixel_grid[math->texY][math->texX];
+		color = math->main->pixel_grid_east_tex[math->texY][math->texX];
 		
 		// --make y sides darker--
 		// if (math->side == 1)

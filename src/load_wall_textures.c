@@ -63,7 +63,9 @@ int load_wall_textures(t_main *main)
 	{
 		return (1);
 	}
-	convert_pixels_to_grid(main, main->east_texture_img);
+
+	init_pixel_grids(main);
+	convert_pixels_to_grids(main);
 	return (0);
 }
 

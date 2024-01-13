@@ -21,8 +21,8 @@ typedef struct s_main
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	mlx_image_t	*north_texture_img;
 	mlx_texture_t	*north_tex;
+	mlx_image_t	*north_texture_img;
 	mlx_image_t	*south_texture_img;
 	mlx_image_t	*west_texture_img;
 	mlx_image_t	*east_texture_img;
@@ -134,8 +134,8 @@ void			print_pixel_grid(int32_t **pixel_grid);
 
 void			revert_map_to_original_symbols(char **map);
 void			texture_calculations(t_math *math, char **map, int x);
-int				convert_pixels_to_grid(t_main *main, mlx_image_t *texture);
-
+void 			init_pixel_grids(t_main *main);
+void			convert_pixels_to_grids(t_main *main);
 
 
 
