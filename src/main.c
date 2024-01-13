@@ -1,8 +1,6 @@
 
 #include "cube3d.h"
 
-
-
 static void init_math(t_main *main, t_math *math)
 {
 	math->posX = (double)main->player_pos[0] + 0.5;
@@ -11,7 +9,6 @@ static void init_math(t_main *main, t_math *math)
 	math->main = main;
 	set_player_direction(math);
 }
-
 
 void	init_main(t_main *main)
 {
@@ -24,11 +21,15 @@ void	init_main(t_main *main)
 	main->ceiling_color = NULL;
 	main->floor_color = NULL;
 	main->player_pos = NULL;
-	main->map_line = -1;
 	main->image = NULL;
 	main->image_buffer = NULL;
 	main->mlx = NULL;
 	main->pixel_grid = NULL;
+	main->pixel_grid_north_tex = NULL;
+	main->pixel_grid_south_tex = NULL;
+	main->pixel_grid_west_tex = NULL;
+	main->pixel_grid_east_tex = NULL;
+	main->map_line = -1;
 }
 
 int	init_images(t_main *main)

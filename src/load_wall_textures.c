@@ -63,15 +63,7 @@ int load_wall_textures(t_main *main)
 	{
 		return (1);
 	}
-
-	// for (int i = 0; i < 16384; i++)
-	// 	printf("%d: %d\n", i, main->north_texture_img->pixels[i]);
-	// {
-	// 	for (int i = 0; i < 64; i++)
-	// 		printf("%d\n", main->north_texture_img->pixels[i]);
-	// }
 	convert_pixels_to_grid(main, main->east_texture_img);
-	//print_pixel_grid(main->pixel_grid);
 	return (0);
 }
 

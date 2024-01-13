@@ -19,6 +19,8 @@ int init_pixel_grid(t_main *main, mlx_image_t *texture)
 	return (0);
 }
 
+
+
 int	convert_pixels_to_grid(t_main *main, mlx_image_t *texture)
 {
 	int			j;

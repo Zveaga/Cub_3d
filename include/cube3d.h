@@ -27,6 +27,10 @@ typedef struct s_main
 	mlx_image_t	*west_texture_img;
 	mlx_image_t	*east_texture_img;
 	int32_t		**pixel_grid;
+	int32_t		**pixel_grid_north_tex;
+	int32_t		**pixel_grid_south_tex;
+	int32_t		**pixel_grid_west_tex;
+	int32_t		**pixel_grid_east_tex;
 	char		**map;
 	char		*map_name;
 	char		*north_texture;
