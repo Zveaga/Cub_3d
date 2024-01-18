@@ -22,6 +22,14 @@ static void calculate_texX(t_math *math)
 		math->texX = texWidth - math->texX - 1;
 }
 
+// static uint32_t select_texture_pixel(t_math *math, int x)
+// {
+// 	uint32_t	color;
+
+
+
+// 	return (color);
+// }
 
 void	texture_calculations(t_math *math, char **map, int x)
 {	
@@ -40,17 +48,26 @@ void	texture_calculations(t_math *math, char **map, int x)
 	int					y;
 	uint32_t			color;
 	y = math->startPixel;
+
+
 	while (y < math->endPixel)
 	{
 		math->texY = (int)math->texPos & (texHeight - 1);
 		math->texPos += math->step;
-
-
-		color = math->main->pixel_grid_east_tex[math->texY][math->texX];
 		
+		if (math->rayDirX < 0 && math->rayDirY < 0)
+			color = math->main->pixel_grid_east_tex[math->texY][math->texX];
+		else if (math->rayDirX < 0 && math->rayDirY > 0)
+			color = math->main->pixel_grid_west_tex[math->texY][math->texX];
+		else if (math->rayDirX > 0 && math->rayDirY > 0)
+			color = math->main->pixel_grid_north_tex[math->texY][math->texX];
+		else if (math->rayDirX > 0 && math->rayDirY < 0)
+			color = math->main->pixel_grid_south_tex[math->texY][math->texX];
+			
 		// --make y sides darker--
 		// if (math->side == 1)
 		// 	color = (color >> 1) & 8355711;
+
 		math->main->image_buffer[y][x] = color; //set the individual pixel
 		//printf("%d: %d\n", i, color);
 		y++;

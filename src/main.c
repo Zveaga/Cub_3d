@@ -24,7 +24,6 @@ void	init_main(t_main *main)
 	main->image = NULL;
 	main->image_buffer = NULL;
 	main->mlx = NULL;
-	main->pixel_grid = NULL;
 	main->pixel_grid_north_tex = NULL;
 	main->pixel_grid_south_tex = NULL;
 	main->pixel_grid_west_tex = NULL;

@@ -12,8 +12,8 @@
 # include "MLX42/MLX42_Int.h"
 
 
-# define WIDTH 2080
-# define HEIGHT 1500
+# define WIDTH 1000
+# define HEIGHT 800
 
 //((int)((float)WIDTH / (4.0 / 3.0)))
 
@@ -26,7 +26,6 @@ typedef struct s_main
 	mlx_image_t	*south_texture_img;
 	mlx_image_t	*west_texture_img;
 	mlx_image_t	*east_texture_img;
-	int32_t		**pixel_grid;
 	int32_t		**pixel_grid_north_tex;
 	int32_t		**pixel_grid_south_tex;
 	int32_t		**pixel_grid_west_tex;
@@ -134,7 +133,7 @@ void			print_pixel_grid(int32_t **pixel_grid);
 
 void			revert_map_to_original_symbols(char **map);
 void			texture_calculations(t_math *math, char **map, int x);
-void 			init_pixel_grids(t_main *main);
+int 			init_pixel_grids(t_main *main);
 void			convert_pixels_to_grids(t_main *main);
 
 

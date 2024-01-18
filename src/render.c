@@ -41,7 +41,6 @@ static void put_pixels_to_image(t_main *main)
 	}
 }
 
-
 void fill_ceiling_floor(t_main *main)
 {
 	int32_t	floor_color;
@@ -49,33 +48,40 @@ void fill_ceiling_floor(t_main *main)
 	int		x;
 	int		y;
 
-	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],main->ceiling_color[2], 255);
-	floor_color = set_color(main->floor_color[0], main->floor_color[1],main->floor_color[2], 255);
-	// floor_color = 236;
-	//floor_color = set_color(188, 0, 0, 255);
-
-	y = 0;
-	while (y < HEIGHT / 2)
+	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],
+		main->ceiling_color[2], 255);
+	floor_color = set_color(main->floor_color[0], main->floor_color[1],
+		main->floor_color[2], 255);
+	y = -1;
+	while (++y < HEIGHT / 2)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
+		x = -1;
+		while (++x < WIDTH)
 			main->image_buffer[y][x] = ceiling_color;
-			x++;
-		}
-		y++;
 	}
-	while (y < HEIGHT)
+	while (++y < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
+		x = -1;
+		while (++x < WIDTH)
 			main->image_buffer[y][x] = floor_color;
-			x++;
-		}
-		y++;
 	}
 }
+
+// static int32_t **select_texture(t_main *main, t_math *math)
+// {
+// 	int32_t **texture;
+
+// 	texture = NULL;
+// 	if (math->rayDirX < 0 && math->rayDirY < 0)
+// 		texture = main->pixel_grid_north_tex;
+// 	else if (math->rayDirX < 0 && math->rayDirY > 0)
+// 		texture = main->pixel_grid_south_tex;
+// 	else if (math->rayDirX > 0 && math->rayDirY > 0)
+// 		texture = main->pixel_grid__tex;
+// 	else if (math->rayDirX > 0 && math->rayDirY < 0)
+// 		texture = main->pixel_grid_north_tex;
+// 	return (texture);
+// }
 
 void	renderer(void *param)
 {
@@ -89,6 +95,7 @@ void	renderer(void *param)
 	{
 		calculate_per_vertical_line(main->math, x);
 		//fill_image_buffer(main, main->math, x);
+
 		texture_calculations(main->math, main->map, x);
 
 		// printf("draw start: %d\n", main->math->startPixel);

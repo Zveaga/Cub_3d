@@ -37,7 +37,7 @@ void	free_image_buffer(uint32_t **img_buf)
 	int	i;
 
 	i = 0;
-	if (img_buf == NULL)
+	if (!img_buf)
 		return ;
 	while (i < HEIGHT)
 	{
@@ -45,6 +45,29 @@ void	free_image_buffer(uint32_t **img_buf)
 		i++;
 	}
 	free(img_buf);
+}
+
+void	free_pixel_grid(int32_t **pixel_grid, mlx_image_t *texture)
+{
+	uint32_t	i;
+
+	if (!pixel_grid)
+		return ;
+	i = 0;
+	while (i < texture->height)
+	{
+		free(pixel_grid[i]);
+		i++;
+	}
+	free(pixel_grid);
+}
+
+void	free_pixel_grids(t_main *main)
+{
+	free_pixel_grid(main->pixel_grid_north_tex, main->north_texture_img);
+	free_pixel_grid(main->pixel_grid_south_tex, main->south_texture_img);
+	free_pixel_grid(main->pixel_grid_west_tex, main->west_texture_img);
+	free_pixel_grid(main->pixel_grid_east_tex, main->east_texture_img);
 }
 
 void	ft_main_free(t_main *main)
@@ -71,5 +94,6 @@ void	ft_main_free(t_main *main)
 		mlx_delete_image(main->mlx, main->image);
 	free_image_buffer(main->image_buffer);
 	main->image_buffer = NULL;
+	free_pixel_grids(main);
 	mlx_terminate(main->mlx);
 }

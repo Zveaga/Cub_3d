@@ -63,9 +63,8 @@ int load_wall_textures(t_main *main)
 	{
 		return (1);
 	}
-
-	init_pixel_grids(main);
+	if (init_pixel_grids(main) == 1)
+		return (1);
 	convert_pixels_to_grids(main);
 	return (0);
 }
-

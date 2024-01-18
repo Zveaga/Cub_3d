@@ -21,7 +21,6 @@ void print_pixel_grid(int32_t **pixel_grid)
 			printf("%d ", pixel_grid[i][j]);
 		printf("\n");
 	}
-	// printf("++++\n");
 }
 
 void	revert_map_to_original_symbols(char **map)
