@@ -54,8 +54,6 @@ int main(int argc, char **argv)
 	init_main(&main);
 	if (ft_map_parsing(argc, argv, &main))
 		return (ft_main_free(&main), EXIT_FAILURE);
-	revert_map_to_original_symbols(main.map);
-	//print_map(main.map);
 	init_math(&main, &math);
 	if (init_images(&main) == 1 || load_wall_textures(&main) == 1)
 		return (ft_main_free(&main), EXIT_FAILURE);

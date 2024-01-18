@@ -131,7 +131,7 @@ void 			print_map(char **map);
 void			print_pixel_grid(int32_t **pixel_grid);
 
 void			revert_map_to_original_symbols(char **map);
-void			texture_calculations(t_math *math, char **map, int x, int32_t **texture);
+void			texture_calculations(t_main *main, t_math *math, int x, int32_t **texture);
 int 			init_pixel_grids(t_main *main);
 void			convert_pixels_to_grids(t_main *main);
 
