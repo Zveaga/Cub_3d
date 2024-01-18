@@ -67,21 +67,41 @@ void fill_ceiling_floor(t_main *main)
 	}
 }
 
-// static int32_t **select_texture(t_main *main, t_math *math)
+// static int32_t **select_texture_2(double ray_dir_x, double ray_dir_y, t_math *math)
 // {
-// 	int32_t **texture;
+//     // Check if the ray is more horizontally or vertically oriented
+//     double angle = atan2(ray_dir_y, ray_dir_x);
+//     angle = fmod((angle + 2 * M_PI), (2 * M_PI)); // Ensure the angle is within [0, 2*PI)
 
-// 	texture = NULL;
-// 	if (math->rayDirX < 0 && math->rayDirY < 0)
-// 		texture = main->pixel_grid_north_tex;
-// 	else if (math->rayDirX < 0 && math->rayDirY > 0)
-// 		texture = main->pixel_grid_south_tex;
-// 	else if (math->rayDirX > 0 && math->rayDirY > 0)
-// 		texture = main->pixel_grid__tex;
-// 	else if (math->rayDirX > 0 && math->rayDirY < 0)
-// 		texture = main->pixel_grid_north_tex;
-// 	return (texture);
+//     if ((angle >= M_PI / 4) && (angle < 3 * M_PI / 4))
+//         return (math->main->pixel_grid_south_tex); // South wall
+//     else if ((angle >= 3 * M_PI / 4) && (angle < 5 * M_PI / 4))
+//         return (math->main->pixel_grid_west_tex); // West wall
+//     else if ((angle >= 5 * M_PI / 4) && (angle < 7 * M_PI / 4))
+//         return (math->main->pixel_grid_north_tex); // North wall
+// 	else
+//         return (math->main->pixel_grid_south_tex); // East wall
+	
+
+// 	return (NULL);
+
 // }
+
+static int32_t **select_texture(t_main *main, t_math *math)
+{
+	int32_t **texture;
+
+	texture = NULL;
+	if (math->side == 1 && math->rayDirY > 0)
+		texture = main->pixel_grid_north_tex;
+	else if (math->side == 1 && math->rayDirY < 0)
+		texture = main->pixel_grid_south_tex;
+	else if (math->side == 0 && math->rayDirX > 0)
+		texture = main->pixel_grid_west_tex;
+	else if (math->side == 0 && math->rayDirX < 0)
+		texture = main->pixel_grid_east_tex;
+	return (texture);
+}
 
 void	renderer(void *param)
 {
@@ -95,8 +115,14 @@ void	renderer(void *param)
 	{
 		calculate_per_vertical_line(main->math, x);
 		//fill_image_buffer(main, main->math, x);
-
-		texture_calculations(main->math, main->map, x);
+		//printf("rayDirX: %.2f\nrayDirY: %.2f\n",main->math->rayDirX, main->math->rayDirY);
+		// printf("planeX: %.2f\n", main->math->planeX);
+		// printf("planeY: %.2f\n", main->math->planeY);
+		//printf("side:   %d\n", main->math->side);
+		// printf("dirX:   %.2f\n", main->math->dirX);
+		// printf("dirY:   %.2f\n\n", main->math->dirY);
+		texture_calculations(main->math, main->map, x, select_texture(main, main->math));
+		// texture_calculations(main->math, main->map, x, select_texture_2(main->math->rayDirX, main->math->rayDirY, main->math));
 
 		// printf("draw start: %d\n", main->math->startPixel);
 		// printf("draw end: %d\n", main->math->endPixel);

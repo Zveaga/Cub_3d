@@ -1,8 +1,8 @@
 
 #include "cube3d.h"
 
-#define ROT_SPEED 0.1
-#define MOV_SPEED 0.1
+#define ROT_SPEED 0.03
+#define MOV_SPEED 0.06
 
 
 bool	player_hits_wall(t_main *main, int x, int y)

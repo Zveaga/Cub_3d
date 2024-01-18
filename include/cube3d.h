@@ -12,35 +12,35 @@
 # include "MLX42/MLX42_Int.h"
 
 
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 1700
+# define HEIGHT 1400
 
 //((int)((float)WIDTH / (4.0 / 3.0)))
 
 typedef struct s_main
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
 	mlx_texture_t	*north_tex;
-	mlx_image_t	*north_texture_img;
-	mlx_image_t	*south_texture_img;
-	mlx_image_t	*west_texture_img;
-	mlx_image_t	*east_texture_img;
-	int32_t		**pixel_grid_north_tex;
-	int32_t		**pixel_grid_south_tex;
-	int32_t		**pixel_grid_west_tex;
-	int32_t		**pixel_grid_east_tex;
-	char		**map;
-	char		*map_name;
-	char		*north_texture;
-	char		*south_texture;
-	char		*west_texture;
-	char		*east_texture;
-	int			*ceiling_color;
-	int			*floor_color;
-	int			*player_pos;
-	int			map_line;
-	uint32_t	**image_buffer;
+	mlx_image_t		*north_texture_img;
+	mlx_image_t		*south_texture_img;
+	mlx_image_t		*west_texture_img;
+	mlx_image_t		*east_texture_img;
+	int32_t			**pixel_grid_north_tex;
+	int32_t			**pixel_grid_south_tex;
+	int32_t			**pixel_grid_west_tex;
+	int32_t			**pixel_grid_east_tex;
+	char			**map;
+	char			*map_name;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+	int				*ceiling_color;
+	int				*floor_color;
+	int				*player_pos;
+	int				map_line;
+	uint32_t		**image_buffer;
 	char			direction;
 
 	struct s_math *math;
@@ -65,7 +65,6 @@ typedef struct s_math
 	int		mapY;
 	int		stepX;
 	int		stepY;
-	int		hit_wall;
 	int		side;
 	
 	int		lineHeight;
@@ -132,7 +131,7 @@ void 			print_map(char **map);
 void			print_pixel_grid(int32_t **pixel_grid);
 
 void			revert_map_to_original_symbols(char **map);
-void			texture_calculations(t_math *math, char **map, int x);
+void			texture_calculations(t_math *math, char **map, int x, int32_t **texture);
 int 			init_pixel_grids(t_main *main);
 void			convert_pixels_to_grids(t_main *main);
 
