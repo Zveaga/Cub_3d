@@ -24,10 +24,10 @@ void	init_main(t_main *main)
 	main->image = NULL;
 	main->image_buffer = NULL;
 	main->mlx = NULL;
-	main->pixel_grid_north_tex = NULL;
-	main->pixel_grid_south_tex = NULL;
-	main->pixel_grid_west_tex = NULL;
-	main->pixel_grid_east_tex = NULL;
+	main->north_tex_pixel_grid = NULL;
+	main->south_tex_pixel_grid = NULL;
+	main->west_tex_pixel_grid = NULL;
+	main->east_tex_pixel_grid = NULL;
 	main->map_line = -1;
 }
 

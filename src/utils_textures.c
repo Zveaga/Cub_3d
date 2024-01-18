@@ -21,10 +21,10 @@ static int init_grid(mlx_image_t *texture, int32_t ***pixel_grid)
 
 int	init_pixel_grids(t_main *main)
 {
-	if (init_grid(main->north_texture_img, &main->pixel_grid_north_tex) == 1
-		|| init_grid(main->south_texture_img, &main->pixel_grid_south_tex) == 1
-		|| init_grid(main->west_texture_img, &main->pixel_grid_west_tex) == 1
-		|| init_grid(main->east_texture_img, &main->pixel_grid_east_tex) == 1)
+	if (init_grid(main->north_texture_img, &main->north_tex_pixel_grid) == 1
+		|| init_grid(main->south_texture_img, &main->south_tex_pixel_grid) == 1
+		|| init_grid(main->west_texture_img, &main->west_tex_pixel_grid) == 1
+		|| init_grid(main->east_texture_img, &main->east_tex_pixel_grid) == 1)
 	{
 		return (1);
 	}
@@ -56,8 +56,8 @@ static void	convert_pixels(mlx_image_t *texture, int32_t **pixel_grid)
 
 void	convert_pixels_to_grids(t_main *main)
 {
-	convert_pixels(main->north_texture_img, main->pixel_grid_north_tex);
-	convert_pixels(main->south_texture_img, main->pixel_grid_south_tex);
-	convert_pixels(main->west_texture_img, main->pixel_grid_west_tex);
-	convert_pixels(main->east_texture_img, main->pixel_grid_east_tex);
+	convert_pixels(main->north_texture_img, main->north_tex_pixel_grid);
+	convert_pixels(main->south_texture_img, main->south_tex_pixel_grid);
+	convert_pixels(main->west_texture_img, main->west_tex_pixel_grid);
+	convert_pixels(main->east_texture_img, main->east_tex_pixel_grid);
 }

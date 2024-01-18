@@ -64,10 +64,10 @@ void	free_pixel_grid(int32_t **pixel_grid, mlx_image_t *texture)
 
 void	free_pixel_grids(t_main *main)
 {
-	free_pixel_grid(main->pixel_grid_north_tex, main->north_texture_img);
-	free_pixel_grid(main->pixel_grid_south_tex, main->south_texture_img);
-	free_pixel_grid(main->pixel_grid_west_tex, main->west_texture_img);
-	free_pixel_grid(main->pixel_grid_east_tex, main->east_texture_img);
+	free_pixel_grid(main->north_tex_pixel_grid, main->north_texture_img);
+	free_pixel_grid(main->south_tex_pixel_grid, main->south_texture_img);
+	free_pixel_grid(main->west_tex_pixel_grid, main->west_texture_img);
+	free_pixel_grid(main->east_tex_pixel_grid, main->east_texture_img);
 }
 
 void	ft_main_free(t_main *main)

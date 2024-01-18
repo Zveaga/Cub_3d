@@ -20,16 +20,16 @@
 typedef struct s_main
 {
 	mlx_t			*mlx;
+	uint32_t		**image_buffer;
 	mlx_image_t		*image;
-	mlx_texture_t	*north_tex;
 	mlx_image_t		*north_texture_img;
 	mlx_image_t		*south_texture_img;
 	mlx_image_t		*west_texture_img;
 	mlx_image_t		*east_texture_img;
-	int32_t			**pixel_grid_north_tex;
-	int32_t			**pixel_grid_south_tex;
-	int32_t			**pixel_grid_west_tex;
-	int32_t			**pixel_grid_east_tex;
+	int32_t			**north_tex_pixel_grid;
+	int32_t			**south_tex_pixel_grid;
+	int32_t			**west_tex_pixel_grid;
+	int32_t			**east_tex_pixel_grid;
 	char			**map;
 	char			*map_name;
 	char			*north_texture;
@@ -40,7 +40,6 @@ typedef struct s_main
 	int				*floor_color;
 	int				*player_pos;
 	int				map_line;
-	uint32_t		**image_buffer;
 	char			direction;
 
 	struct s_math *math;
