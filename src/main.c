@@ -146,5 +146,5 @@ int main(int argc, char **argv)
 	mlx_loop(main.mlx);
 	mlx_terminate(main.mlx);
 	ft_main_free(&main);
-	return (exit(EXIT_SUCCESS), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

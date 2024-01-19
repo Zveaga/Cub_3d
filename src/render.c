@@ -37,6 +37,8 @@ static void put_pixels_to_image(t_main *main)
 		while (x < WIDTH)
 		{
 			mlx_put_pixel(main->image, x, y, main->image_buffer[y][x]);
+			// if (y == (HEIGHT / 2) || x == (WIDTH/2))
+			// 	mlx_put_pixel(main->image, x, y, set_color(255, 0, 0, 255));
 			x++;
 		}
 		y++;
@@ -95,11 +97,19 @@ void	renderer(void *param)
 		// printf("draw start: %d\n", main->math->startPixel);
 		// printf("draw end: %d\n", main->math->endPixel);
 		// printf("line_H: %d\n", main->math->lineHeight);
-		// printf("x: %d\n\n", x);
 
 		x++;
 	}
-
+	// printf("math->cameraX: %f, math->rayDirX: %f, math->rayDirY: %f\n", main->math->cameraX, main->math->rayDirX, main->math->rayDirY);
+	// printf("draw start: %d\n", main->math->startPixel);
+	// printf("draw end: %d\n", main->math->endPixel);
+	// printf("main->math->lineHeight: %d\n", main->math->lineHeight);
+	// printf("main->math->sideDistX: %f\n", main->math->sideDistX);
+	// printf("main->math->sideDistY: %f\n", main->math->sideDistY);
+	// printf("main->math->deltaDistX: %f\n", main->math->deltaDistX);
+	// printf("main->math->deltaDistY: %f\n", main->math->deltaDistY);
+	if (add_texture(main))
+		return ; // free or something
 	put_pixels_to_image(main);
 	clear_image_buffer(main);
 	get_key_input(main, main->math);

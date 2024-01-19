@@ -72,7 +72,6 @@ typedef struct s_math
     double	sideDistY;
 	double	perpWallDist;
 
-
 }			t_math;
 
 // int	ft_check_map(char *argv);
@@ -84,6 +83,7 @@ int		find_player_start(t_main *main);
 int		create_map(t_main *main);
 int		ft_isspace(char *s);
 int		put_texture(t_main *main);
+int		add_texture(t_main *main);
 
 // free
 void	ft_free_double(char	**double_arr);

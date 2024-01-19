@@ -94,5 +94,4 @@ void calculate_per_vertical_line(t_math *math, int x)
 	calculate_sideDist(math);
 	perform_dda(math);
 	calculate_line_height(math);
-
 }
