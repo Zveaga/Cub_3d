@@ -59,8 +59,8 @@ int main(int argc, char **argv)
 		return (ft_main_free(&main), EXIT_FAILURE);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
-	mlx_terminate(main.mlx);
 	ft_main_free(&main);
+	mlx_terminate(main.mlx);
 	return (EXIT_SUCCESS);
 }
 

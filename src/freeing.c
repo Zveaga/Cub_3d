@@ -95,5 +95,4 @@ void	ft_main_free(t_main *main)
 	free_image_buffer(main->image_buffer);
 	main->image_buffer = NULL;
 	free_pixel_grids(main);
-	mlx_terminate(main->mlx);
 }
