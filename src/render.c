@@ -102,5 +102,4 @@ void	renderer(void *param)
 	put_pixels_to_image(main);
 	clear_image_buffer(main);
 	get_key_input(main, main->math);
-
 }

@@ -103,6 +103,7 @@ int		add_texture(t_main *main);
 void	ft_free_double(char	**double_arr);
 void	ft_main_free(t_main *main);
 void	free_static_char_buff(int fd);
+void	free_pixel_grids(t_main *main);
 
 
 //---------------RARES---------------//

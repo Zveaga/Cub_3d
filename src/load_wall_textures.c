@@ -11,6 +11,7 @@ static int	load_wall_north_texture(t_main *main)
 	main->north_texture_img = mlx_texture_to_image(main->mlx, texture);
 	if (!main->north_texture_img)
 		return (1);
+	mlx_delete_texture(texture);
 	return (0);
 }
 
@@ -24,6 +25,7 @@ static int	load_wall_south_texture(t_main *main)
 	main->south_texture_img = mlx_texture_to_image(main->mlx, texture);
 	if (!main->south_texture_img)
 		return (1);
+	mlx_delete_texture(texture);
 	return (0);
 }
 
@@ -37,6 +39,7 @@ static int	load_wall_west_texture(t_main *main)
 	main->west_texture_img = mlx_texture_to_image(main->mlx, texture);
 	if (!main->west_texture_img)
 		return (1);
+	mlx_delete_texture(texture);
 	return (0);
 }
 
@@ -50,6 +53,7 @@ static int	load_wall_east_texture(t_main *main)
 	main->east_texture_img = mlx_texture_to_image(main->mlx, texture);
 	if (!main->east_texture_img)
 		return (1);
+	mlx_delete_texture(texture);
 	return (0);
 }
 
