@@ -2,21 +2,22 @@
 #include "cube3d.h"
 
 //allocates memory for a blank image, pixel-by-pixel
-void	init_image_buffer(t_main *main)
+int	init_image_buffer(t_main *main)
 {
 	int	y;
 
 	main->image_buffer = (uint32_t **)malloc(sizeof(uint32_t *) * HEIGHT);
-	// if (!main->img_buffer)
-	 	//free and exit
+	if (!main->image_buffer)
+	 	return (1);
 	y = 0;
 	while (y < HEIGHT)
 	{
 		main->image_buffer[y] = (uint32_t *)malloc(sizeof(uint32_t) * WIDTH);
-		// if (!main->img_buffer[y])
-		 	//free and exit
+		if (!main->image_buffer)
+		 	return (1);
 		y++;
 	}
+	return (0);
 }
 
 void	fill_image_buffer(t_main *main, t_math *math, int x)
@@ -36,19 +37,11 @@ void	fill_image_buffer(t_main *main, t_math *math, int x)
 			main->image_buffer[y][x] = color_2;
 		y++;
 	}
+	
 }
-
-// static void print_img_buf(uint32_t **map)
-// {
-// 	for (int i = 0; i < HEIGHT; i++)
-// 		for (int j = 0; j < WIDTH; j++)
-// 			printf("%d", map[i][j]);
-// }
 
 void clear_image_buffer(t_main *main)
 {
-	// printf("+++++\n");
-
 	int	x;
 	int	y;
 
@@ -63,7 +56,4 @@ void clear_image_buffer(t_main *main)
 		}
 		y++;
 	}
-	// printf("+++++++\n");
-	// ft_free_array(main->image_buffer, HEIGHT);
-	// print_img_buf(main->image_buffer);
 }

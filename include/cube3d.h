@@ -12,32 +12,37 @@
 # include "MLX42/MLX42_Int.h"
 
 
-# define WIDTH 2080
-# define HEIGHT 1500
+# define WIDTH 1700
+# define HEIGHT 1400
 
 //((int)((float)WIDTH / (4.0 / 3.0)))
 
 typedef struct s_main
 {
+	mlx_t			*mlx;
+	uint32_t		**image_buffer;
+	mlx_image_t		*image;
+	mlx_image_t		*north_texture_img;
+	mlx_image_t		*south_texture_img;
+	mlx_image_t		*west_texture_img;
+	mlx_image_t		*east_texture_img;
+	int32_t			**north_tex_pixel_grid;
+	int32_t			**south_tex_pixel_grid;
+	int32_t			**west_tex_pixel_grid;
+	int32_t			**east_tex_pixel_grid;
+	char			**map;
+	char			*map_name;
+	char			*north_texture;
+	char			*south_texture;
+	char			*west_texture;
+	char			*east_texture;
+	int				*ceiling_color;
+	int				*floor_color;
+	int				*player_pos;
+	int				map_line;
+	char			direction;
+
 	struct s_math *math;
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*ceiling;
-	mlx_image_t	*player;
-	mlx_image_t	*dir_line;
-	char		**map;
-	char		*map_name;
-	char		*north_texture;
-	char		*south_texture;
-	char		*west_texture;
-	char		*east_texture;
-	int			*ceiling_color;
-	int			*floor_color;
-	int			*player_pos;
-	int			map_line;
-	uint32_t	**image_buffer;
 
 }	t_main ;
 
@@ -59,7 +64,6 @@ typedef struct s_math
 	int		mapY;
 	int		stepX;
 	int		stepY;
-	int		hit_wall;
 	int		side;
 	
 	int		lineHeight;
@@ -71,6 +75,16 @@ typedef struct s_math
 	double	sideDistX;
     double	sideDistY;
 	double	perpWallDist;
+
+	int		texNum;			// value of current map square - 1
+	int		texX;  			// x coordinate of the texture 
+	int		texY;  			// y coordinate of the texture 
+	double	wallX; 			// exact value where the wall was hit
+	double	step;
+	double	texPos;
+
+
+
 
 }			t_math;
 
@@ -95,7 +109,7 @@ void	free_static_char_buff(int fd);
 
 
 void			renderer(void *param);
-void			init_image_buffer(t_main *main);
+int				init_image_buffer(t_main *main);
 void			move_hook_callback(mlx_key_data_t keydata, void *param);
 void 			calculate_per_vertical_line(t_math *math, int x);
 int 			render_blocks(t_main *main, char **map);
@@ -112,9 +126,15 @@ void			turn_right(t_math *math);
 void			turn_left(t_math *math);
 void 			clear_image_buffer(t_main *main);
 void 			fill_ceiling_floor(t_main *main);
+void			set_player_direction(t_math *math);
+int 			load_wall_textures(t_main *main);
+void 			print_map(char **map);
+void			print_pixel_grid(int32_t **pixel_grid);
 
-
-
+void			revert_map_to_original_symbols(char **map);
+void			texture_calculations(t_main *main, t_math *math, int x, int32_t **texture);
+int 			init_pixel_grids(t_main *main);
+void			convert_pixels_to_grids(t_main *main);
 
 
 
