@@ -72,8 +72,6 @@ void	free_pixel_grids(t_main *main)
 
 void	ft_main_free(t_main *main)
 {
-	if (!main)
-		return ;
 	if (main->map)
 		ft_free_double(main->map);
 	if (main->player_pos)
@@ -92,17 +90,9 @@ void	ft_main_free(t_main *main)
 		free(main->east_texture);
 	if (main->image)
 		mlx_delete_image(main->mlx, main->image);
-	free_image_buffer(main->image_buffer);
+	if (main->image_buffer)
+		free_image_buffer(main->image_buffer);
 	main->image_buffer = NULL;
-	free_pixel_grids(main);
-	// 	mlx_image_t		*north_texture_img;
-	// mlx_image_t		*south_texture_img;
-	// mlx_image_t		*west_texture_img;
-	// mlx_image_t		*east_texture_img;
-	// mlx_delete_image(main->mlx, main->north_texture_img);
-	// mlx_delete_image(main->mlx, main->south_texture_img);
-	// mlx_delete_image(main->mlx, main->west_texture_img);
-	// mlx_delete_image(main->mlx, main->east_texture_img);
-	// mlx_delete_texture(main->north_texture_img);
-	mlx_terminate(main->mlx);
+	if (main->north_tex_pixel_grid)
+		free_pixel_grids(main);
 }
