@@ -3,7 +3,7 @@
 
 static int	load_wall_north_texture(t_main *main)
 {
-	mlx_texture_t *texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(main->north_texture);
 	if (!texture)
@@ -17,7 +17,7 @@ static int	load_wall_north_texture(t_main *main)
 
 static int	load_wall_south_texture(t_main *main)
 {
-	mlx_texture_t *texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(main->south_texture);
 	if (!texture)
@@ -31,7 +31,7 @@ static int	load_wall_south_texture(t_main *main)
 
 static int	load_wall_west_texture(t_main *main)
 {
-	mlx_texture_t *texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(main->west_texture);
 	if (!texture)
@@ -45,7 +45,7 @@ static int	load_wall_west_texture(t_main *main)
 
 static int	load_wall_east_texture(t_main *main)
 {
-	mlx_texture_t *texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(main->east_texture);
 	if (!texture)
@@ -57,7 +57,7 @@ static int	load_wall_east_texture(t_main *main)
 	return (0);
 }
 
-int load_wall_textures(t_main *main)
+int	load_wall_textures(t_main *main)
 {
 	if (load_wall_north_texture(main) == 1
 		|| load_wall_south_texture(main) == 1

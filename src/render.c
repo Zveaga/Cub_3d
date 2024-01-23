@@ -1,8 +1,8 @@
 
-#include "cube3d.h"
-#include <float.h>
 
-static void get_key_input(t_main *main, t_math *math)
+#include "cube3d.h"
+
+static void	get_key_input(t_main *main, t_math *math)
 {
 	if (mlx_is_key_down(main->mlx, MLX_KEY_ESCAPE))
 	{
@@ -23,9 +23,9 @@ static void get_key_input(t_main *main, t_math *math)
 		move_right(main, math);
 }
 
-static void put_pixels_to_image(t_main *main)
+static void	put_pixels_to_image(t_main *main)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = 0;
@@ -41,7 +41,7 @@ static void put_pixels_to_image(t_main *main)
 	}
 }
 
-void fill_ceiling_floor(t_main *main)
+void	fill_ceiling_floor(t_main *main)
 {
 	int32_t	floor_color;
 	int32_t	ceiling_color;
@@ -49,9 +49,9 @@ void fill_ceiling_floor(t_main *main)
 	int		y;
 
 	ceiling_color = set_color(main->ceiling_color[0], main->ceiling_color[1],
-		main->ceiling_color[2], 255);
+			main->ceiling_color[2], 255);
 	floor_color = set_color(main->floor_color[0], main->floor_color[1],
-		main->floor_color[2], 255);
+			main->floor_color[2], 255);
 	y = -1;
 	while (++y < HEIGHT / 2)
 	{
@@ -67,9 +67,9 @@ void fill_ceiling_floor(t_main *main)
 	}
 }
 
-static int32_t **select_texture(t_main *main, t_math *math)
+static int32_t	**select_texture(t_main *main, t_math *math)
 {
-	int32_t **texture;
+	int32_t	**texture;
 
 	texture = NULL;
 	if (math->side == 1 && math->rayDirY > 0)
@@ -85,7 +85,7 @@ static int32_t **select_texture(t_main *main, t_math *math)
 
 void	renderer(void *param)
 {
-	t_main *main;
+	t_main	*main;
 	int		x;
 
 	main = param;
@@ -94,7 +94,8 @@ void	renderer(void *param)
 	while (x < WIDTH)
 	{
 		calculate_per_vertical_line(main->math, x);
-		texture_calculations(main, main->math, x, select_texture(main, main->math));
+		calculate_tex(main, main->math);
+		place_pixels(main, main->math, x, select_texture(main, main->math));
 		x++;
 	}
 	put_pixels_to_image(main);

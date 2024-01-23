@@ -1,6 +1,5 @@
 
 #include "cube3d.h"
-#include <float.h>
 
 static void	calculate_sideDist(t_math *math)
 {
@@ -73,13 +72,13 @@ static void	calculate_line_height(t_math *math)
 	math->startPixel = -math->lineHeight / 2 + HEIGHT / 2;
 	if (math->startPixel < 0)
 		math->startPixel = 0;
-	
+
 	math->endPixel = math->lineHeight / 2 + HEIGHT / 2;
 	if (math->endPixel >= HEIGHT)
 		math->endPixel = HEIGHT - 1;
 }
 
-void calculate_per_vertical_line(t_math *math, int x)
+void	calculate_per_vertical_line(t_math *math, int x)
 {
 	math->cameraX = 2 * (x / (double)WIDTH) - 1;
 	math->rayDirX = math->dirX + (math->planeX * math->cameraX);

@@ -1,7 +1,7 @@
 
 #include "cube3d.h"
 
-static void calculate_wallX(t_math *math)
+static void	calculate_wall_x(t_math *math)
 {
 	if (math->side == 0)
 		math->wallX = math->posY + math->perpWallDist * math->rayDirY;
@@ -10,7 +10,7 @@ static void calculate_wallX(t_math *math)
 	math->wallX -= floor(math->wallX);
 }
 
-static void calculate_texX(t_math *math, mlx_image_t *texture)
+static void	calculate_tex_x(t_math *math, mlx_image_t *texture)
 {
 	math->texX = (int)(math->wallX * (double)texture->width);
 	if (math->side == 0 && math->rayDirX > 0)
@@ -19,17 +19,19 @@ static void calculate_texX(t_math *math, mlx_image_t *texture)
 		math->texX = texture->width - math->texX - 1;
 }
 
-void	texture_calculations(t_main *main, t_math *math, int x, int32_t **texture)
-{	
+static void	calculate_step_and_start_tex(t_main *main, t_math *math)
+{
+	math->step = (double)main->north_texture_img->height / math->lineHeight;
+	math->texPos = (math->startPixel - HEIGHT / 2 + math->lineHeight / 2)
+		* math->step;
+}
+
+void	place_pixels(t_main *main, t_math *math, int x, int32_t **texture)
+{
 	int					y;
 	uint32_t			color;
-	
+
 	y = math->startPixel;
-	calculate_wallX(math);
-	calculate_texX(math, main->north_texture_img);
-	math->step = (double)main->north_texture_img->height / math->lineHeight;
-	math->texPos = (math->startPixel - HEIGHT / 2 + math->lineHeight / 2) * math->step;
-	color = -1;
 	while (y < math->endPixel)
 	{
 		math->texY = (int)math->texPos & (main->north_texture_img->height - 1);
@@ -38,4 +40,11 @@ void	texture_calculations(t_main *main, t_math *math, int x, int32_t **texture)
 		main->image_buffer[y][x] = color;
 		y++;
 	}
+}
+
+void	calculate_tex(t_main *main, t_math *math)
+{
+	calculate_wall_x(math);
+	calculate_tex_x(math, main->north_texture_img);
+	calculate_step_and_start_tex(main, math);
 }

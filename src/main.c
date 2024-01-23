@@ -1,7 +1,7 @@
 
 #include "cube3d.h"
 
-static void init_math(t_main *main, t_math *math)
+static void	init_math(t_main *main, t_math *math)
 {
 	math->posX = (double)main->player_pos[0] + 0.5;
 	math->posY = (double)main->player_pos[1] + 0.5;
@@ -46,7 +46,7 @@ int	init_images(t_main *main)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_main	main;
 	t_math	math;

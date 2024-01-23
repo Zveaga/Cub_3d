@@ -6,6 +6,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <math.h>
+# include <float.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "MLX42/MLX42.h"
@@ -133,9 +134,11 @@ void 			print_map(char **map);
 void			print_pixel_grid(int32_t **pixel_grid);
 
 void			revert_map_to_original_symbols(char **map);
-void			texture_calculations(t_main *main, t_math *math, int x, int32_t **texture);
+void			calculate_tex(t_main *main, t_math *math);
 int 			init_pixel_grids(t_main *main);
 void			convert_pixels_to_grids(t_main *main);
+void			place_pixels(t_main *main, t_math *math, int x, int32_t **texture);
+
 
 
 
