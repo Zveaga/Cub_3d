@@ -1,7 +1,6 @@
 
 #include "cube3d.h"
 
-//allocates memory for a blank image, pixel-by-pixel
 int	init_image_buffer(t_main *main)
 {
 	int	y;
@@ -18,26 +17,6 @@ int	init_image_buffer(t_main *main)
 		y++;
 	}
 	return (0);
-}
-
-void	fill_image_buffer(t_main *main, t_math *math, int x)
-{
-	int		y;
-	int32_t	color_1;
-	int32_t	color_2;
-
-	color_1 = set_color(153, 102, 255, 1000);
-	color_2 = set_color(153, 0, 255, 1000);
-	y = math->startPixel;
-	while (y <= math->endPixel)
-	{
-		if (math->side == 1)
-			main->image_buffer[y][x] = color_1;
-		else
-			main->image_buffer[y][x] = color_2;
-		y++;
-	}
-	
 }
 
 void clear_image_buffer(t_main *main)

@@ -91,7 +91,7 @@ void	renderer(void *param)
 	main = param;
 	x = 0;
 	fill_ceiling_floor(main);
-	while (x < WIDTH) // for every vertial pixel line
+	while (x < WIDTH)
 	{
 		calculate_per_vertical_line(main->math, x);
 		texture_calculations(main, main->math, x, select_texture(main, main->math));
@@ -100,5 +100,4 @@ void	renderer(void *param)
 	put_pixels_to_image(main);
 	clear_image_buffer(main);
 	get_key_input(main, main->math);
-
 }

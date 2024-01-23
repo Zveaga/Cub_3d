@@ -86,7 +86,6 @@ int	map_length(t_main *main)
 
 	fd = open(main->map_name, O_RDONLY, 0644);
 	pos = 0;
-	// printf("map_line: %d\n", main->map_line);
 	if (fd == -1)
 		return (0);
 	count = 0;
@@ -97,7 +96,7 @@ int	map_length(t_main *main)
 	{
 		if (ft_isspace(s))
 			pos++;
-		if (pos >= main->map_line)
+		if (!ft_isspace(s) && pos > main->map_line)
 			count++;
 		pos++;
 		free(s);
@@ -121,14 +120,14 @@ int	fill_map(t_main *main, int fd)
 		return (1);
 	s = get_next_line(fd);
 	if (!s)
-		return (close(fd), 1);
+		return (1);
 	while (s)
 	{
-		if (!ft_isspace(s) && pos >= main->map_line)
+		if (pos >= main->map_line)
 		{
 			main->map[i] = ft_strdup(s);
 			if (!main->map[i])
-				return (free_static_char_buff(fd), free(s), 1);
+				return (free(s), 1);
 			i++;
 		}
 		pos++;
@@ -150,7 +149,7 @@ int	create_map(t_main *main)
 	if (!main)
 		return (1);
 	size = map_length(main);
-	if (size == 0)
+	if (size < 8)
 		return (1);
 	fd = open(main->map_name, O_RDONLY, 0644);
 	if (fd == -1)
@@ -159,7 +158,11 @@ int	create_map(t_main *main)
 	if (!main->map)
 		return (close (fd), 1);
 	if (fill_map(main, fd))
+	{
+		free(main->map);
+		main->map = NULL;
 		return (free_static_char_buff(fd), close(fd), 1);
+	}
 	close(fd);
 	if (check_if_input_are_valid(main->map))
 		return (1);
