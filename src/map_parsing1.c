@@ -82,6 +82,23 @@ void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
 		main->floor_color[2] = ft_atoi(split_color_value[2]);
 	}
 }
+int	check_commas(char *s)
+{
+	int i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s && s[i])
+	{
+		if (s[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+		return (1);
+	return (0);
+}
 
 int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 {
@@ -97,7 +114,8 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 	s1 = ft_strtrim(s + i, " \n");
 	if (!s1)
 		return (1);
-	//check commas
+	if (check_commas(s))
+		return (free(s1), 1);
 	split_color_value = ft_split(s1, ',');
 	if (!split_color_value)
 		return (free(s1), 1);
@@ -113,9 +131,9 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 	}
 	assign_color(main, split_color_value, floor_or_ceiling);
 	if (floor_or_ceiling == 'F' && !main->floor_color)
-		return (1);
+		return (ft_free_double(split_color_value), 1);
 	if (floor_or_ceiling == 'C' && !main->ceiling_color)
-		return (1);
+		return (ft_free_double(split_color_value), 1);
 	ft_free_double(split_color_value);
 	return (0);
 }
