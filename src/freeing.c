@@ -72,8 +72,7 @@ void	free_pixel_grids(t_main *main)
 
 void	ft_main_free(t_main *main)
 {
-	if (main->map)
-		ft_free_double(main->map);
+	ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);
 	if (main->ceiling_color)
@@ -93,6 +92,5 @@ void	ft_main_free(t_main *main)
 	if (main->image_buffer)
 		free_image_buffer(main->image_buffer);
 	main->image_buffer = NULL;
-	if (main->north_tex_pixel_grid)
-		free_pixel_grids(main);
+	free_pixel_grids(main);
 }

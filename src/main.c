@@ -54,12 +54,12 @@ int main(int argc, char **argv)
 	init_main(&main);
 	if (ft_map_parsing(argc, argv, &main))
 		return (ft_main_free(&main), EXIT_FAILURE);
-	int i = 0;
-	while(main.map[i])
-		printf("%s", main.map[i++]);
 	init_math(&main, &math);
 	if (init_images(&main) == 1 || load_wall_textures(&main) == 1)
+	{
+		printf("Initialization error\n");
 		return (ft_main_free(&main), EXIT_FAILURE);
+	}
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	ft_main_free(&main);

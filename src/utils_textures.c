@@ -13,7 +13,11 @@ static int init_grid(mlx_image_t *texture, int32_t ***pixel_grid)
 	{
 		(*pixel_grid)[i] = (int32_t *)malloc(sizeof(int32_t) * texture->width);
 		if (!(*pixel_grid)[i])
+		{
+			free(*pixel_grid);
+			*pixel_grid = NULL;
 			return (1);
+		}
 		i++;
 	}
 	return (0);

@@ -19,6 +19,8 @@ int	ft_all_number(char *s)
 	int i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (!ft_isdigit(s[i]))
@@ -33,6 +35,8 @@ int	path_check(t_main *main, char	*s, char face)
 	char	*s1;
 	mlx_texture_t	*temp;
 
+	if (!main)
+		return (1);
 	if (!s)
 		return (0);
 	s1 = ft_strtrim(s, " 	\n");
@@ -93,6 +97,7 @@ int	color_check(t_main *main, char *s, char	floor_or_ceiling)
 	s1 = ft_strtrim(s + i, " \n");
 	if (!s1)
 		return (1);
+	//check commas
 	split_color_value = ft_split(s1, ',');
 	if (!split_color_value)
 		return (free(s1), 1);
@@ -146,9 +151,10 @@ int	check_credentials_value(t_main *main, char *s)
 		else
 			break;
     }
-	if (!ft_strnstr(s + i, "NO", 2) || !ft_strnstr(s + i, "SO", 2)
-		|| !ft_strnstr(s + i, "WE", 2) || !ft_strnstr(s + i, "EA", 2)
-		|| !ft_strnstr(s + i, "F", 1) || !ft_strnstr(s + i, "C", 1))
+	// create a fuction that checks "NO " ecc
+	if (!ft_strnstr(s + i, "NO ", 3) || !ft_strnstr(s + i, "SO ", 3)
+		|| !ft_strnstr(s + i, "WE ", 3) || !ft_strnstr(s + i, "EA ", 3)
+		|| !ft_strnstr(s + i, "F ", 2) || !ft_strnstr(s + i, "C ", 2))
 		flag++;
 	if (flag == 1)
 	{
@@ -194,9 +200,8 @@ int	check_credentials(t_main *main)
 
 int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
-	if (!main)
-		return (1);
-	if (!main->player_pos || x < 0 || y < 0)
+
+	if (!main || !main->player_pos || x < 0 || y < 0)
 		return (1);
 	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
 		return (1);

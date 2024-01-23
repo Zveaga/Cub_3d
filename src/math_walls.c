@@ -81,15 +81,11 @@ static void	calculate_line_height(t_math *math)
 
 void calculate_per_vertical_line(t_math *math, int x)
 {
-	//ray position and direction
 	math->cameraX = 2 * (x / (double)WIDTH) - 1;
 	math->rayDirX = math->dirX + (math->planeX * math->cameraX);
 	math->rayDirY = math->dirY + (math->planeY * math->cameraX);
-
-	//in which box we are in
 	math->mapX = (int)math->posX;
 	math->mapY = (int)math->posY;
-
 	calculate_deltaDist(math);
 	calculate_sideDist(math);
 	perform_dda(math);

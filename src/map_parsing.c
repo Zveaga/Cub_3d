@@ -158,7 +158,11 @@ int	create_map(t_main *main)
 	if (!main->map)
 		return (close (fd), 1);
 	if (fill_map(main, fd))
+	{
+		free(main->map);
+		main->map = NULL;
 		return (free_static_char_buff(fd), close(fd), 1);
+	}
 	close(fd);
 	if (check_if_input_are_valid(main->map))
 		return (1);

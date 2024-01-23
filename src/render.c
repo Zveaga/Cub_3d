@@ -35,8 +35,6 @@ static void put_pixels_to_image(t_main *main)
 		while (x < WIDTH)
 		{
 			mlx_put_pixel(main->image, x, y, main->image_buffer[y][x]);
-			// if (y == (HEIGHT / 2) || x == (WIDTH/2))
-			// 	mlx_put_pixel(main->image, x, y, set_color(255, 0, 0, 255));
 			x++;
 		}
 		y++;
@@ -93,7 +91,7 @@ void	renderer(void *param)
 	main = param;
 	x = 0;
 	fill_ceiling_floor(main);
-	while (x < WIDTH) // for every vertial pixel line
+	while (x < WIDTH)
 	{
 		calculate_per_vertical_line(main->math, x);
 		texture_calculations(main, main->math, x, select_texture(main, main->math));

@@ -13,7 +13,7 @@ static void orientate_to_south(t_math *math)
 {
 	math->dirX = 0;
 	math->dirY = 1; 
-	math->planeX = 0.66; 
+	math->planeX = -0.66; 
 	math->planeY = 0;
 }
 
@@ -22,7 +22,7 @@ static void orientate_to_west(t_math *math)
 	math->dirX = -1; 
 	math->dirY = 0; 
 	math->planeX = 0; 
-	math->planeY = 0.66;
+	math->planeY = -0.66;
 }
 
 static void orientate_to_east(t_math *math)
@@ -35,7 +35,6 @@ static void orientate_to_east(t_math *math)
 
 void	set_player_direction(t_math *math)
 {
-	//printf("direction: %c\n", math->main->direction);
 	if (math->main->direction == 'N')
 		orientate_to_north(math);
 	else if (math->main->direction == 'S')
