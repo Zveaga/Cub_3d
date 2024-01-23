@@ -1,9 +1,10 @@
 NO textures/bluestone.png
+EA textures/wood.png
 SO textures/greystone.png
 WE textures/redbrick.png
-EA textures/wood.png
 F 110,30,20
 C 255,255,0
+
 1111111111111111111111111
 1000000000000000000000001
 1000000000000000000000001

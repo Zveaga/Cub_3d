@@ -135,6 +135,23 @@ int	check_more_precise(t_main *main, char	*s)
 	return (0);
 }
 
+int	check_texture_symbols(char *str, int i)
+{
+	if (ft_strncmp(&str[i], "NO ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(&str[i], "SO ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(&str[i], "WE ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(&str[i], "EA ", 3) == 0)
+		return (0);
+	else if (ft_strncmp(&str[i], "F ", 2) == 0)
+		return (0);
+	else if (ft_strncmp(&str[i], "C ", 2) == 0)
+		return (0);
+	return (1);
+}
+
 int	check_credentials_value(t_main *main, char *s)
 {
 	int	i;
@@ -151,11 +168,14 @@ int	check_credentials_value(t_main *main, char *s)
 		else
 			break;
     }
+	if (check_texture_symbols(s, i) == 1)
+		return (1);
 	// create a fuction that checks "NO " ecc
 	if (!ft_strnstr(s + i, "NO ", 3) || !ft_strnstr(s + i, "SO ", 3)
 		|| !ft_strnstr(s + i, "WE ", 3) || !ft_strnstr(s + i, "EA ", 3)
 		|| !ft_strnstr(s + i, "F ", 2) || !ft_strnstr(s + i, "C ", 2))
 		flag++;
+	//printf("%s\n", s);
 	if (flag == 1)
 	{
 		if (check_more_precise(main, s + i))
