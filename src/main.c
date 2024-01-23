@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/23 18:14:23 by raanghel      #+#    #+#                 */
+/*   Updated: 2024/01/23 18:38:41 by raanghel      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void	init_math(t_main *main, t_math *math)
 {
-	math->posX = (double)main->player_pos[0] + 0.5;
-	math->posY = (double)main->player_pos[1] + 0.5;
+	math->pos_x = (double)main->player_pos[0] + 0.5;
+	math->pos_y = (double)main->player_pos[1] + 0.5;
 	main->math = math;
 	math->main = main;
 	set_player_direction(math);
@@ -46,6 +57,12 @@ int	init_images(t_main *main)
 	return (0);
 }
 
+void print_map(char **map)
+{
+	for (int i = 0; map[i]; i++)
+		printf("%d %s", i, map[i]);
+}
+
 int	main(int argc, char **argv)
 {
 	t_main	main;
@@ -60,6 +77,7 @@ int	main(int argc, char **argv)
 		printf("Initialization error\n");
 		return (ft_main_free(&main), EXIT_FAILURE);
 	}
+	print_map(main.map);
 	mlx_loop_hook(main.mlx, &renderer, &main);
 	mlx_loop(main.mlx);
 	ft_main_free(&main);

@@ -72,13 +72,13 @@ static int32_t	**select_texture(t_main *main, t_math *math)
 	int32_t	**texture;
 
 	texture = NULL;
-	if (math->side == 1 && math->rayDirY > 0)
+	if (math->side == 1 && math->ray_dir_y > 0)
 		texture = main->north_tex_pixel_grid;
-	else if (math->side == 1 && math->rayDirY < 0)
+	else if (math->side == 1 && math->ray_dir_y < 0)
 		texture = main->south_tex_pixel_grid;
-	else if (math->side == 0 && math->rayDirX > 0)
+	else if (math->side == 0 && math->ray_dir_x > 0)
 		texture = main->west_tex_pixel_grid;
-	else if (math->side == 0 && math->rayDirX < 0)
+	else if (math->side == 0 && math->ray_dir_x < 0)
 		texture = main->east_tex_pixel_grid;
 	return (texture);
 }
