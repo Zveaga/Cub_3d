@@ -95,7 +95,7 @@ void	renderer(void *param)
 	{
 		calculate_per_vertical_line(main->math, x);
 		calculate_tex(main, main->math);
-		place_pixels(main, main->math, x, select_texture(main, main->math));
+		fill_img_buffer(main, main->math, x, select_texture(main, main->math));
 		x++;
 	}
 	put_pixels_to_image(main);

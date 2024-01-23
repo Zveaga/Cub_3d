@@ -137,7 +137,7 @@ void			revert_map_to_original_symbols(char **map);
 void			calculate_tex(t_main *main, t_math *math);
 int 			init_pixel_grids(t_main *main);
 void			convert_pixels_to_grids(t_main *main);
-void			place_pixels(t_main *main, t_math *math, int x, int32_t **texture);
+void			fill_img_buffer(t_main *main, t_math *math, int x, int32_t **texture);
 
 
 

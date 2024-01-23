@@ -26,7 +26,7 @@ static void	calculate_step_and_start_tex(t_main *main, t_math *math)
 		* math->step;
 }
 
-void	place_pixels(t_main *main, t_math *math, int x, int32_t **texture)
+void	fill_img_buffer(t_main *main, t_math *math, int x, int32_t **texture)
 {
 	int					y;
 	uint32_t			color;
