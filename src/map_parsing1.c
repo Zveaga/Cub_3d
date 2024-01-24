@@ -180,20 +180,16 @@ int	check_credentials_value(t_main *main, char *s)
 	if (!main || !s)
 		return (1);
 	while(s && s[i])
-	{
 		if (s[i] == ' ' || s[i] == '\n')
 			i++;
 		else
 			break;
-    }
 	if (check_texture_symbols(s, i) == 1)
 		return (1);
-	// create a fuction that checks "NO " ecc
 	if (!ft_strnstr(s + i, "NO ", 3) || !ft_strnstr(s + i, "SO ", 3)
 		|| !ft_strnstr(s + i, "WE ", 3) || !ft_strnstr(s + i, "EA ", 3)
 		|| !ft_strnstr(s + i, "F ", 2) || !ft_strnstr(s + i, "C ", 2))
 		flag++;
-	//printf("%s\n", s);
 	if (flag == 1)
 	{
 		if (check_more_precise(main, s + i))
@@ -238,10 +234,11 @@ int	check_credentials(t_main *main)
 
 int	flood_fill(t_main *main, int x, int y, char	find, char change)
 {
-
-	if (!main || !main->player_pos || x < 0 || y < 0)
+	if (!main->player_pos || x < 0 || y < 0)
 		return (1);
-	if (!main->map[y][x] || main->map[y][x] == '\n' || main->map[y][x] == ' ')
+	if (!main || !main->map || !main->map[y] || !main->map[y][x])
+		return (1);
+	if (main->map[y][x] == '\n' || main->map[y][x] == ' ')
 		return (1);
 	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
 		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
@@ -251,19 +248,19 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 			main->map[y][x] = change;
 		if (flood_fill(main, x + 1, y, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x - 1, y, '0', 'A'))
+		else if (flood_fill(main, x - 1, y, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x, y + 1, '0', 'A'))
+		else if (flood_fill(main, x, y + 1, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x, y - 1, '0', 'A'))
+		else if (flood_fill(main, x, y - 1, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x + 1, y + 1, '0', 'A'))
+		else if (flood_fill(main, x + 1, y + 1, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x + 1, y - 1, '0', 'A'))
+		else if (flood_fill(main, x + 1, y - 1, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x - 1, y - 1, '0', 'A'))
+		else if (flood_fill(main, x - 1, y - 1, '0', 'A'))
 			return (1);
-		if (flood_fill(main, x - 1, y + 1, '0', 'A'))
+		else if (flood_fill(main, x - 1, y + 1, '0', 'A'))
 			return (1);
 	}
 	return(0);

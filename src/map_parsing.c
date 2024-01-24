@@ -94,9 +94,7 @@ int	map_length(t_main *main)
 		return (close(fd), 0);
 	while (s)
 	{
-		if (ft_isspace(s))
-			pos++;
-		if (!ft_isspace(s) && pos > main->map_line)
+		if (pos > main->map_line)
 			count++;
 		pos++;
 		free(s);
@@ -123,6 +121,10 @@ int	fill_map(t_main *main, int fd)
 		return (1);
 	while (s)
 	{
+		if (s && s[0] && s[0] == '\n')
+		{
+			pos--;
+		}
 		if (pos >= main->map_line)
 		{
 			main->map[i] = ft_strdup(s);
@@ -149,7 +151,7 @@ int	create_map(t_main *main)
 	if (!main)
 		return (1);
 	size = map_length(main);
-	if (size < 8)
+	if (size < 1)
 		return (1);
 	fd = open(main->map_name, O_RDONLY, 0644);
 	if (fd == -1)
