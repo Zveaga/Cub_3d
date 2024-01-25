@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 16:04:46 by ibehluli      #+#    #+#                 */
-/*   Updated: 2024/01/24 16:06:10 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:35:31 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	color_check(t_main *main, char *s, char f_or_c)
 	i = 1;
 	if (!s || !main)
 		return (1);
-	if ((f_or_c == 'C' && main->ceilingC) || (f_or_c == 'F' && main->floorC))
+	if ((f_or_c == 'C' && main->ceiling_c) || (f_or_c == 'F' && main->floor_c))
 		return (1);
 	s1 = ft_strtrim(s + i, " \n");
 	if (!s1)
@@ -51,9 +51,9 @@ int	color_check(t_main *main, char *s, char f_or_c)
 	if (check_range(split_color_value))
 		return (1);
 	assign_color(main, split_color_value, f_or_c);
-	if (f_or_c == 'F' && !main->floorC)
+	if (f_or_c == 'F' && !main->floor_c)
 		return (ft_free_double(split_color_value), 1);
-	if (f_or_c == 'C' && !main->ceilingC)
+	if (f_or_c == 'C' && !main->ceiling_c)
 		return (ft_free_double(split_color_value), 1);
 	ft_free_double(split_color_value);
 	return (0);
@@ -101,10 +101,12 @@ int	check_credentials_value(t_main *main, char *s)
 	if (!main || !s)
 		return (1);
 	while (s && s[i])
+	{
 		if (s[i] == ' ' || s[i] == '\n')
 			i++;
 		else
-			break;
+			break ;
+	}
 	if (check_texture_symbols(s, i) == 1)
 		return (1);
 	if (!ft_strnstr(s + i, "NO ", 3) || !ft_strnstr(s + i, "SO ", 3)
@@ -114,21 +116,5 @@ int	check_credentials_value(t_main *main, char *s)
 	if (flag == 1)
 		if (check_more_precise(main, s + i))
 			return (1);
-	return (0);
-}
-
-int	ft_map_checking(char *map_name, t_main *main)
-{
-	main->map_name = map_name;
-	if (!main->map_name || ft_check_map_name(map_name))
-		return (1);
-	if (check_credentials(main))
-		return (1);
-	if (create_map(main))
-		return (1);
-	if (find_player_start(main))
-		return (1);
-	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
-		return (1);
 	return (0);
 }

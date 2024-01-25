@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2024/01/25 14:43:47 by ibehluli      ########   odam.nl          #
+#    Updated: 2024/01/25 15:52:27 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ SOURCE = \
 	$(SRC_DIR)/map_parsing3.c \
 	$(SRC_DIR)/map_parsing4.c \
 	$(SRC_DIR)/freeing.c \
+	$(SRC_DIR)/freeing1.c \
 	$(SRC_DIR)/render.c \
 	$(SRC_DIR)/image_buffer.c \
 	$(SRC_DIR)/math_walls.c \
-	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/move_player.c \
 	$(SRC_DIR)/rotate_player.c \
 	$(SRC_DIR)/initial_player_orientation.c \

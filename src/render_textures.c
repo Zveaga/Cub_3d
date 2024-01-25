@@ -6,7 +6,7 @@
 /*   By: coxer <coxer@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 17:32:10 by coxer         #+#    #+#                 */
-/*   Updated: 2024/01/24 17:32:12 by coxer         ########   odam.nl         */
+/*   Updated: 2024/01/25 15:48:42 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	fill_img_buffer(t_main *main, t_math *math, int x, int32_t **texture)
 	y = math->line_start;
 	while (y < math->line_end)
 	{
-		math->tex_y = (int)math->tex_pos & (main->north_texture_img->height - 1);
+		math->tex_y = (int)math->tex_pos;
 		math->tex_pos += math->step;
 		color = texture[math->tex_y][math->tex_x];
 		main->image_buffer[y][x] = color;

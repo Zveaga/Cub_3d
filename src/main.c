@@ -6,7 +6,7 @@
 /*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/23 18:14:23 by raanghel      #+#    #+#                 */
-/*   Updated: 2024/01/25 14:45:39 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:00:23 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_main(t_main *main)
 	main->south_texture = NULL;
 	main->west_texture = NULL;
 	main->east_texture = NULL;
-	main->ceilingC = NULL;
-	main->floorC = NULL;
+	main->ceiling_c = NULL;
+	main->floor_c = NULL;
 	main->player_pos = NULL;
 	main->image = NULL;
 	main->image_buffer = NULL;
@@ -77,4 +77,3 @@ int	main(int argc, char **argv)
 	mlx_terminate(main.mlx);
 	return (EXIT_SUCCESS);
 }
-

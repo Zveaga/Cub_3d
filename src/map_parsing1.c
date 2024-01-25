@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 14:57:16 by ibehluli      #+#    #+#                 */
-/*   Updated: 2024/01/24 16:13:27 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:22:23 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ void	assign_color(t_main *main, char **spl_col, char f_or_c)
 		return ;
 	if (f_or_c == 'C')
 	{
-		main->ceilingC = (int *) malloc(sizeof(int) * 3);
-		if (!main->ceilingC)
+		main->ceiling_c = (int *) malloc(sizeof(int) * 3);
+		if (!main->ceiling_c)
 			return ;
-		main->ceilingC[0] = ft_atoi(spl_col[0]);
-		main->ceilingC[1] = ft_atoi(spl_col[1]);
-		main->ceilingC[2] = ft_atoi(spl_col[2]);
+		main->ceiling_c[0] = ft_atoi(spl_col[0]);
+		main->ceiling_c[1] = ft_atoi(spl_col[1]);
+		main->ceiling_c[2] = ft_atoi(spl_col[2]);
 	}
 	else
 	{
-		main->floorC = (int *) malloc(sizeof(int) * 3);
-		if (!main->floorC)
+		main->floor_c = (int *) malloc(sizeof(int) * 3);
+		if (!main->floor_c)
 			return ;
-		main->floorC[0] = ft_atoi(spl_col[0]);
-		main->floorC[1] = ft_atoi(spl_col[1]);
-		main->floorC[2] = ft_atoi(spl_col[2]);
+		main->floor_c[0] = ft_atoi(spl_col[0]);
+		main->floor_c[1] = ft_atoi(spl_col[1]);
+		main->floor_c[2] = ft_atoi(spl_col[2]);
 	}
 }
 
@@ -83,20 +83,25 @@ int	check_commas(char *s)
 	return (0);
 }
 
+int	open_file(t_main *main, int *fd, int *count, char **s)
+{
+	*count = 0;
+	*fd = open(main->map_name, O_RDONLY, 0644);
+	*s = get_next_line(*fd);
+	if (!(*s))
+		return (close(*fd), 1);
+	main->map_line = 0;
+	return (0);
+}
+
 int	check_credentials(t_main *main)
 {
 	int		count;
 	int		fd;
 	char	*s;
 
-	fd = open(main->map_name, O_RDONLY, 0644);
-	if (fd == -1)
+	if (open_file(main, &fd, &count, &s) == 1)
 		return (1);
-	count = 0;
-	s = get_next_line(fd);
-	if (!s)
-		return (close(fd), 1);
-	main->map_line = 0;
 	while (s)
 	{
 		if (!ft_isspace(s))
@@ -116,5 +121,3 @@ int	check_credentials(t_main *main)
 	}
 	return (0);
 }
-
-

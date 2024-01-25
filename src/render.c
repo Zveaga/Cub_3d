@@ -6,7 +6,7 @@
 /*   By: coxer <coxer@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 17:32:18 by coxer         #+#    #+#                 */
-/*   Updated: 2024/01/24 17:32:21 by coxer         ########   odam.nl         */
+/*   Updated: 2024/01/25 14:48:59 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	fill_ceiling_floor(t_main *main)
 	int		x;
 	int		y;
 
-	ceiling_color = set_color(main->ceilingC[0], main->ceilingC[1],
-			main->ceilingC[2], 255);
-	floor_color = set_color(main->floorC[0], main->floorC[1],
-			main->floorC[2], 255);
+	ceiling_color = set_color(main->ceiling_c[0], main->ceiling_c[1],
+			main->ceiling_c[2], 255);
+	floor_color = set_color(main->floor_c[0], main->floor_c[1],
+			main->floor_c[2], 255);
 	y = -1;
 	while (++y < HEIGHT / 2)
 	{

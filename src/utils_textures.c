@@ -6,13 +6,18 @@
 /*   By: coxer <coxer@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 17:43:07 by coxer         #+#    #+#                 */
-/*   Updated: 2024/01/24 17:43:09 by coxer         ########   odam.nl         */
+/*   Updated: 2024/01/25 15:52:12 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static int init_grid(mlx_image_t *texture, int32_t ***pixel_grid)
+int32_t	set_color(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+static int	init_grid(mlx_image_t *texture, int32_t ***pixel_grid)
 {
 	uint32_t	i;
 
@@ -51,7 +56,7 @@ static void	convert_pixels(mlx_image_t *texture, int32_t **pixel_grid)
 	int			j;
 	uint32_t	x;
 	uint32_t	y;
-	
+
 	y = -1;
 	j = 0;
 	while (++y < texture->height)
@@ -59,10 +64,10 @@ static void	convert_pixels(mlx_image_t *texture, int32_t **pixel_grid)
 		x = -1;
 		while (++x < texture->width)
 		{
-			pixel_grid[y][x] = set_color(
-				texture->pixels[j],
-				texture->pixels[j + 1],
-				texture->pixels[j + 2],
+			pixel_grid[y][x] = set_color(\
+				texture->pixels[j], \
+				texture->pixels[j + 1], \
+				texture->pixels[j + 2], \
 				texture->pixels[j + 3]);
 			j += 4;
 		}

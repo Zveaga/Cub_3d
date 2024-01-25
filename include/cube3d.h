@@ -6,7 +6,7 @@
 /*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/23 18:18:16 by raanghel      #+#    #+#                 */
-/*   Updated: 2024/01/25 14:44:23 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/25 14:56:36 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_main
 	char			*south_texture;
 	char			*west_texture;
 	char			*east_texture;
-	int				*ceilingC;
-	int				*floorC;
+	int				*ceiling_c;
+	int				*floor_c;
 	int				*player_pos;
 	int				map_line;
 	char			direction;
@@ -89,30 +89,31 @@ typedef struct s_math
 }					t_math;
 
 // int	ft_check_map(char *argv);
-int		ft_map_parsing(int argc, char **argv, t_main *main);
-int		ft_check_map_name(char	*map_name);
-int		ft_map_checking(char *map_name, t_main *main);
-int		fill_map(t_main *main, int fd);
-int		check_credentials_value(t_main *main, char *s);
-int		check_commas(char *s);
-int		flood_fill(t_main *main, int x, int y, char	find, char change);
-int		path_check(t_main *main, char	*s, char face);
-void	assign_color(t_main *main, char **spl_col, char f_or_c);
-int		ft_check_map_name(char	*map_name);
-int		ft_all_number(char *s);
-int		check_credentials(t_main *main);
-int		check_if_input_are_valid(char **map);
-int		find_player_start(t_main *main);
-int		create_map(t_main *main);
-int		ft_isspace(char *s);
-int		put_texture(t_main *main);
-int		add_texture(t_main *main);
+int			ft_map_parsing(int argc, char **argv, t_main *main);
+int			ft_check_map_name(char	*map_name);
+int			ft_map_checking(char *map_name, t_main *main);
+int			fill_map(t_main *main, int fd);
+int			check_credentials_value(t_main *main, char *s);
+int			check_commas(char *s);
+int			flood_fill(t_main *main, int x, int y, char find);
+int			path_check(t_main *main, char	*s, char face);
+void		assign_color(t_main *main, char **spl_col, char f_or_c);
+int			ft_check_map_name(char	*map_name);
+int			ft_all_number(char *s);
+int			check_credentials(t_main *main);
+int			check_if_input_are_valid(char **map);
+int			find_player_start(t_main *main);
+int			create_map(t_main *main);
+int			ft_isspace(char *s);
+int			put_texture(t_main *main);
+int			add_texture(t_main *main);
 
 // free
-void		ft_free_double(char	**double_arr);
+void		ft_free_double(char		**double_arr);
 void		ft_main_free(t_main *main);
 void		free_static_char_buff(int fd);
 void		free_pixel_grids(t_main *main);
+void		free_image_buffer(uint32_t **img_buf);
 //---------------RARES---------------//
 
 void		renderer(void *param);

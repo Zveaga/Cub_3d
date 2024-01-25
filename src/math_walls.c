@@ -6,7 +6,7 @@
 /*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/23 18:14:32 by raanghel      #+#    #+#                 */
-/*   Updated: 2024/01/23 18:44:08 by raanghel      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:37:56 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	calculate_side_dist(t_math *math)
 	else
 	{
 		math->step_x = 1;
-		math->side_dist_x = (math->map_x + 1.0 - math->pos_x) * math->delta_dist_x;
+		math->side_dist_x = (math->map_x + 1.0
+				- math->pos_x) * math->delta_dist_x;
 	}
 	if (math->ray_dir_y < 0)
 	{
@@ -32,7 +33,8 @@ static void	calculate_side_dist(t_math *math)
 	else
 	{
 		math->step_y = 1;
-		math->side_dist_y = (math->map_y + 1.0 - math->pos_y) * math->delta_dist_y;
+		math->side_dist_y = (math->map_y + 1.0
+				- math->pos_y) * math->delta_dist_y;
 	}
 }
 
@@ -78,7 +80,6 @@ static void	calculate_line_height(t_math *math)
 		math->perp_wall_dist = (math->side_dist_x - math->delta_dist_x);
 	else
 		math->perp_wall_dist = (math->side_dist_y - math->delta_dist_y);
-
 	math->line_height = (int)(HEIGHT / math->perp_wall_dist);
 	math->line_start = -math->line_height / 2 + HEIGHT / 2;
 	if (math->line_start < 0)

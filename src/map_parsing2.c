@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/24 14:54:38 by ibehluli      #+#    #+#                 */
-/*   Updated: 2024/01/24 15:23:21 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:34:52 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,29 @@ int	fill_map(t_main *main, int fd)
 	return (0);
 }
 
-int	flood_fill(t_main *main, int x, int y, char	find, char change)
+int	flood_fill_util(t_main *main, int x, int y)
+{
+	if (flood_fill(main, x + 1, y, '0'))
+		return (1);
+	else if (flood_fill(main, x - 1, y, '0'))
+		return (1);
+	else if (flood_fill(main, x, y + 1, '0'))
+		return (1);
+	else if (flood_fill(main, x, y - 1, '0'))
+		return (1);
+	else if (flood_fill(main, x + 1, y + 1, '0'))
+		return (1);
+	else if (flood_fill(main, x + 1, y - 1, '0'))
+		return (1);
+	else if (flood_fill(main, x - 1, y - 1, '0'))
+		return (1);
+	else if (flood_fill(main, x - 1, y + 1, '0'))
+		return (1);
+	else
+		return (0);
+}
+
+int	flood_fill(t_main *main, int x, int y, char find)
 {
 	if (!main->player_pos || x < 0 || y < 0)
 		return (1);
@@ -60,29 +82,16 @@ int	flood_fill(t_main *main, int x, int y, char	find, char change)
 	if (main->map[y][x] == '\n' || main->map[y][x] == ' ')
 		return (1);
 	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
-		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
+		|| main->map[y][x] == 'S' || main->map[y][x] == 'W'
+		|| main->map[y][x] == 'E'))
 	{
 		if (main->map[y][x] != 'N' && main->map[y][x] != 'S'
 		&& main->map[y][x] != 'W' && main->map[y][x] != 'E')
-			main->map[y][x] = change;
-		if (flood_fill(main, x + 1, y, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x, y + 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x + 1, y + 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x + 1, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y + 1, '0', 'A'))
+			main->map[y][x] = 'A';
+		if (flood_fill_util(main, x, y) == 1)
 			return (1);
 	}
-	return(0);
+	return (0);
 }
 
 int	ft_map_parsing(int argc, char **argv, t_main *main)
