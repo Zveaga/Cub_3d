@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/23 18:14:23 by raanghel      #+#    #+#                 */
+/*   Updated: 2024/01/25 14:45:39 by ibehluli      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void	init_math(t_main *main, t_math *math)
 {
-	math->posX = (double)main->player_pos[0] + 0.5;
-	math->posY = (double)main->player_pos[1] + 0.5;
+	math->pos_x = (double)main->player_pos[0] + 0.5;
+	math->pos_y = (double)main->player_pos[1] + 0.5;
 	main->math = math;
 	math->main = main;
 	set_player_direction(math);

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   render.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: coxer <coxer@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/24 17:32:18 by coxer         #+#    #+#                 */
+/*   Updated: 2024/01/24 17:32:21 by coxer         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
@@ -72,13 +82,13 @@ static int32_t	**select_texture(t_main *main, t_math *math)
 	int32_t	**texture;
 
 	texture = NULL;
-	if (math->side == 1 && math->rayDirY > 0)
+	if (math->side == 1 && math->ray_dir_y > 0)
 		texture = main->north_tex_pixel_grid;
-	else if (math->side == 1 && math->rayDirY < 0)
+	else if (math->side == 1 && math->ray_dir_y < 0)
 		texture = main->south_tex_pixel_grid;
-	else if (math->side == 0 && math->rayDirX > 0)
+	else if (math->side == 0 && math->ray_dir_x > 0)
 		texture = main->west_tex_pixel_grid;
-	else if (math->side == 0 && math->rayDirX < 0)
+	else if (math->side == 0 && math->ray_dir_x < 0)
 		texture = main->east_tex_pixel_grid;
 	return (texture);
 }
@@ -95,7 +105,7 @@ void	renderer(void *param)
 	{
 		calculate_per_vertical_line(main->math, x);
 		calculate_tex(main, main->math);
-		place_pixels(main, main->math, x, select_texture(main, main->math));
+		fill_img_buffer(main, main->math, x, select_texture(main, main->math));
 		x++;
 	}
 	put_pixels_to_image(main);

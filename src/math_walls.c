@@ -1,40 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   math_walls.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: raanghel <raanghel@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/23 18:14:32 by raanghel      #+#    #+#                 */
+/*   Updated: 2024/01/23 18:44:08 by raanghel      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	calculate_sideDist(t_math *math)
+static void	calculate_side_dist(t_math *math)
 {
-	if (math->rayDirX < 0)
+	if (math->ray_dir_x < 0)
 	{
-		math->stepX = -1;
-		math->sideDistX = (math->posX - math->mapX) * math->deltaDistX;
+		math->step_x = -1;
+		math->side_dist_x = (math->pos_x - math->map_x) * math->delta_dist_x;
 	}
 	else
 	{
-		math->stepX = 1;
-		math->sideDistX = (math->mapX + 1.0 - math->posX) * math->deltaDistX;
+		math->step_x = 1;
+		math->side_dist_x = (math->map_x + 1.0 - math->pos_x) * math->delta_dist_x;
 	}
-	if (math->rayDirY < 0)
+	if (math->ray_dir_y < 0)
 	{
-		math->stepY = -1;
-		math->sideDistY = (math->posY - math->mapY) * math->deltaDistY;
+		math->step_y = -1;
+		math->side_dist_y = (math->pos_y - math->map_y) * math->delta_dist_y;
 	}
 	else
 	{
-		math->stepY = 1;
-		math->sideDistY = (math->mapY + 1.0 - math->posY) * math->deltaDistY;
+		math->step_y = 1;
+		math->side_dist_y = (math->map_y + 1.0 - math->pos_y) * math->delta_dist_y;
 	}
 }
 
-static void	calculate_deltaDist(t_math *math)
+static void	calculate_delta_dist(t_math *math)
 {
-	if (math->rayDirX == 0)
-		math->deltaDistX = INT32_MAX;
+	if (math->ray_dir_x == 0)
+		math->delta_dist_x = INT32_MAX;
 	else
-		math->deltaDistX = fabs(1 / math->rayDirX);
-	if (math->rayDirY == 0)
-		math->deltaDistY = INT32_MAX;
+		math->delta_dist_x = fabs(1 / math->ray_dir_x);
+	if (math->ray_dir_y == 0)
+		math->delta_dist_y = INT32_MAX;
 	else
-		math->deltaDistY = fabs(1 / math->rayDirY);
+		math->delta_dist_y = fabs(1 / math->ray_dir_y);
 }
 
 static void	perform_dda(t_math *math)
@@ -44,19 +55,19 @@ static void	perform_dda(t_math *math)
 	hit_wall = 0;
 	while (hit_wall == 0)
 	{
-		if (math->sideDistX < math->sideDistY)
+		if (math->side_dist_x < math->side_dist_y)
 		{
-			math->sideDistX += math->deltaDistX;
-			math->mapX += math->stepX;
+			math->side_dist_x += math->delta_dist_x;
+			math->map_x += math->step_x;
 			math->side = 0;
 		}
 		else
 		{
-			math->sideDistY += math->deltaDistY;
-			math->mapY += math->stepY;
+			math->side_dist_y += math->delta_dist_y;
+			math->map_y += math->step_y;
 			math->side = 1;
 		}
-		if (math->main->map[math->mapY][math->mapX] == '1')
+		if (math->main->map[math->map_y][math->map_x] == '1')
 			hit_wall = 1;
 	}
 }
@@ -64,29 +75,28 @@ static void	perform_dda(t_math *math)
 static void	calculate_line_height(t_math *math)
 {
 	if (math->side == 0)
-		math->perpWallDist = (math->sideDistX - math->deltaDistX);
+		math->perp_wall_dist = (math->side_dist_x - math->delta_dist_x);
 	else
-		math->perpWallDist = (math->sideDistY - math->deltaDistY);
+		math->perp_wall_dist = (math->side_dist_y - math->delta_dist_y);
 
-	math->lineHeight = (int)(HEIGHT / math->perpWallDist);
-	math->startPixel = -math->lineHeight / 2 + HEIGHT / 2;
-	if (math->startPixel < 0)
-		math->startPixel = 0;
-
-	math->endPixel = math->lineHeight / 2 + HEIGHT / 2;
-	if (math->endPixel >= HEIGHT)
-		math->endPixel = HEIGHT - 1;
+	math->line_height = (int)(HEIGHT / math->perp_wall_dist);
+	math->line_start = -math->line_height / 2 + HEIGHT / 2;
+	if (math->line_start < 0)
+		math->line_start = 0;
+	math->line_end = math->line_height / 2 + HEIGHT / 2;
+	if (math->line_end >= HEIGHT)
+		math->line_end = HEIGHT - 1;
 }
 
 void	calculate_per_vertical_line(t_math *math, int x)
 {
-	math->cameraX = 2 * (x / (double)WIDTH) - 1;
-	math->rayDirX = math->dirX + (math->planeX * math->cameraX);
-	math->rayDirY = math->dirY + (math->planeY * math->cameraX);
-	math->mapX = (int)math->posX;
-	math->mapY = (int)math->posY;
-	calculate_deltaDist(math);
-	calculate_sideDist(math);
+	math->camera_x = 2 * (x / (double)WIDTH) - 1;
+	math->ray_dir_x = math->dir_x + (math->plane_x * math->camera_x);
+	math->ray_dir_y = math->dir_y + (math->plane_y * math->camera_x);
+	math->map_x = (int)math->pos_x;
+	math->map_y = (int)math->pos_y;
+	calculate_delta_dist(math);
+	calculate_side_dist(math);
 	perform_dda(math);
 	calculate_line_height(math);
 }

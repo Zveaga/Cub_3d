@@ -1,42 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   render_textures.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: coxer <coxer@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/24 17:32:10 by coxer         #+#    #+#                 */
+/*   Updated: 2024/01/24 17:32:12 by coxer         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void	calculate_wall_x(t_math *math)
 {
 	if (math->side == 0)
-		math->wallX = math->posY + math->perpWallDist * math->rayDirY;
+		math->wall_x = math->pos_y + math->perp_wall_dist * math->ray_dir_y;
 	else
-		math->wallX = math->posX + math->perpWallDist * math->rayDirX;
-	math->wallX -= floor(math->wallX);
+		math->wall_x = math->pos_x + math->perp_wall_dist * math->ray_dir_x;
+	math->wall_x -= floor(math->wall_x);
 }
 
 static void	calculate_tex_x(t_math *math, mlx_image_t *texture)
 {
-	math->texX = (int)(math->wallX * (double)texture->width);
-	if (math->side == 0 && math->rayDirX > 0)
-		math->texX = texture->width - math->texX - 1;
-	if (math->side == 1 && math->rayDirY < 0)
-		math->texX = texture->width - math->texX - 1;
+	math->tex_x = (int)(math->wall_x * (double)texture->width);
+	if (math->side == 0 && math->ray_dir_x > 0)
+		math->tex_x = texture->width - math->tex_x - 1;
+	if (math->side == 1 && math->ray_dir_y < 0)
+		math->tex_x = texture->width - math->tex_x - 1;
 }
 
 static void	calculate_step_and_start_tex(t_main *main, t_math *math)
 {
-	math->step = (double)main->north_texture_img->height / math->lineHeight;
-	math->texPos = (math->startPixel - HEIGHT / 2 + math->lineHeight / 2)
+	math->step = (double)main->north_texture_img->height / math->line_height;
+	math->tex_pos = (math->line_start - HEIGHT / 2 + math->line_height / 2)
 		* math->step;
 }
 
-void	place_pixels(t_main *main, t_math *math, int x, int32_t **texture)
+void	fill_img_buffer(t_main *main, t_math *math, int x, int32_t **texture)
 {
 	int					y;
 	uint32_t			color;
 
-	y = math->startPixel;
-	while (y < math->endPixel)
+	y = math->line_start;
+	while (y < math->line_end)
 	{
-		math->texY = (int)math->texPos & (main->north_texture_img->height - 1);
-		math->texPos += math->step;
-		color = texture[math->texY][math->texX];
+		math->tex_y = (int)math->tex_pos & (main->north_texture_img->height - 1);
+		math->tex_pos += math->step;
+		color = texture[math->tex_y][math->tex_x];
 		main->image_buffer[y][x] = color;
 		y++;
 	}

@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2024/01/24 16:12:22 by ibehluli      ########   odam.nl          #
+#    Updated: 2024/01/25 14:43:47 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SOURCE = \
 	$(SRC_DIR)/image_buffer.c \
 	$(SRC_DIR)/math_walls.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/player_moves.c \
+	$(SRC_DIR)/move_player.c \
+	$(SRC_DIR)/rotate_player.c \
 	$(SRC_DIR)/initial_player_orientation.c \
 	$(SRC_DIR)/load_wall_textures.c \
 	$(SRC_DIR)/render_textures.c \
