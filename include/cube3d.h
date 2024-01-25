@@ -37,8 +37,8 @@ typedef struct s_main
 	char			*south_texture;
 	char			*west_texture;
 	char			*east_texture;
-	int				*ceiling_color;
-	int				*floor_color;
+	int				*ceilingC;
+	int				*floorC;
 	int				*player_pos;
 	int				map_line;
 	char			direction;
@@ -93,6 +93,15 @@ typedef struct s_math
 int		ft_map_parsing(int argc, char **argv, t_main *main);
 int		ft_check_map_name(char	*map_name);
 int		ft_map_checking(char *map_name, t_main *main);
+int		fill_map(t_main *main, int fd);
+int		check_credentials_value(t_main *main, char *s);
+int		check_commas(char *s);
+int		flood_fill(t_main *main, int x, int y, char	find, char change);
+int		path_check(t_main *main, char	*s, char face);
+void	assign_color(t_main *main, char **spl_col, char f_or_c);
+int		ft_check_map_name(char	*map_name);
+int		ft_all_number(char *s);
+int		check_credentials(t_main *main);
 int		check_if_input_are_valid(char **map);
 int		find_player_start(t_main *main);
 int		create_map(t_main *main);

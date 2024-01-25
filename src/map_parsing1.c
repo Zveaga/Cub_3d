@@ -1,38 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   map_parsing1.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/24 14:57:16 by ibehluli      #+#    #+#                 */
+/*   Updated: 2024/01/24 16:13:27 by ibehluli      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	ft_check_map_name(char	*map_name)
-{
-	int fd;
-
-	fd = open(map_name, O_RDWR, 0644);
-	if (fd == -1)
-		return (close(fd), 1);
-	close(fd);
-	if (!ft_strncmp(&map_name[ft_strlen(map_name) - 4], ".cub", 4))
-		return (0);
-	return (1);
-}
-
-int	ft_all_number(char *s)
-{
-	int i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (!ft_isdigit(s[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	path_check(t_main *main, char	*s, char face)
 {
-	char	*s1;
+	char			*s1;
 	mlx_texture_t	*temp;
 
 	if (!main)
@@ -41,7 +23,7 @@ int	path_check(t_main *main, char	*s, char face)
 		return (0);
 	s1 = ft_strtrim(s, " 	\n");
 	if (!s1)
-		return (free(s1) , 1);
+		return (free(s1), 1);
 	temp = mlx_load_png(s1);
 	if (!temp)
 		return (free(s1), 1);
@@ -59,32 +41,33 @@ int	path_check(t_main *main, char	*s, char face)
 	return (0);
 }
 
-void	assign_color(t_main *main, char **split_color_value, char	floor_or_ceiling)
+void	assign_color(t_main *main, char **spl_col, char f_or_c)
 {
-	if (!split_color_value || !split_color_value[0] || !split_color_value[1] || !split_color_value[2])
-			return ;
-	if (floor_or_ceiling == 'C')
+	if (!spl_col || !spl_col[0] || !spl_col[1] || !spl_col[2])
+		return ;
+	if (f_or_c == 'C')
 	{
-		main->ceiling_color = (int *) malloc(sizeof(int) * 3);
-		if (!main->ceiling_color)
+		main->ceilingC = (int *) malloc(sizeof(int) * 3);
+		if (!main->ceilingC)
 			return ;
-		main->ceiling_color[0] = ft_atoi(split_color_value[0]);
-		main->ceiling_color[1] = ft_atoi(split_color_value[1]);
-		main->ceiling_color[2] = ft_atoi(split_color_value[2]);
+		main->ceilingC[0] = ft_atoi(spl_col[0]);
+		main->ceilingC[1] = ft_atoi(spl_col[1]);
+		main->ceilingC[2] = ft_atoi(spl_col[2]);
 	}
 	else
 	{
-		main->floor_color = (int *) malloc(sizeof(int) * 3);
-		if (!main->floor_color)
+		main->floorC = (int *) malloc(sizeof(int) * 3);
+		if (!main->floorC)
 			return ;
-		main->floor_color[0] = ft_atoi(split_color_value[0]);
-		main->floor_color[1] = ft_atoi(split_color_value[1]);
-		main->floor_color[2] = ft_atoi(split_color_value[2]);
+		main->floorC[0] = ft_atoi(spl_col[0]);
+		main->floorC[1] = ft_atoi(spl_col[1]);
+		main->floorC[2] = ft_atoi(spl_col[2]);
 	}
 }
+
 int	check_commas(char *s)
 {
-	int i;
+	int	i;
 	int	count;
 
 	i = 0;
@@ -97,104 +80,6 @@ int	check_commas(char *s)
 	}
 	if (count != 2)
 		return (1);
-	return (0);
-}
-
-int	color_check(t_main *main, char *s, char	floor_or_ceiling)
-{
-	int		i;
-	char	**split_color_value;
-	char	*s1;
-
-	i = 1;
-	if (!s || !main)
-		return (1);
-	if ((floor_or_ceiling == 'C' && main->ceiling_color) || (floor_or_ceiling == 'F' && main->floor_color))
-		return (1);
-	s1 = ft_strtrim(s + i, " \n");
-	if (!s1)
-		return (1);
-	if (check_commas(s))
-		return (free(s1), 1);
-	split_color_value = ft_split(s1, ',');
-	if (!split_color_value)
-		return (free(s1), 1);
-	free(s1);
-	i = 0;
-	while(split_color_value && split_color_value[i])
-	{
-		if (!ft_all_number(split_color_value[i])
-			|| ft_atoi(split_color_value[i]) < 0
-			|| ft_atoi(split_color_value[i]) > 255)
-			return (ft_free_double(split_color_value), 1);
-		i++;
-	}
-	assign_color(main, split_color_value, floor_or_ceiling);
-	if (floor_or_ceiling == 'F' && !main->floor_color)
-		return (ft_free_double(split_color_value), 1);
-	if (floor_or_ceiling == 'C' && !main->ceiling_color)
-		return (ft_free_double(split_color_value), 1);
-	ft_free_double(split_color_value);
-	return (0);
-}
-
-int	check_more_precise(t_main *main, char	*s)
-{
-	if (s && (!ft_strncmp(s, "F", 1) || !ft_strncmp(s, "C", 1)))
-	{
-		if (color_check(main, s + 1, s[0]))
-			return (1);
-	}
-	else
-	{
-		if (path_check(main, s + 2, s[0]))
-			return (1);
-	}
-	return (0);
-}
-
-int	check_texture_symbols(char *str, int i)
-{
-	if (ft_strncmp(&str[i], "NO ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(&str[i], "SO ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(&str[i], "WE ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(&str[i], "EA ", 3) == 0)
-		return (0);
-	else if (ft_strncmp(&str[i], "F ", 2) == 0)
-		return (0);
-	else if (ft_strncmp(&str[i], "C ", 2) == 0)
-		return (0);
-	return (1);
-}
-
-int	check_credentials_value(t_main *main, char *s)
-{
-	int	i;
-	int	flag;
-	
-	i = 0;
-	flag = 0;
-	if (!main || !s)
-		return (1);
-	while(s && s[i])
-		if (s[i] == ' ' || s[i] == '\n')
-			i++;
-		else
-			break;
-	if (check_texture_symbols(s, i) == 1)
-		return (1);
-	if (!ft_strnstr(s + i, "NO ", 3) || !ft_strnstr(s + i, "SO ", 3)
-		|| !ft_strnstr(s + i, "WE ", 3) || !ft_strnstr(s + i, "EA ", 3)
-		|| !ft_strnstr(s + i, "F ", 2) || !ft_strnstr(s + i, "C ", 2))
-		flag++;
-	if (flag == 1)
-	{
-		if (check_more_precise(main, s + i))
-			return (1);
-	}
 	return (0);
 }
 
@@ -232,61 +117,4 @@ int	check_credentials(t_main *main)
 	return (0);
 }
 
-int	flood_fill(t_main *main, int x, int y, char	find, char change)
-{
-	if (!main->player_pos || x < 0 || y < 0)
-		return (1);
-	if (!main || !main->map || !main->map[y] || !main->map[y][x])
-		return (1);
-	if (main->map[y][x] == '\n' || main->map[y][x] == ' ')
-		return (1);
-	if (main->map && (main->map[y][x] == find || main->map[y][x] == 'N'
-		|| main->map[y][x] == 'S' || main->map[y][x] == 'W' || main->map[y][x] == 'E'))
-	{
-		if (main->map[y][x] != 'N' && main->map[y][x] != 'S'
-		&& main->map[y][x] != 'W' && main->map[y][x] != 'E')
-			main->map[y][x] = change;
-		if (flood_fill(main, x + 1, y, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x, y + 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x + 1, y + 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x + 1, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y - 1, '0', 'A'))
-			return (1);
-		else if (flood_fill(main, x - 1, y + 1, '0', 'A'))
-			return (1);
-	}
-	return(0);
-}
 
-int	ft_map_checking(char *map_name, t_main *main)
-{
-	main->map_name = map_name;
-	if (!main->map_name || ft_check_map_name(map_name))
-		return (1);
-	if (check_credentials(main))
-		return (1);
-	if (create_map(main))
-		return (1);
-	if (find_player_start(main))
-		return (1);
-	if (flood_fill(main, main->player_pos[0], main->player_pos[1], '0', 'A') == 1)
-		return (1);
-	return (0);
-}
-
-int	ft_map_parsing(int argc, char **argv, t_main *main)
-{
-	if (argc < 2)
-		return (ft_putstr_fd("Map not inserted\n", 2), 1);
-	if (ft_map_checking(argv[1], main) == 1)
-		return (ft_putstr_fd("Map Error\n", 2), 1);
-	return (0);
-}

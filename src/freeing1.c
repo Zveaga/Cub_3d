@@ -6,7 +6,7 @@
 /*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/23 17:32:33 by ibehluli      #+#    #+#                 */
-/*   Updated: 2024/01/23 17:34:56 by ibehluli      ########   odam.nl         */
+/*   Updated: 2024/01/24 15:17:47 by ibehluli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	ft_main_free(t_main *main)
 	ft_free_double(main->map);
 	if (main->player_pos)
 		free(main->player_pos);
-	if (main->ceiling_color)
-		free(main->ceiling_color);
-	if (main->floor_color)
-		free(main->floor_color);
+	if (main->ceilingC)
+		free(main->ceilingC);
+	if (main->floorC)
+		free(main->floorC);
 	if (main->north_texture)
 		free(main->north_texture);
 	if (main->south_texture)

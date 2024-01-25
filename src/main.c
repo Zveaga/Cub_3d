@@ -18,8 +18,8 @@ void	init_main(t_main *main)
 	main->south_texture = NULL;
 	main->west_texture = NULL;
 	main->east_texture = NULL;
-	main->ceiling_color = NULL;
-	main->floor_color = NULL;
+	main->ceilingC = NULL;
+	main->floorC = NULL;
 	main->player_pos = NULL;
 	main->image = NULL;
 	main->image_buffer = NULL;

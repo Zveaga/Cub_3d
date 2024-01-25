@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   map_parsing.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ibehluli <ibehluli@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/24 14:20:35 by ibehluli      #+#    #+#                 */
+/*   Updated: 2024/01/24 14:55:14 by ibehluli      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
@@ -59,7 +70,7 @@ int	find_player_start(t_main *main)
 	return (1);
 }
 
-int ft_isspace(char *s)
+int	ft_isspace(char *s)
 {
 	int	i;
 
@@ -69,12 +80,12 @@ int ft_isspace(char *s)
 	while (s[i])
 	{
 		if ((s[i] == ' ') || (s[i] == '\t') || (s[i] == '\n')
-		|| (s[i] == '\v') || (s[i] == '\f') || (s[i] == '\r'))
+			|| (s[i] == '\v') || (s[i] == '\f') || (s[i] == '\r'))
 			i++;
 		else if (s[i])
 			return (0);
 	}
-    return (1);
+	return (1);
 }
 
 int	map_length(t_main *main)
@@ -106,43 +117,6 @@ int	map_length(t_main *main)
 	return (count);
 }
 
-int	fill_map(t_main *main, int fd)
-{
-	int		i;
-	char	*s;
-	int		pos;
-
-	i = 0;
-	pos = 0;
-	if (fd == -1)
-		return (1);
-	s = get_next_line(fd);
-	if (!s)
-		return (1);
-	while (s)
-	{
-		if (s && s[0] && s[0] == '\n')
-		{
-			pos--;
-		}
-		if (pos >= main->map_line)
-		{
-			main->map[i] = ft_strdup(s);
-			if (!main->map[i])
-				return (free(s), 1);
-			i++;
-		}
-		pos++;
-		free(s);
-		s = get_next_line(fd);
-		if (!s)
-			break ;
-	}
-	main->map[i] = NULL;
-	return (0);
-}
-
-
 int	create_map(t_main *main)
 {
 	int		fd;
@@ -151,7 +125,7 @@ int	create_map(t_main *main)
 	if (!main)
 		return (1);
 	size = map_length(main);
-	if (size < 1)
+	if (size < 3)
 		return (1);
 	fd = open(main->map_name, O_RDONLY, 0644);
 	if (fd == -1)

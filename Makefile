@@ -6,7 +6,7 @@
 #    By: ibehluli <ibehluli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/16 12:06:14 by ibehluli      #+#    #+#                  #
-#    Updated: 2024/01/23 12:47:40 by ibehluli      ########   odam.nl          #
+#    Updated: 2024/01/24 16:12:22 by ibehluli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ SOURCE = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/map_parsing.c \
 	$(SRC_DIR)/map_parsing1.c \
+	$(SRC_DIR)/map_parsing2.c \
+	$(SRC_DIR)/map_parsing3.c \
+	$(SRC_DIR)/map_parsing4.c \
 	$(SRC_DIR)/freeing.c \
 	$(SRC_DIR)/render.c \
 	$(SRC_DIR)/image_buffer.c \
